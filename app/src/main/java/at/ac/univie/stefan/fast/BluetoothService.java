@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class YourBtClass {
+public class BluetoothService {
 
     // HR example code from developer.polar.com
     public enum AD_TYPE
