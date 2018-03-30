@@ -2,6 +2,7 @@ package at.ac.univie.stefan.fast;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,10 @@ public class BluetoothDeviceArrayAdapter extends ArrayAdapter {
            public void onClick(View view) {
                Log.d(TAG, bluetoothDevice.getName() + " is selected");
                bluetoothDeviceback=bluetoothDevice;
+               Intent intent = new Intent(context, ConnectToMonitor.class);
+               intent.putExtra(ConnectToMonitor.MACADRESSBLUETOOTHDEVICE,bluetoothDevice.getAddress());
+               context.startActivity(intent);
+
            }
        });
 

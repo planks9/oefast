@@ -1,5 +1,6 @@
 package at.ac.univie.stefan.fast;
 
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
@@ -7,6 +8,7 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -24,10 +26,11 @@ public class BluetoothServiceTwo {
     public static final String TAG=BluetoothServiceTwo.class.getSimpleName();
 
     BluetoothDevice bluetoothDevice;
+    BluetoothAdapter bluetoothAdapter;
     Context context;
 
 
-    BluetoothGattCallback bluetoothGattCallback = new BluetoothGattCallback() {
+    /*BluetoothGattCallback bluetoothGattCallback = new BluetoothGattCallback() {
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
             super.onConnectionStateChange(gatt, status, newState);
@@ -36,11 +39,11 @@ public class BluetoothServiceTwo {
                 gatt.discoverServices();
             } else if(newState == BluetoothGatt.STATE_DISCONNECTED){
                 Log.e(TAG,"Connection lost");
-                           /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                bluetoothAdapter.getBluetoothLeScanner().startScan(scanCallback);
                            } else {
                                bluetoothAdapter.startLeScan(leScanCallback);
-                           }*/
+                           }
             }
         }
 
@@ -132,7 +135,7 @@ public class BluetoothServiceTwo {
         BluetoothGatt bluetoothGatt = bluetoothDevice.connectGatt(context, false, bluetoothGattCallback );
         Log.d(TAG,"connection established");
 
-    }
+    }*/
 
 }
 

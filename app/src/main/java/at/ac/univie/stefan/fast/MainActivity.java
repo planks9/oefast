@@ -66,8 +66,7 @@ public class MainActivity extends AppCompatActivity {
         textviewissearching = (TextView) findViewById(R.id.textviewsearching);
 
         deviceArrayList = new ArrayList<BluetoothDevice>();
-        bluetoothManager= (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-        bluetoothAdapter = bluetoothManager.getAdapter();
+        bluetoothAdapter = BluetoothAdapterFactory.getInstance().getBluetoothAdapter();
 
         buttonsearchfornewDevices.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
                 selectedBluetoothDevice);
         listView.setAdapter(arrayAdapter);
 
-        System.out.println(selectedBluetoothDevice.getName());
 
     }
 
@@ -125,12 +123,6 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         // Don't forget to unregister the ACTION_FOUND receiver.
         unregisterReceiver(mReceiver);
-    }
-
-
-
-    public BluetoothAdapter getBluetoothAdapter() {
-        return bluetoothAdapter;
     }
 
 
