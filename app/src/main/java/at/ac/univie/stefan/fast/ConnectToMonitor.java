@@ -11,12 +11,16 @@ import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -30,6 +34,7 @@ public class ConnectToMonitor extends AppCompatActivity {
 
     public static final int MESSAGEIDHRVALUE=1;
     public static final int MESSAGEIDRRVALUE=2;
+    public static final int MESSAGEIDCONNECTION=3;
 
     public static final String TAG = ConnectToMonitor.class.getSimpleName();
 
@@ -38,9 +43,23 @@ public class ConnectToMonitor extends AppCompatActivity {
     private Context context;
     private BluetoothDevice bluetoothDevice;
     private BluetoothAdapter bluetoothAdapter;
-    private TextView textViewhr;
-    private TextView textViewrrvalue;
     private Handler uihandler;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
+
+    Button buttonStationOne;
+    Button buttonStationTwo;
+    Button buttonStationThree;
+    Button buttonStationFour;
+    Button buttonStationFive;
+    Button buttonGesamtstatistik;
+    Button buttonBerichtStationOne;
+    Button buttonBerichtStationTwo;
+    Button buttonBerichtStationThree;
+    Button buttonBerichtStationFour;
+    Button buttonBerichtStationFive;
+    TextView textViewConnected;
+
 
 
 
@@ -48,32 +67,18 @@ public class ConnectToMonitor extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_connect_to_monitor);
+        setContentView(R.layout.fragmentcontainer);
         context = getApplicationContext();
+        fragmentManager  = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentcontainerid,new StationReadyFragment()).commit();
+        textViewConnected = (TextView) findViewById(R.id.textViewConnected);
 
         Intent intent=getIntent();
-        bluetoothAdapter = BluetoothAdapterFactory.getInstance().getBluetoothAdapter();
+        bluetoothAdapter = BluetoothAdapterSingleton.getInstance().getBluetoothAdapter();
         bluetoothDevice = bluetoothAdapter.getRemoteDevice(intent.getStringExtra(MACADRESSBLUETOOTHDEVICE));
+        uihandler = MessageHandlerFactory.getInstance().getHandler();
 
-        textViewhr = (TextView) findViewById(R.id.texthr);
-        textViewhr.setText("waiting...");
-        textViewrrvalue = (TextView) findViewById(R.id.textrrvalue);
-        uihandler = new Handler(Looper.getMainLooper()) {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                int value = (int) msg.obj;
-                switch (msg.what) {
-                    case MESSAGEIDHRVALUE:
-                        textViewhr.setText(""+value);
-                        break;
-                    case MESSAGEIDRRVALUE:
-                        textViewrrvalue.setText(""+value);
-                        break;
-                }
-
-            }
-        };
 
 
         BluetoothGatt bluetoothGatt = bluetoothDevice.connectGatt(context, false, bluetoothGattCallback );
@@ -88,6 +93,8 @@ public class ConnectToMonitor extends AppCompatActivity {
 
 
     }
+
+
 
     private  BluetoothAdapter.LeScanCallback leScanCallback = new BluetoothAdapter.LeScanCallback() {
         @Override
@@ -160,7 +167,7 @@ public class ConnectToMonitor extends AppCompatActivity {
                 int rrPresent = (data[0] & 0x10) >> 4;
                 System.out.println("RRPresent: "+rrPresent);
                 final int hrValue = (hrFormat == 1 ? data[1] + (data[2] << 8) : data[1]) & (hrFormat == 1 ? 0x0000FFFF : 0x000000FF);
-                Message newhrv = uihandler.obtainMessage(MESSAGEIDHRVALUE,hrValue);
+                Message newhrv = MessageHandlerFactory.getInstance().getHandler().obtainMessage(MESSAGEIDHRVALUE,hrValue);
                 newhrv.sendToTarget();
 
                 if( !contactSupported && hrValue == 0 ){
@@ -169,6 +176,8 @@ public class ConnectToMonitor extends AppCompatActivity {
                 }
                 final boolean sensorContactFinal = sensorContact;
                 System.out.println("SensorContactFinal: "+sensorContactFinal);
+                Message newconnection = MessageHandlerFactory.getInstance().getHandler().obtainMessage(MESSAGEIDCONNECTION,sensorContactFinal);
+                newconnection.sendToTarget();
                 int offset = hrFormat + 2;
                 int energy = 0;
                 if (energyExpended == 1) {
@@ -181,7 +190,7 @@ public class ConnectToMonitor extends AppCompatActivity {
                     int len = data.length;
                     while (offset < len) {
                         int rrValue = (int) ((data[offset] & 0xFF) + ((data[offset + 1] & 0xFF) << 8));
-                        Message newrr = uihandler.obtainMessage(MESSAGEIDRRVALUE,rrValue);
+                        Message newrr = MessageHandlerFactory.getInstance().getHandler().obtainMessage(MESSAGEIDRRVALUE,rrValue);
                         newrr.sendToTarget();
                         offset += 2;
                         rrs.add(rrValue);
@@ -214,9 +223,9 @@ public class ConnectToMonitor extends AppCompatActivity {
 
 
     /*private void processDeviceDiscovered(final BluetoothDevice device, int rssi, byte[] scanRecord){
-        Map<BluetoothService.AD_TYPE,byte[]> content = advertisementBytes2Map(scanRecord);
-        if( content.containsKey(BluetoothService.AD_TYPE.GAP_ADTYPE_LOCAL_NAME_COMPLETE) ) {
-            String name = new String(content.get(BluetoothService.AD_TYPE.GAP_ADTYPE_LOCAL_NAME_COMPLETE));
+        Map<BluetoothService_Polar.AD_TYPE,byte[]> content = advertisementBytes2Map(scanRecord);
+        if( content.containsKey(BluetoothService_Polar.AD_TYPE.GAP_ADTYPE_LOCAL_NAME_COMPLETE) ) {
+            String name = new String(content.get(BluetoothService_Polar.AD_TYPE.GAP_ADTYPE_LOCAL_NAME_COMPLETE));
             if (name.startsWith("Polar ")) {
                 String names[] = name.split(" ");
                 if (names.length > 2) {

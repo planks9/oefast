@@ -1,12 +1,8 @@
 package at.ac.univie.stefan.fast;
 
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothGatt;
-import android.bluetooth.BluetoothHeadset;
 import android.bluetooth.BluetoothManager;
-import android.bluetooth.BluetoothProfile;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,15 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Set;
-
-import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         textviewissearching = (TextView) findViewById(R.id.textviewsearching);
 
         deviceArrayList = new ArrayList<BluetoothDevice>();
-        bluetoothAdapter = BluetoothAdapterFactory.getInstance().getBluetoothAdapter();
+        bluetoothAdapter = BluetoothAdapterSingleton.getInstance().getBluetoothAdapter();
 
         buttonsearchfornewDevices.setOnClickListener(new View.OnClickListener() {
             @Override

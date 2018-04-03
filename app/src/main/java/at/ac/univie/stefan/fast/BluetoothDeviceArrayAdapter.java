@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Stefan on 23.03.2018.
+ * Extend the ArrayAdapter to
  */
 
 public class BluetoothDeviceArrayAdapter extends ArrayAdapter {
