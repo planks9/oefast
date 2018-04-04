@@ -4,11 +4,8 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import static at.ac.univie.stefan.fast.ConnectToMonitor.MESSAGEIDCONNECTION;
 import static at.ac.univie.stefan.fast.ConnectToMonitor.MESSAGEIDHRVALUE;
@@ -26,9 +23,9 @@ public class MessageHandlerFactory extends Handler {
     private static TextView hr;
     private static TextView rr;
     private static TextView connectionstate;
-    private static boolean textviewhravailibel;
-    private static boolean textviewrravailible;
-    private static boolean textviewconnctionstateavailibel;
+    private static boolean textviewidhravailibel;
+    private static boolean textviewidrravailible;
+    private static boolean textviewidconnctionstateavailibel;
 
     private MessageHandlerFactory () {
 
@@ -39,19 +36,20 @@ public class MessageHandlerFactory extends Handler {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
 
-                System.out.println("New Message arrived");
-
                 switch (msg.what) {
                     case MESSAGEIDHRVALUE:
+                        if (!textviewidhravailibel) break;
                         int hrvalue = (int) msg.obj;
                         System.out.println(hrvalue);
                         hr.setText(""+hrvalue);
                         break;
                     case MESSAGEIDRRVALUE:
+                        if (!textviewidrravailible) break;
                         int rrvalue = (int) msg.obj;
                         rr.setText(""+rrvalue);
                         break;
                     case MESSAGEIDCONNECTION:
+                        if (!textviewidconnctionstateavailibel) break;
                         boolean sensorcontact = (boolean) msg.obj;
                             if (sensorcontact) {
                                 connectionstate.setText("verbunden");
@@ -78,10 +76,29 @@ public class MessageHandlerFactory extends Handler {
         return handler;
     }
 
-    public Handler getHandlerandsetViews (View view, int textviewhr, int textviewrr, int textviewconnectionstate) {
-        hr= (TextView) view.findViewById(textviewhr);
-        rr= (TextView) view.findViewById(textviewrr);
-        connectionstate= (TextView) view.findViewById(textviewconnectionstate);
+    public Handler getHandlerandsetViews (View view, int textviewidhr, int textviewidrr, int textviewidconnectionstate) {
+        if (textviewidhr==0) {
+            textviewidhravailibel=false;
+        } else {
+            textviewidhravailibel=true;
+            hr= (TextView) view.findViewById(textviewidhr);
+        }
+
+        if (textviewidhr==0) {
+            textviewidrravailible=false;
+        } else {
+            textviewidrravailible=true;
+            rr= (TextView) view.findViewById(textviewidrr);
+        }
+
+        if (textviewidconnectionstate==0) {
+            textviewidconnctionstateavailibel=false;
+        } else {
+            textviewidconnctionstateavailibel=true;
+            connectionstate= (TextView) view.findViewById(textviewidconnectionstate);
+
+        }
+
 
         return handler;
 
