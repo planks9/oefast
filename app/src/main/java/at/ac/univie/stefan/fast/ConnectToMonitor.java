@@ -93,22 +93,21 @@ public class ConnectToMonitor extends AppCompatActivity {
 
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
-            Log.d(TAG, "charatersiticchanged");
             super.onCharacteristicChanged(gatt, characteristic);
             if (characteristic.getUuid().equals(HR_MEASUREMENT)) {
                 byte[] data = characteristic.getValue();
                 int hrFormat = data[0] & 0x01;
-                System.out.println("HR Format: " + hrFormat);
+                //System.out.println("HR Format: " + hrFormat);
                 boolean sensorContact = true;
                 final boolean contactSupported = !((data[0] & 0x06) == 0);
                 if (contactSupported) {
                     sensorContact = ((data[0] & 0x06) >> 1) == 3;
-                    System.out.println("SensorContact: " + sensorContact);
+                    //System.out.println("SensorContact: " + sensorContact);
                 }
                 int energyExpended = (data[0] & 0x08) >> 3;
-                System.out.println("EnergyExpended: " + energyExpended);
+                //System.out.println("EnergyExpended: " + energyExpended);
                 int rrPresent = (data[0] & 0x10) >> 4;
-                System.out.println("RRPresent: " + rrPresent);
+                //System.out.println("RRPresent: " + rrPresent);
                 final int hrValue = (hrFormat == 1 ? data[1] + (data[2] << 8) : data[1]) & (hrFormat == 1 ? 0x0000FFFF : 0x000000FF);
                 Message newhrv = MessageHandlerFactory.getInstance().getHandler().obtainMessage(MESSAGEIDHRVALUE, hrValue);
                 newhrv.sendToTarget();
@@ -118,7 +117,7 @@ public class ConnectToMonitor extends AppCompatActivity {
                     sensorContact = false;
                 }
                 final boolean sensorContactFinal = sensorContact;
-                System.out.println("SensorContactFinal: " + sensorContactFinal);
+                //System.out.println("SensorContactFinal: " + sensorContactFinal);
                 Message newconnection = MessageHandlerFactory.getInstance().getHandler().obtainMessage(MESSAGEIDCONNECTION, sensorContactFinal);
                 newconnection.sendToTarget();
                 int offset = hrFormat + 2;
@@ -127,7 +126,7 @@ public class ConnectToMonitor extends AppCompatActivity {
                     energy = (data[offset] & 0xFF) + ((data[offset + 1] & 0xFF) << 8);
                     offset += 2;
                 }
-                System.out.println("Energy: " + energy);
+                //System.out.println("Energy: " + energy);
                 final ArrayList<Integer> rrs = new ArrayList<>();
                 if (rrPresent == 1) {
                     int len = data.length;
@@ -139,7 +138,7 @@ public class ConnectToMonitor extends AppCompatActivity {
                         rrs.add(rrValue);
                     }
                 }
-                System.out.println();
+
             }
         }
 

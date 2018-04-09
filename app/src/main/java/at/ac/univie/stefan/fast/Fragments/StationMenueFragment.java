@@ -15,18 +15,20 @@ import android.widget.TextView;
 import at.ac.univie.stefan.fast.MessageHandlerFactory;
 import at.ac.univie.stefan.fast.R;
 
+import static at.ac.univie.stefan.fast.KeyValues.STATIONFIVE;
+import static at.ac.univie.stefan.fast.KeyValues.STATIONFOUR;
+import static at.ac.univie.stefan.fast.KeyValues.STATIONNAME;
+import static at.ac.univie.stefan.fast.KeyValues.STATIONONE;
+import static at.ac.univie.stefan.fast.KeyValues.STATIONTHREE;
+import static at.ac.univie.stefan.fast.KeyValues.STATIONTWO;
+
 /**
  * Created by Stefan on 03.04.2018.
  */
 
 public class StationMenueFragment extends Fragment {
 
-    public static final String STATIONNAME="Stationname";
-    public static final String STATIONONE="StationOne";
-    public static final String STATIONTWO="StationTwo";
-    public static final String STATIONTHREE="StationThree";
-    public static final String STATIONFOUR="StationFour";
-    public static final String STATIONFIVE="StationFive";
+
 
     Button buttonStationOne;
     Button buttonStationTwo;
@@ -62,7 +64,7 @@ public class StationMenueFragment extends Fragment {
         //Set first Text to getrennt because the belt is connecting in the background and as soon as the belt is connected it sets the Text to connected
         textViewConnected.setText("getrennt");
         textViewConnected.setTextColor(Color.RED);
-        MessageHandlerFactory.getInstance().getHandlerandsetViews(view, 0, 0, R.id.textViewStationMenueConnected);
+        MessageHandlerFactory.getInstance().setTextViews(view, 0, 0, R.id.textViewStationMenueConnected);
 
 
         buttonStationOne.setOnClickListener(onClickListener);

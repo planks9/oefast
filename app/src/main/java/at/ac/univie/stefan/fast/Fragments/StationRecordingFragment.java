@@ -1,10 +1,10 @@
 package at.ac.univie.stefan.fast.Fragments;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,20 +13,19 @@ import android.widget.TextView;
 
 import at.ac.univie.stefan.fast.MessageHandlerFactory;
 import at.ac.univie.stefan.fast.R;
-import at.ac.univie.stefan.fast.Stopwatch;
+import at.ac.univie.stefan.fast.Stopwatch.StopWatchService;
+import static at.ac.univie.stefan.fast.KeyValues.STATIONNAME;
 
 /**
  * Created by Stefan on 04.04.2018.
  */
 
-public class StationRecordingFragment extends Fragment {
+public class StationRecordingFragment extends Fragment  {
 
     public static final String TAG = StationRecordingFragment.class.getSimpleName();
-    public static final int MSG_START_TIMER = 0;
-    public static final int MSG_STOP_TIMER = 1;
-    public static final int MSG_UPDATE_TIMER = 2;
-    public static final int REFRESH_RATE_OF_UI_WATCH=500;
 
+
+    private String stationName;
     private TextView textViewRecordingPersonName;
     private TextView textViewRecordingStationName;
     private TextView textViewRecordingStationDescription;
@@ -36,11 +35,14 @@ public class StationRecordingFragment extends Fragment {
     private TextView textViewRecordingConnected;
     private Button buttonRecordingStop;
 
+    private StopWatchService stopWatchService;
 
-    private Stopwatch stopwatch=new Stopwatch();
+    public StationRecordingFragment () {
+        stopWatchService = new StopWatchService();
+    }
 
-    public Stopwatch getStopwatch() {
-        return stopwatch;
+    public StopWatchService getStopWatchService() {
+        return stopWatchService;
     }
 
 
@@ -48,6 +50,7 @@ public class StationRecordingFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        stationName = getArguments().getString(STATIONNAME);
         View view = inflater.inflate(R.layout.stationrecording, container, false);
         textViewRecordingPersonName = (TextView) view.findViewById(R.id.textViewRecordingPersonName);
         textViewRecordingStationName = (TextView) view.findViewById(R.id.textViewRecordingStationName);
@@ -57,51 +60,71 @@ public class StationRecordingFragment extends Fragment {
         textViewRecordingTime = (TextView) view.findViewById(R.id.textViewRecordingTime);
         textViewRecordingConnected = (TextView) view.findViewById(R.id.textViewRecordingConnected);
         buttonRecordingStop = (Button) view.findViewById(R.id.buttonRecordingStop);
+        stopWatchService.setTextViewtimedisplay(textViewRecordingTime);
         buttonRecordingStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                stopwatchhandler.sendEmptyMessage(MSG_STOP_TIMER);
+
+
+
+
+                StopRecordingDialogFragment stopRecordingDialogFragment = new StopRecordingDialogFragment(stopRecordingDialogListener);
+                stopRecordingDialogFragment.show(getFragmentManager(),"Show StopRecordingFragment");
+
+
             }
         });
 
-        textViewRecordingStationName.setText(getArguments().getString(StationMenueFragment.STATIONNAME));
-        MessageHandlerFactory.getInstance().getHandlerandsetViews(view,textViewRecordingHR.getId(),textViewRecordingRR.getId(),textViewRecordingConnected.getId());
+        textViewRecordingStationName.setText(stationName);
+        MessageHandlerFactory.getInstance().setTextViews(view,textViewRecordingHR.getId(),textViewRecordingRR.getId(),textViewRecordingConnected.getId());
 
 
 
         return view;
     }
 
-
-    public Handler getStopwatchhandler() {
-        return stopwatchhandler;
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //handle on backbuttonpressed event
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.getAction() == KeyEvent.ACTION_UP ) {
+                    StopRecordingDialogFragment stopRecordingDialogFragment = new StopRecordingDialogFragment(stopRecordingDialogListener);
+                    stopRecordingDialogFragment.show(getFragmentManager(),"Show StopRecordingFragment");
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        });
     }
 
-    Handler stopwatchhandler = new Handler() {
+    private StopRecordingDialogFragment.StopRecordingDialogListener stopRecordingDialogListener = new StopRecordingDialogFragment.StopRecordingDialogListener() {
         @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case MSG_START_TIMER:
-                    getStopwatch().start(); //start timer
-                    stopwatchhandler.sendEmptyMessage(MSG_UPDATE_TIMER);
-                    break;
+        public void onDialogPositiveClick() {
+            stopWatchService.stopTimer();
+            Bundle bundle = new Bundle();
+            bundle.putString(STATIONNAME, stationName);
+            StationFinishedFragment stationFinishedFragment = new StationFinishedFragment();
+            stationFinishedFragment.setArguments(bundle);
 
-                case MSG_UPDATE_TIMER:
-                    textViewRecordingTime.setText("" + getStopwatch().getTimeElapsedinSec());
-                    stopwatchhandler.sendEmptyMessageDelayed(MSG_UPDATE_TIMER, REFRESH_RATE_OF_UI_WATCH); //text view is updated every second,
-                    break;                                  //though the timer is still running
-                case MSG_STOP_TIMER:
-                    stopwatchhandler.removeMessages(MSG_UPDATE_TIMER); // no more updates.
-                    getStopwatch().stop();//stop timer
-                    textViewRecordingTime.setText("" + getStopwatch().getTimeElapsedinSec());
-                    break;
+            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentcontainerid, stationFinishedFragment).commit();
 
-                default:
-                    break;
-            }
+        }
+
+        @Override
+        public void onDialogNegativeClick() {
+
         }
     };
+
+
 
 
 }

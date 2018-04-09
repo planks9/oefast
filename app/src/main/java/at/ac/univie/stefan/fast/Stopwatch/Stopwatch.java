@@ -1,4 +1,4 @@
-package at.ac.univie.stefan.fast;
+package at.ac.univie.stefan.fast.Stopwatch;
 
 /**
  * Created by Stefan on 04.04.2018.

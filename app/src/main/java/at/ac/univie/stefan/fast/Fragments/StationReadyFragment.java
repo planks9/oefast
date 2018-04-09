@@ -14,8 +14,8 @@ import android.widget.TextView;
 import at.ac.univie.stefan.fast.MessageHandlerFactory;
 import at.ac.univie.stefan.fast.R;
 
-import static at.ac.univie.stefan.fast.Fragments.StationMenueFragment.STATIONNAME;
-import static at.ac.univie.stefan.fast.Fragments.StationRecordingFragment.MSG_START_TIMER;
+import static at.ac.univie.stefan.fast.KeyValues.STATIONNAME;
+
 
 /**
  * Created by Stefan on 03.04.2018.
@@ -37,7 +37,7 @@ public class StationReadyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.stationready,container,false);
+        View view = inflater.inflate(R.layout.stationready, container, false);
 
         stationName = getArguments().getString(STATIONNAME);
         textViewPersonName = (TextView) view.findViewById(R.id.textViewPersonName);
@@ -52,14 +52,14 @@ public class StationReadyFragment extends Fragment {
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                stationRecordingFragment.getStopwatchhandler().sendEmptyMessage(MSG_START_TIMER);
+                stationRecordingFragment.getStopWatchService().startTimer();
 
-                Bundle bundle =new Bundle();
-                bundle.putString(STATIONNAME,stationName);
+                Bundle bundle = new Bundle();
+                bundle.putString(STATIONNAME, stationName);
                 stationRecordingFragment.setArguments(bundle);
 
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentcontainerid,stationRecordingFragment).addToBackStack("BackToStationMenue").commit();
+                fragmentTransaction.replace(R.id.fragmentcontainerid, stationRecordingFragment).addToBackStack("BackToStationMenue").commit();
 
 
             }
@@ -67,7 +67,8 @@ public class StationReadyFragment extends Fragment {
 
         textViewStationName.setText(stationName);
 
-        MessageHandlerFactory.getInstance().getHandlerandsetViews(view,textViewHR.getId(),textViewRR.getId(),textViewconnectionState.getId());
+        MessageHandlerFactory.getInstance().setTextViews(view, textViewHR.getId(), textViewRR.getId(), textViewconnectionState.getId());
+
 
         return view;
     }

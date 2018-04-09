@@ -40,7 +40,6 @@ public class MessageHandlerFactory extends Handler {
                     case MESSAGEIDHRVALUE:
                         if (!textviewidhravailibel) break;
                         int hrvalue = (int) msg.obj;
-                        System.out.println(hrvalue);
                         hr.setText(""+hrvalue);
                         break;
                     case MESSAGEIDRRVALUE:
@@ -66,7 +65,6 @@ public class MessageHandlerFactory extends Handler {
 
     public static MessageHandlerFactory getInstance () {
         if (MessageHandlerFactory.instance==null) {
-            System.out.println("new Handler created");
             MessageHandlerFactory.instance = new MessageHandlerFactory();
         }
         return MessageHandlerFactory.instance;
@@ -76,7 +74,7 @@ public class MessageHandlerFactory extends Handler {
         return handler;
     }
 
-    public Handler getHandlerandsetViews (View view, int textviewidhr, int textviewidrr, int textviewidconnectionstate) {
+    public void setTextViews (View view, int textviewidhr, int textviewidrr, int textviewidconnectionstate) {
         if (textviewidhr==0) {
             textviewidhravailibel=false;
         } else {
@@ -98,9 +96,6 @@ public class MessageHandlerFactory extends Handler {
             connectionstate= (TextView) view.findViewById(textviewidconnectionstate);
 
         }
-
-
-        return handler;
 
     }
 
