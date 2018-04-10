@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
+import android.provider.ContactsContract;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,9 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import at.ac.univie.stefan.fast.DataBase.AppDatabase;
+import at.ac.univie.stefan.fast.DataBase.DataBaseCreator;
+import at.ac.univie.stefan.fast.DataBase.SensorData;
 import at.ac.univie.stefan.fast.Fragments.StationMenueFragment;
 
 public class ConnectToMonitor extends AppCompatActivity {
@@ -38,6 +42,7 @@ public class ConnectToMonitor extends AppCompatActivity {
     private BluetoothAdapter bluetoothAdapter;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    AppDatabase appDatabase;
 
 
     private BluetoothAdapter.LeScanCallback leScanCallback = new BluetoothAdapter.LeScanCallback() {
@@ -127,17 +132,23 @@ public class ConnectToMonitor extends AppCompatActivity {
                     offset += 2;
                 }
                 //System.out.println("Energy: " + energy);
+                int rrValue=0;
                 final ArrayList<Integer> rrs = new ArrayList<>();
                 if (rrPresent == 1) {
                     int len = data.length;
                     while (offset < len) {
-                        int rrValue = (int) ((data[offset] & 0xFF) + ((data[offset + 1] & 0xFF) << 8));
+                        int rrValuew = (int) ((data[offset] & 0xFF) + ((data[offset + 1] & 0xFF) << 8));
+                        rrValue=rrValuew;
                         Message newrr = MessageHandlerFactory.getInstance().getHandler().obtainMessage(MESSAGEIDRRVALUE, rrValue);
                         newrr.sendToTarget();
                         offset += 2;
                         rrs.add(rrValue);
                     }
                 }
+
+                System.out.println("Write to DataBase");
+                appDatabase.sensorDataDao().insertSensorData(new SensorData(0,hrValue,rrValue,"Max MusterMann"));
+                System.out.println(appDatabase.sensorDataDao().getAll().size());
 
             }
         }
@@ -214,6 +225,9 @@ public class ConnectToMonitor extends AppCompatActivity {
         bluetoothAdapter = BluetoothAdapterSingleton.getInstance().getBluetoothAdapter();
         bluetoothDevice = bluetoothAdapter.getRemoteDevice(intent.getStringExtra(MACADRESSBLUETOOTHDEVICE));
 
+        //Start DataBaseConnection
+        DataBaseCreator.createnewDataBase(context);
+        appDatabase=DataBaseCreator.getDataBase();
 
         bluetoothDevice.connectGatt(context, false, bluetoothGattCallback);
         Log.d(TAG, "connection established");
