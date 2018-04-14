@@ -26,6 +26,8 @@ import at.ac.univie.stefan.fast.DataBase.AppDatabase;
 import at.ac.univie.stefan.fast.DataBase.DataBaseCreator;
 import at.ac.univie.stefan.fast.DataBase.SensorData;
 import at.ac.univie.stefan.fast.Fragments.StationMenueFragment;
+import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
+import at.ac.univie.stefan.fast.Stopwatch.StopWatchService;
 
 public class ConnectToMonitor extends AppCompatActivity {
 
@@ -43,6 +45,28 @@ public class ConnectToMonitor extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     AppDatabase appDatabase;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragmentcontainer);
+        context = getApplicationContext();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentcontainerid, new StationMenueFragment()).commit();
+
+        Intent intent = getIntent();
+        bluetoothAdapter = BluetoothAdapterSingleton.getInstance().getBluetoothAdapter();
+        bluetoothDevice = bluetoothAdapter.getRemoteDevice(intent.getStringExtra(MACADRESSBLUETOOTHDEVICE));
+
+        //Start DataBaseConnection
+        DataBaseCreator.createnewDataBase(context);
+        appDatabase=DataBaseCreator.getDataBase();
+
+        bluetoothDevice.connectGatt(context, false, bluetoothGattCallback);
+        Log.d(TAG, "connection established");
+
+    }
 
 
     private BluetoothAdapter.LeScanCallback leScanCallback = new BluetoothAdapter.LeScanCallback() {
@@ -102,17 +126,15 @@ public class ConnectToMonitor extends AppCompatActivity {
             if (characteristic.getUuid().equals(HR_MEASUREMENT)) {
                 byte[] data = characteristic.getValue();
                 int hrFormat = data[0] & 0x01;
-                //System.out.println("HR Format: " + hrFormat);
                 boolean sensorContact = true;
                 final boolean contactSupported = !((data[0] & 0x06) == 0);
                 if (contactSupported) {
                     sensorContact = ((data[0] & 0x06) >> 1) == 3;
-                    //System.out.println("SensorContact: " + sensorContact);
+
                 }
                 int energyExpended = (data[0] & 0x08) >> 3;
-                //System.out.println("EnergyExpended: " + energyExpended);
+
                 int rrPresent = (data[0] & 0x10) >> 4;
-                //System.out.println("RRPresent: " + rrPresent);
                 final int hrValue = (hrFormat == 1 ? data[1] + (data[2] << 8) : data[1]) & (hrFormat == 1 ? 0x0000FFFF : 0x000000FF);
                 Message newhrv = MessageHandlerFactory.getInstance().getHandler().obtainMessage(MESSAGEIDHRVALUE, hrValue);
                 newhrv.sendToTarget();
@@ -122,7 +144,7 @@ public class ConnectToMonitor extends AppCompatActivity {
                     sensorContact = false;
                 }
                 final boolean sensorContactFinal = sensorContact;
-                //System.out.println("SensorContactFinal: " + sensorContactFinal);
+
                 Message newconnection = MessageHandlerFactory.getInstance().getHandler().obtainMessage(MESSAGEIDCONNECTION, sensorContactFinal);
                 newconnection.sendToTarget();
                 int offset = hrFormat + 2;
@@ -131,7 +153,6 @@ public class ConnectToMonitor extends AppCompatActivity {
                     energy = (data[offset] & 0xFF) + ((data[offset + 1] & 0xFF) << 8);
                     offset += 2;
                 }
-                //System.out.println("Energy: " + energy);
                 int rrValue=0;
                 final ArrayList<Integer> rrs = new ArrayList<>();
                 if (rrPresent == 1) {
@@ -146,9 +167,14 @@ public class ConnectToMonitor extends AppCompatActivity {
                     }
                 }
 
-                System.out.println("Write to DataBase");
-                appDatabase.sensorDataDao().insertSensorData(new SensorData(0,hrValue,rrValue,"Max MusterMann"));
-                System.out.println(appDatabase.sensorDataDao().getAll().size());
+
+                if (StationTrackingData.isIsrecording()) {
+                    System.out.println("Write to DataBase");
+                    StopWatchService stopWatchService = StopWatchService.getInstance();
+                    long timestamp = StopWatchService.getStopwatch().getTimeElapsedinSec();
+                    appDatabase.sensorDataDao().insertSensorData(new SensorData(timestamp, StationTrackingData.getPersonname(), StationTrackingData.getActualStation(), hrValue, rrValue));
+                }
+
 
             }
         }
@@ -212,28 +238,7 @@ public class ConnectToMonitor extends AppCompatActivity {
         }
     } */
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragmentcontainer);
-        context = getApplicationContext();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentcontainerid, new StationMenueFragment()).commit();
 
-        Intent intent = getIntent();
-        bluetoothAdapter = BluetoothAdapterSingleton.getInstance().getBluetoothAdapter();
-        bluetoothDevice = bluetoothAdapter.getRemoteDevice(intent.getStringExtra(MACADRESSBLUETOOTHDEVICE));
-
-        //Start DataBaseConnection
-        DataBaseCreator.createnewDataBase(context);
-        appDatabase=DataBaseCreator.getDataBase();
-
-        bluetoothDevice.connectGatt(context, false, bluetoothGattCallback);
-        Log.d(TAG, "connection established");
-
-
-    }
 
 }
 

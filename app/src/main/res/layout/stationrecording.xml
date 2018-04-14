@@ -27,6 +27,13 @@
         android:text="TextViewStationDescription"
         android:textAlignment="center" />
 
+    <TextView
+        android:id="@+id/textViewRecordingStationTimelimit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextViewRecordingStationTimelimit"
+        android:textAlignment="center" />
+
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="49dp"

@@ -14,11 +14,24 @@ public class StopWatchService extends Handler {
     public static final int MSG_STOP_TIMER = 1;
     public static final int MSG_UPDATE_TIMER = 2;
     public static final int REFRESH_RATE_OF_UI_WATCH=500;
-    private Stopwatch stopwatch;
+    private static Stopwatch stopwatch;
     private TextView textViewtimedisplay;
+    private static StopWatchService instance;
 
-    public StopWatchService () {
+    private StopWatchService () {
         stopwatch = new Stopwatch();
+    }
+
+    public static StopWatchService getInstance () {
+        if (instance==null) {
+            instance = new StopWatchService();
+        }
+
+        return instance;
+    }
+
+    public static Stopwatch getStopwatch () {
+        return stopwatch;
     }
 
     public void setTextViewtimedisplay(TextView textViewtimedisplay) {

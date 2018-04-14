@@ -13,8 +13,13 @@ import android.widget.TextView;
 
 import at.ac.univie.stefan.fast.MessageHandlerFactory;
 import at.ac.univie.stefan.fast.R;
+import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
 
-import static at.ac.univie.stefan.fast.KeyValues.STATIONNAME;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONFIVE;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONFOUR;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONONE;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONTHREE;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONTWO;
 
 
 /**
@@ -26,6 +31,7 @@ public class StationReadyFragment extends Fragment {
     TextView textViewPersonName;
     TextView textViewStationName;
     TextView textViewStationDescription;
+    TextView textViewStationTimelimit;
     TextView textViewHR;
     TextView textViewRR;
     TextView textViewconnectionState;
@@ -39,24 +45,21 @@ public class StationReadyFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.stationready, container, false);
 
-        stationName = getArguments().getString(STATIONNAME);
-        textViewPersonName = (TextView) view.findViewById(R.id.textViewPersonName);
+        stationName = StationTrackingData.getActualStation();
+        textViewPersonName = (TextView) view.findViewById(R.id.textViewStationReadyPersonName);
         textViewStationName = (TextView) view.findViewById(R.id.textViewStationName);
         textViewStationDescription = (TextView) view.findViewById(R.id.textViewStationDescription);
+        textViewStationTimelimit = (TextView) view.findViewById(R.id.textViewStationTimelimit);
         textViewHR = (TextView) view.findViewById(R.id.textViewHR);
         textViewRR = (TextView) view.findViewById(R.id.textViewRR);
         textViewconnectionState = (TextView) view.findViewById(R.id.textViewStationReadyConnected);
-        textViewconnectionState.setText("waiting...");
         buttonStart = (Button) view.findViewById(R.id.buttonStart);
         stationRecordingFragment = new StationRecordingFragment();
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 stationRecordingFragment.getStopWatchService().startTimer();
-
-                Bundle bundle = new Bundle();
-                bundle.putString(STATIONNAME, stationName);
-                stationRecordingFragment.setArguments(bundle);
+                StationTrackingData.setIsrecording(true);
 
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragmentcontainerid, stationRecordingFragment).addToBackStack("BackToStationMenue").commit();
@@ -64,8 +67,40 @@ public class StationReadyFragment extends Fragment {
 
             }
         });
+        textViewconnectionState.setText("waiting...");
+        textViewPersonName.setText(StationTrackingData.getPersonname());
 
-        textViewStationName.setText(stationName);
+        switch (stationName) {
+            case STATIONONE:
+                textViewStationName.setText(R.string.station_one_name);
+                textViewStationDescription.setText(R.string.station_one_description);
+                textViewStationTimelimit.setText(R.string.station_one_timelimit);
+                break;
+
+            case STATIONTWO:
+                textViewStationName.setText(R.string.station_two_name);
+                textViewStationDescription.setText(R.string.station_two_description);
+                textViewStationTimelimit.setText(R.string.station_two_timelimit);
+                break;
+
+            case STATIONTHREE:
+                textViewStationName.setText(R.string.station_three_name);
+                textViewStationDescription.setText(R.string.station_three_description);
+                textViewStationTimelimit.setText(R.string.station_three_timelimit);
+                break;
+
+            case STATIONFOUR:
+                textViewStationName.setText(R.string.station_four_name);
+                textViewStationDescription.setText(R.string.station_four_description);
+                textViewStationTimelimit.setText(R.string.station_four_timelimit);
+                break;
+
+            case STATIONFIVE:
+                textViewStationName.setText(R.string.station_five_name);
+                textViewStationDescription.setText(R.string.station_five_description);
+                textViewStationTimelimit.setText(R.string.station_five_timelimit);
+                break;
+        }
 
         MessageHandlerFactory.getInstance().setTextViews(view, textViewHR.getId(), textViewRR.getId(), textViewconnectionState.getId());
 

@@ -18,21 +18,23 @@ public class SensorData {
     private int heartrate;
     private int rrinterval;
     private String person;
+    private String stationname;
 
     public long getTimestamp() {
         return timestamp;
     }
 
-    public SensorData () {
+    public SensorData() {
 
     }
 
     @Ignore
-    public SensorData (long timestamp, int heartrate, int rrinterval, String person) {
-        this.timestamp=timestamp;
-        this.heartrate=heartrate;
-        this.rrinterval=rrinterval;
-        this.person=person;
+    public SensorData(long timestamp, String person, String stationname, int heartrate, int rrinterval) {
+        this.timestamp = timestamp;
+        this.heartrate = heartrate;
+        this.rrinterval = rrinterval;
+        this.person = person;
+        this.stationname = stationname;
     }
 
     public void setTimestamp(long timestamp) {
@@ -69,5 +71,13 @@ public class SensorData {
 
     public void setPrimarykey(int primarykey) {
         this.primarykey = primarykey;
+    }
+
+    public String getStationname() {
+        return stationname;
+    }
+
+    public void setStationname(String stationname) {
+        this.stationname = stationname;
     }
 }

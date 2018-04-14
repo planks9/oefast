@@ -31,4 +31,11 @@ public class Stopwatch {
         }
         return (stopTime-startTime) / 1000;
     }
+
+    public long getTimeElapsedinMilSec () {
+        if (isRunning) {
+            return System.currentTimeMillis() - startTime;
+        }
+        return stopTime - startTime;
+    }
 }

@@ -13,14 +13,20 @@ import android.widget.TextView;
 
 import at.ac.univie.stefan.fast.MessageHandlerFactory;
 import at.ac.univie.stefan.fast.R;
+import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
 import at.ac.univie.stefan.fast.Stopwatch.StopWatchService;
-import static at.ac.univie.stefan.fast.KeyValues.STATIONNAME;
+
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONFIVE;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONFOUR;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONONE;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONTHREE;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONTWO;
 
 /**
  * Created by Stefan on 04.04.2018.
  */
 
-public class StationRecordingFragment extends Fragment  {
+public class StationRecordingFragment extends Fragment {
 
     public static final String TAG = StationRecordingFragment.class.getSimpleName();
 
@@ -29,6 +35,7 @@ public class StationRecordingFragment extends Fragment  {
     private TextView textViewRecordingPersonName;
     private TextView textViewRecordingStationName;
     private TextView textViewRecordingStationDescription;
+    private TextView textViewRecordingStationTimeLimit;
     private TextView textViewRecordingHR;
     private TextView textViewRecordingRR;
     private TextView textViewRecordingTime;
@@ -37,8 +44,8 @@ public class StationRecordingFragment extends Fragment  {
 
     private StopWatchService stopWatchService;
 
-    public StationRecordingFragment () {
-        stopWatchService = new StopWatchService();
+    public StationRecordingFragment() {
+        stopWatchService = StopWatchService.getInstance();
     }
 
     public StopWatchService getStopWatchService() {
@@ -46,15 +53,15 @@ public class StationRecordingFragment extends Fragment  {
     }
 
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        stationName = getArguments().getString(STATIONNAME);
+        stationName = StationTrackingData.getActualStation();
         View view = inflater.inflate(R.layout.stationrecording, container, false);
         textViewRecordingPersonName = (TextView) view.findViewById(R.id.textViewRecordingPersonName);
         textViewRecordingStationName = (TextView) view.findViewById(R.id.textViewRecordingStationName);
         textViewRecordingStationDescription = (TextView) view.findViewById(R.id.textViewRecordingStationDescription);
+        textViewRecordingStationTimeLimit = (TextView) view.findViewById(R.id.textViewRecordingStationTimelimit);
         textViewRecordingHR = (TextView) view.findViewById(R.id.textViewRecordingHR);
         textViewRecordingRR = (TextView) view.findViewById(R.id.textViewRecordingRR);
         textViewRecordingTime = (TextView) view.findViewById(R.id.textViewRecordingTime);
@@ -66,18 +73,49 @@ public class StationRecordingFragment extends Fragment  {
             public void onClick(View view) {
 
 
-
-
                 StopRecordingDialogFragment stopRecordingDialogFragment = new StopRecordingDialogFragment(stopRecordingDialogListener);
-                stopRecordingDialogFragment.show(getFragmentManager(),"Show StopRecordingFragment");
+                stopRecordingDialogFragment.show(getFragmentManager(), "Show StopRecordingFragment");
 
 
             }
         });
 
-        textViewRecordingStationName.setText(stationName);
-        MessageHandlerFactory.getInstance().setTextViews(view,textViewRecordingHR.getId(),textViewRecordingRR.getId(),textViewRecordingConnected.getId());
+        textViewRecordingPersonName.setText(StationTrackingData.getPersonname());
 
+
+        switch (stationName) {
+            case STATIONONE:
+                textViewRecordingPersonName.setText(R.string.station_one_name);
+                textViewRecordingStationDescription.setText(R.string.station_one_description);
+                textViewRecordingStationTimeLimit.setText(R.string.station_one_timelimit);
+                break;
+
+            case STATIONTWO:
+                textViewRecordingPersonName.setText(R.string.station_two_name);
+                textViewRecordingStationDescription.setText(R.string.station_two_description);
+                textViewRecordingStationTimeLimit.setText(R.string.station_two_timelimit);
+                break;
+
+            case STATIONTHREE:
+                textViewRecordingPersonName.setText(R.string.station_three_name);
+                textViewRecordingStationDescription.setText(R.string.station_three_description);
+                textViewRecordingStationTimeLimit.setText(R.string.station_three_timelimit);
+                break;
+
+            case STATIONFOUR:
+                textViewRecordingPersonName.setText(R.string.station_four_name);
+                textViewRecordingStationDescription.setText(R.string.station_four_description);
+                textViewRecordingStationTimeLimit.setText(R.string.station_four_timelimit);
+                break;
+
+            case STATIONFIVE:
+                textViewRecordingPersonName.setText(R.string.station_five_name);
+                textViewRecordingStationDescription.setText(R.string.station_five_description);
+                textViewRecordingStationTimeLimit.setText(R.string.station_five_timelimit);
+                break;
+        }
+
+        MessageHandlerFactory.getInstance().setTextViews(view, textViewRecordingHR.getId(), textViewRecordingRR.getId(), textViewRecordingConnected.getId());
 
 
         return view;
@@ -92,12 +130,11 @@ public class StationRecordingFragment extends Fragment  {
         getView().setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.getAction() == KeyEvent.ACTION_UP ) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.getAction() == KeyEvent.ACTION_UP) {
                     StopRecordingDialogFragment stopRecordingDialogFragment = new StopRecordingDialogFragment(stopRecordingDialogListener);
-                    stopRecordingDialogFragment.show(getFragmentManager(),"Show StopRecordingFragment");
+                    stopRecordingDialogFragment.show(getFragmentManager(), "Show StopRecordingFragment");
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             }
@@ -108,10 +145,8 @@ public class StationRecordingFragment extends Fragment  {
         @Override
         public void onDialogPositiveClick() {
             stopWatchService.stopTimer();
-            Bundle bundle = new Bundle();
-            bundle.putString(STATIONNAME, stationName);
+            StationTrackingData.setIsrecording(false);
             StationFinishedFragment stationFinishedFragment = new StationFinishedFragment();
-            stationFinishedFragment.setArguments(bundle);
 
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragmentcontainerid, stationFinishedFragment).commit();
@@ -123,8 +158,6 @@ public class StationRecordingFragment extends Fragment  {
 
         }
     };
-
-
 
 
 }

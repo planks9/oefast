@@ -14,13 +14,13 @@ import android.widget.TextView;
 
 import at.ac.univie.stefan.fast.MessageHandlerFactory;
 import at.ac.univie.stefan.fast.R;
+import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
 
-import static at.ac.univie.stefan.fast.KeyValues.STATIONFIVE;
-import static at.ac.univie.stefan.fast.KeyValues.STATIONFOUR;
-import static at.ac.univie.stefan.fast.KeyValues.STATIONNAME;
-import static at.ac.univie.stefan.fast.KeyValues.STATIONONE;
-import static at.ac.univie.stefan.fast.KeyValues.STATIONTHREE;
-import static at.ac.univie.stefan.fast.KeyValues.STATIONTWO;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONFIVE;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONFOUR;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONONE;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONTHREE;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONTWO;
 
 /**
  * Created by Stefan on 03.04.2018.
@@ -42,6 +42,7 @@ public class StationMenueFragment extends Fragment {
     Button buttonBerichtStationFour;
     Button buttonBerichtStationFive;
     TextView textViewConnected;
+    TextView textViewPersonName;
 
 
     @Nullable
@@ -61,9 +62,12 @@ public class StationMenueFragment extends Fragment {
         buttonBerichtStationFour = (Button) view.findViewById(R.id.buttonBerichtStationFour);
         buttonBerichtStationFive = (Button) view.findViewById(R.id.buttonBerichtStationFive);
         textViewConnected = (TextView) view.findViewById(R.id.textViewStationMenueConnected);
+        textViewPersonName = (TextView) view.findViewById(R.id.textViewStationMenuePersonName);
         //Set first Text to getrennt because the belt is connecting in the background and as soon as the belt is connected it sets the Text to connected
         textViewConnected.setText("getrennt");
         textViewConnected.setTextColor(Color.RED);
+        textViewPersonName.setText(StationTrackingData.getPersonname());
+
         MessageHandlerFactory.getInstance().setTextViews(view, 0, 0, R.id.textViewStationMenueConnected);
 
 
@@ -86,30 +90,27 @@ public class StationMenueFragment extends Fragment {
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Bundle bundle = new Bundle();
+
 
             if (view.getId()==buttonStationOne.getId()) {
-                bundle.putString(STATIONNAME,STATIONONE);
+                StationTrackingData.setActualStation(STATIONONE);
             }
             else if (view.getId()==buttonStationTwo.getId()) {
-                bundle.putString(STATIONNAME,STATIONTWO);
+                StationTrackingData.setActualStation(STATIONTWO);
             }
             else if (view.getId()==buttonStationThree.getId()) {
-                bundle.putString(STATIONNAME,STATIONTHREE);
+                StationTrackingData.setActualStation(STATIONTHREE);
             }
             else if (view.getId()==buttonStationFour.getId()) {
-                bundle.putString(STATIONNAME,STATIONFOUR);
+                StationTrackingData.setActualStation(STATIONFOUR);
             }
             else if (view.getId()==buttonStationFive.getId()) {
-                bundle.putString(STATIONNAME,STATIONFIVE);
-            }
+                StationTrackingData.setActualStation(STATIONFIVE);            }
             else {
                 Log.e(StationMenueFragment.class.getSimpleName(),"Could not map button press");
             }
 
             StationReadyFragment stationReadyFragment = new StationReadyFragment();
-            //Set Arguments to new Fragment, to know which button was pressed
-            stationReadyFragment.setArguments(bundle);
 
             //Switch to new Fragment and Set this Fragment to be shown when back button is pressed
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();

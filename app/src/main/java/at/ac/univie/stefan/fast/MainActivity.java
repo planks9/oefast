@@ -18,6 +18,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Set;
 
+import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final int REQUEST_ENABLE_BT = 10;
@@ -53,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //toDo: Remove this
+        StationTrackingData.setPersonname("Stefan Plank");
 
         listView = (ListView) findViewById(R.id.listview_bluetoothdevices);
         buttonsearchfornewDevices = (Button) findViewById(R.id.button_search_for_new_devices);

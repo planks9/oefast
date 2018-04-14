@@ -9,13 +9,9 @@ package at.ac.univie.stefan.fast;
  */
 public class KeyValues {
 
-    public static final String STATIONNAME="Stationname";
+    public static final String STATIONNAME = "Stationname";
 
-    public static final String TESTPERSONNAME="Personname";
-
-    public static final String STATIONONE="StationOne";
-    public static final String STATIONTWO="StationTwo";
-    public static final String STATIONTHREE="StationThree";
-    public static final String STATIONFOUR="StationFour";
-    public static final String STATIONFIVE="StationFive";
+    public static final String TESTPERSONNAME = "Personname";
 }
+
+
