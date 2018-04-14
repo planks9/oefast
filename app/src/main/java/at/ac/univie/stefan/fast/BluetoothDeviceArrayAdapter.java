@@ -49,6 +49,7 @@ public class BluetoothDeviceArrayAdapter extends ArrayAdapter {
            @Override
            public void onClick(View view) {
                Log.d(TAG, bluetoothDevice.getName() + " is selected");
+               //ToDo: Delete this
                bluetoothDeviceback=bluetoothDevice;
                Intent intent = new Intent(context, ConnectToMonitor.class);
                intent.putExtra(ConnectToMonitor.MACADRESSBLUETOOTHDEVICE,bluetoothDevice.getAddress());

@@ -20,7 +20,7 @@ import java.util.Set;
 
 import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
 
-public class MainActivity extends AppCompatActivity {
+public class SearchForDevicesActivity extends AppCompatActivity {
 
     public static final int REQUEST_ENABLE_BT = 10;
 
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private BluetoothDeviceArrayAdapter arrayAdapter;
     private BluetoothDevice selectedBluetoothDevice;
 
-    public static final String TAG = MainActivity.class.getSimpleName();
+    public static final String TAG = SearchForDevicesActivity.class.getSimpleName();
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
