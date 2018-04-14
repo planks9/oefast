@@ -60,7 +60,7 @@ public class ConnectToMonitor extends AppCompatActivity {
         bluetoothDevice = bluetoothAdapter.getRemoteDevice(intent.getStringExtra(MACADRESSBLUETOOTHDEVICE));
 
         //Start DataBaseConnection
-        DataBaseCreator.createnewDataBase(context);
+        //DataBaseCreator.createnewDataBase(context);
         appDatabase=DataBaseCreator.getDataBase();
 
         bluetoothDevice.connectGatt(context, false, bluetoothGattCallback);

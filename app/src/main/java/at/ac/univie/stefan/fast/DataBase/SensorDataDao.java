@@ -19,10 +19,10 @@ public interface SensorDataDao {
     List<SensorData> getAll();
 
     @Query("SELECT * FROM sensordata WHERE timestamp = :time")
-    SensorData findybyTime (long time);
+    List<SensorData> findybyTime (long time);
 
     @Query("SELECT * FROM sensordata WHERE person LIKE :name")
-    SensorData findbyPersonName (String name);
+    List<SensorData> findbyPersonName (String name);
 
     @Insert
     void insertAll(List<SensorData> sensorDataList);
