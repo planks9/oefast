@@ -1,14 +1,13 @@
-package at.ac.univie.stefan.fast;
+package at.ac.univie.stefan.fast.Activities;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,32 +17,34 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Set;
 
+import at.ac.univie.stefan.fast.BluetoothAdapterSingleton;
+import at.ac.univie.stefan.fast.BluetoothDeviceArrayAdapter;
+import at.ac.univie.stefan.fast.R;
 import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
 
 public class SearchForDevicesActivity extends AppCompatActivity {
 
     public static final int REQUEST_ENABLE_BT = 10;
+    public static final String TAG = SearchForDevicesActivity.class.getSimpleName();
 
 
     private ListView listView;
     private Button buttonsearchfornewDevices;
     private TextView textviewissearching;
-
-    private ArrayList <BluetoothDevice> deviceArrayList;
-
+    private ArrayList<BluetoothDevice> deviceArrayList;
     private BluetoothAdapter bluetoothAdapter;
-    private BluetoothManager bluetoothManager;
     private BluetoothDeviceArrayAdapter arrayAdapter;
-    private BluetoothDevice selectedBluetoothDevice;
 
-    public static final String TAG = SearchForDevicesActivity.class.getSimpleName();
 
+    /**
+     * Receiver to catch new found BluetoothDevices
+     */
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                Log.d(TAG,"found Device with Name: "+device.getName()+" and Adress: "+device.getAddress());
+                Log.d(TAG, "found Device with Name: " + device.getName() + " and Adress: " + device.getAddress());
                 arrayAdapter.add(device);
 
             }
@@ -54,7 +55,7 @@ public class SearchForDevicesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.connecttomonitor);
 
         //toDo: Remove this
         StationTrackingData.setPersonname("Stefan Plank");
@@ -64,12 +65,12 @@ public class SearchForDevicesActivity extends AppCompatActivity {
         textviewissearching = (TextView) findViewById(R.id.textviewsearching);
 
         deviceArrayList = new ArrayList<BluetoothDevice>();
-        bluetoothAdapter = BluetoothAdapterSingleton.getInstance().getBluetoothAdapter();
+        bluetoothAdapter = BluetoothAdapterSingleton.getBluetoothAdapter();
 
         buttonsearchfornewDevices.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG,"Starting Searching for new BluetoothDevices");
+                Log.d(TAG, "Starting Searching for new BluetoothDevices");
                 textviewissearching.setVisibility(View.VISIBLE);
 
 
@@ -78,21 +79,18 @@ public class SearchForDevicesActivity extends AppCompatActivity {
                 registerReceiver(mReceiver, filter);
 
 
-
-
             }
         });
 
         checkifDevicehasBluetooth();
-        enableBluetooth ();
+        enableBluetooth();
         Set<BluetoothDevice> pairedDevices = getpairedDevicesfromSystem();
         deviceArrayList.addAll(pairedDevices);
 
 
         arrayAdapter = new BluetoothDeviceArrayAdapter(
                 this,
-                deviceArrayList,
-                selectedBluetoothDevice);
+                deviceArrayList);
         listView.setAdapter(arrayAdapter);
 
 
@@ -104,7 +102,7 @@ public class SearchForDevicesActivity extends AppCompatActivity {
 
     private void checkifDevicehasBluetooth() {
         if (bluetoothAdapter == null) {
-        Log.e(TAG,"Device doesn't support Bluetooth");
+            Log.e(TAG, "Device doesn't support Bluetooth");
         }
     }
 
@@ -116,12 +114,6 @@ public class SearchForDevicesActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        // Don't forget to unregister the ACTION_FOUND receiver.
-        unregisterReceiver(mReceiver);
-    }
 
 
 }

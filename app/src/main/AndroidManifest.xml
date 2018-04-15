@@ -13,13 +13,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SearchForDevicesActivity"
+        <activity android:name=".Activities.SearchForDevicesActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ConnectToMonitor"
+        <activity android:name=".Activities.SetNameActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".PersonManagementActivity"
+        <activity android:name=".Activities.ConnectToMonitorActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".Activities.PersonManagementActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

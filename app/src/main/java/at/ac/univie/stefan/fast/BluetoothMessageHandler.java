@@ -7,18 +7,18 @@ import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
 
-import static at.ac.univie.stefan.fast.ConnectToMonitor.MESSAGEIDCONNECTION;
-import static at.ac.univie.stefan.fast.ConnectToMonitor.MESSAGEIDHRVALUE;
-import static at.ac.univie.stefan.fast.ConnectToMonitor.MESSAGEIDRRVALUE;
+import static at.ac.univie.stefan.fast.Activities.ConnectToMonitorActivity.MESSAGEIDCONNECTION;
+import static at.ac.univie.stefan.fast.Activities.ConnectToMonitorActivity.MESSAGEIDHRVALUE;
+import static at.ac.univie.stefan.fast.Activities.ConnectToMonitorActivity.MESSAGEIDRRVALUE;
 
 /**
  * Created by Stefan on 03.04.2018.
  */
 
-public class MessageHandlerFactory extends Handler {
+public class BluetoothMessageHandler extends Handler {
 
     private Handler handler;
-    private static MessageHandlerFactory instance;
+    private static BluetoothMessageHandler instance;
 
     private static TextView hr;
     private static TextView rr;
@@ -27,7 +27,7 @@ public class MessageHandlerFactory extends Handler {
     private static boolean textviewidrravailible;
     private static boolean textviewidconnctionstateavailibel;
 
-    private MessageHandlerFactory () {
+    private BluetoothMessageHandler() {
 
 
 
@@ -63,11 +63,11 @@ public class MessageHandlerFactory extends Handler {
         };
     }
 
-    public static MessageHandlerFactory getInstance () {
-        if (MessageHandlerFactory.instance==null) {
-            MessageHandlerFactory.instance = new MessageHandlerFactory();
+    public static BluetoothMessageHandler getInstance () {
+        if (BluetoothMessageHandler.instance==null) {
+            BluetoothMessageHandler.instance = new BluetoothMessageHandler();
         }
-        return MessageHandlerFactory.instance;
+        return BluetoothMessageHandler.instance;
     }
 
     public Handler getHandler () {

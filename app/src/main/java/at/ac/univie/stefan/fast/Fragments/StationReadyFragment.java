@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import at.ac.univie.stefan.fast.MessageHandlerFactory;
+import at.ac.univie.stefan.fast.BluetoothMessageHandler;
 import at.ac.univie.stefan.fast.R;
 import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
 
@@ -102,7 +102,7 @@ public class StationReadyFragment extends Fragment {
                 break;
         }
 
-        MessageHandlerFactory.getInstance().setTextViews(view, textViewHR.getId(), textViewRR.getId(), textViewconnectionState.getId());
+        BluetoothMessageHandler.getInstance().setTextViews(view, textViewHR.getId(), textViewRR.getId(), textViewconnectionState.getId());
 
 
         return view;

@@ -1,4 +1,4 @@
-package at.ac.univie.stefan.fast;
+package at.ac.univie.stefan.fast.Activities;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
-import android.provider.ContactsContract;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -22,20 +21,23 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import at.ac.univie.stefan.fast.BluetoothAdapterSingleton;
 import at.ac.univie.stefan.fast.DataBase.AppDatabase;
 import at.ac.univie.stefan.fast.DataBase.DataBaseCreator;
 import at.ac.univie.stefan.fast.DataBase.SensorData;
 import at.ac.univie.stefan.fast.Fragments.StationMenueFragment;
+import at.ac.univie.stefan.fast.BluetoothMessageHandler;
+import at.ac.univie.stefan.fast.R;
 import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
 import at.ac.univie.stefan.fast.Stopwatch.StopWatchService;
 
-public class ConnectToMonitor extends AppCompatActivity {
+public class ConnectToMonitorActivity extends AppCompatActivity {
 
     public static final UUID DESCRIPTOR_CCC = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");
     public static final int MESSAGEIDHRVALUE = 1;
     public static final int MESSAGEIDRRVALUE = 2;
     public static final int MESSAGEIDCONNECTION = 3;
-    public static final String TAG = ConnectToMonitor.class.getSimpleName();
+    public static final String TAG = ConnectToMonitorActivity.class.getSimpleName();
     public static final String MACADRESSBLUETOOTHDEVICE = "MACADRESSE";
     public final UUID HR_MEASUREMENT = UUID.fromString("00002a37-0000-1000-8000-00805f9b34fb");
     public final UUID HR_SERVICE = UUID.fromString("0000180D-0000-1000-8000-00805f9b34fb");
@@ -56,7 +58,7 @@ public class ConnectToMonitor extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragmentcontainerid, new StationMenueFragment()).commit();
 
         Intent intent = getIntent();
-        bluetoothAdapter = BluetoothAdapterSingleton.getInstance().getBluetoothAdapter();
+        bluetoothAdapter = BluetoothAdapterSingleton.getBluetoothAdapter();
         bluetoothDevice = bluetoothAdapter.getRemoteDevice(intent.getStringExtra(MACADRESSBLUETOOTHDEVICE));
 
         //Start DataBaseConnection
@@ -136,7 +138,7 @@ public class ConnectToMonitor extends AppCompatActivity {
 
                 int rrPresent = (data[0] & 0x10) >> 4;
                 final int hrValue = (hrFormat == 1 ? data[1] + (data[2] << 8) : data[1]) & (hrFormat == 1 ? 0x0000FFFF : 0x000000FF);
-                Message newhrv = MessageHandlerFactory.getInstance().getHandler().obtainMessage(MESSAGEIDHRVALUE, hrValue);
+                Message newhrv = BluetoothMessageHandler.getInstance().getHandler().obtainMessage(MESSAGEIDHRVALUE, hrValue);
                 newhrv.sendToTarget();
 
                 if (!contactSupported && hrValue == 0) {
@@ -145,7 +147,7 @@ public class ConnectToMonitor extends AppCompatActivity {
                 }
                 final boolean sensorContactFinal = sensorContact;
 
-                Message newconnection = MessageHandlerFactory.getInstance().getHandler().obtainMessage(MESSAGEIDCONNECTION, sensorContactFinal);
+                Message newconnection = BluetoothMessageHandler.getInstance().getHandler().obtainMessage(MESSAGEIDCONNECTION, sensorContactFinal);
                 newconnection.sendToTarget();
                 int offset = hrFormat + 2;
                 int energy = 0;
@@ -160,7 +162,7 @@ public class ConnectToMonitor extends AppCompatActivity {
                     while (offset < len) {
                         int rrValuew = (int) ((data[offset] & 0xFF) + ((data[offset + 1] & 0xFF) << 8));
                         rrValue=rrValuew;
-                        Message newrr = MessageHandlerFactory.getInstance().getHandler().obtainMessage(MESSAGEIDRRVALUE, rrValue);
+                        Message newrr = BluetoothMessageHandler.getInstance().getHandler().obtainMessage(MESSAGEIDRRVALUE, rrValue);
                         newrr.sendToTarget();
                         offset += 2;
                         rrs.add(rrValue);

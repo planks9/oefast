@@ -3,27 +3,18 @@ package at.ac.univie.stefan.fast;
 import android.bluetooth.BluetoothAdapter;
 
 /**
- * Created by Stefan on 24.03.2018.
+ * Class to provide the whole module with the same bluetoothAdapter, so you do not need to reinstanciat
  */
 
 public class BluetoothAdapterSingleton {
 
-    private BluetoothAdapter bluetoothAdapter;
-    private static BluetoothAdapterSingleton instance;
+    private static BluetoothAdapter bluetoothAdapter;
+    private BluetoothAdapterSingleton() {  }
 
-    private BluetoothAdapterSingleton() {
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    }
-
-    public static BluetoothAdapterSingleton getInstance() {
-        if (BluetoothAdapterSingleton.instance==null) {
-            BluetoothAdapterSingleton.instance = new BluetoothAdapterSingleton();
+    public static BluetoothAdapter getBluetoothAdapter () {
+        if (bluetoothAdapter == null) {
+            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         }
-         return BluetoothAdapterSingleton.instance;
-        }
-
-
-    public BluetoothAdapter getBluetoothAdapter () {
-        return this.bluetoothAdapter;
+        return bluetoothAdapter;
     }
 }

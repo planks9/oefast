@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import at.ac.univie.stefan.fast.R;
 import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
 
-import static at.ac.univie.stefan.fast.KeyValues.STATIONNAME;
-
 /**
  * Created by Stefan on 09.04.2018.
  */

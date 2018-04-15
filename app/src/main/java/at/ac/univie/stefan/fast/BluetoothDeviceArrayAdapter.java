@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import at.ac.univie.stefan.fast.Activities.ConnectToMonitorActivity;
+import at.ac.univie.stefan.fast.Activities.SetNameActivity;
+
 /**
  * Created by Stefan on 23.03.2018.
  * Extend the ArrayAdapter to
@@ -20,14 +23,12 @@ import java.util.ArrayList;
 public class BluetoothDeviceArrayAdapter extends ArrayAdapter {
     public static final String TAG=BluetoothDeviceArrayAdapter.class.getSimpleName();
     private Context context;
-    private BluetoothDevice bluetoothDeviceback;
 
 
 
-    public BluetoothDeviceArrayAdapter (Context context, ArrayList<BluetoothDevice> bluetoothDeviceArrayList, BluetoothDevice bluetoothDeviceback) {
+    public BluetoothDeviceArrayAdapter (Context context, ArrayList<BluetoothDevice> bluetoothDeviceArrayList) {
         super(context,0, bluetoothDeviceArrayList);
         this.context=context;
-        this.bluetoothDeviceback=bluetoothDeviceback;
     }
 
    @Override
@@ -50,9 +51,11 @@ public class BluetoothDeviceArrayAdapter extends ArrayAdapter {
            public void onClick(View view) {
                Log.d(TAG, bluetoothDevice.getName() + " is selected");
                //ToDo: Delete this
-               bluetoothDeviceback=bluetoothDevice;
-               Intent intent = new Intent(context, ConnectToMonitor.class);
-               intent.putExtra(ConnectToMonitor.MACADRESSBLUETOOTHDEVICE,bluetoothDevice.getAddress());
+
+               Intent intent = new Intent(context, SetNameActivity.class);
+               intent.putExtra(ConnectToMonitorActivity.MACADRESSBLUETOOTHDEVICE,bluetoothDevice.getAddress());
+               intent.putExtra(SetNameActivity.BLUETOOTHDEVICENAME,bluetoothDevice.getName());
+
                context.startActivity(intent);
 
            }

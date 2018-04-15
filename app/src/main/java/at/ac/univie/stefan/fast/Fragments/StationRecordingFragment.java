@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import at.ac.univie.stefan.fast.MessageHandlerFactory;
+import at.ac.univie.stefan.fast.BluetoothMessageHandler;
 import at.ac.univie.stefan.fast.R;
 import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
 import at.ac.univie.stefan.fast.Stopwatch.StopWatchService;
@@ -115,7 +115,7 @@ public class StationRecordingFragment extends Fragment {
                 break;
         }
 
-        MessageHandlerFactory.getInstance().setTextViews(view, textViewRecordingHR.getId(), textViewRecordingRR.getId(), textViewRecordingConnected.getId());
+        BluetoothMessageHandler.getInstance().setTextViews(view, textViewRecordingHR.getId(), textViewRecordingRR.getId(), textViewRecordingConnected.getId());
 
 
         return view;

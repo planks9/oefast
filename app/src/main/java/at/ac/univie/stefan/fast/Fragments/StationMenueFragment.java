@@ -1,5 +1,6 @@
 package at.ac.univie.stefan.fast.Fragments;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import at.ac.univie.stefan.fast.MessageHandlerFactory;
+import at.ac.univie.stefan.fast.Activities.PersonManagementActivity;
+import at.ac.univie.stefan.fast.BluetoothMessageHandler;
 import at.ac.univie.stefan.fast.R;
 import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
 
@@ -41,6 +43,7 @@ public class StationMenueFragment extends Fragment {
     Button buttonBerichtStationThree;
     Button buttonBerichtStationFour;
     Button buttonBerichtStationFive;
+    Button buttonendEndDurchlauf;
     TextView textViewConnected;
     TextView textViewPersonName;
 
@@ -61,6 +64,7 @@ public class StationMenueFragment extends Fragment {
         buttonBerichtStationThree = (Button) view.findViewById(R.id.buttonBerichtStationThree);
         buttonBerichtStationFour = (Button) view.findViewById(R.id.buttonBerichtStationFour);
         buttonBerichtStationFive = (Button) view.findViewById(R.id.buttonBerichtStationFive);
+        buttonendEndDurchlauf = (Button) view.findViewById(R.id.buttonEndDurchlauf);
         textViewConnected = (TextView) view.findViewById(R.id.textViewStationMenueConnected);
         textViewPersonName = (TextView) view.findViewById(R.id.textViewStationMenuePersonName);
         //Set first Text to getrennt because the belt is connecting in the background and as soon as the belt is connected it sets the Text to connected
@@ -68,7 +72,7 @@ public class StationMenueFragment extends Fragment {
         textViewConnected.setTextColor(Color.RED);
         textViewPersonName.setText(StationTrackingData.getPersonname());
 
-        MessageHandlerFactory.getInstance().setTextViews(view, 0, 0, R.id.textViewStationMenueConnected);
+        BluetoothMessageHandler.getInstance().setTextViews(view, 0, 0, R.id.textViewStationMenueConnected);
 
 
         buttonStationOne.setOnClickListener(onClickListener);
@@ -80,6 +84,8 @@ public class StationMenueFragment extends Fragment {
         buttonStationFour.setOnClickListener(onClickListener);
 
         buttonStationFive.setOnClickListener(onClickListener);
+
+        buttonendEndDurchlauf.setOnClickListener(onClickListener);
 
 
         return view;
@@ -105,16 +111,23 @@ public class StationMenueFragment extends Fragment {
                 StationTrackingData.setActualStation(STATIONFOUR);
             }
             else if (view.getId()==buttonStationFive.getId()) {
-                StationTrackingData.setActualStation(STATIONFIVE);            }
+                StationTrackingData.setActualStation(STATIONFIVE);
+            }
+
             else {
                 Log.e(StationMenueFragment.class.getSimpleName(),"Could not map button press");
             }
 
-            StationReadyFragment stationReadyFragment = new StationReadyFragment();
-
-            //Switch to new Fragment and Set this Fragment to be shown when back button is pressed
-            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentcontainerid,stationReadyFragment).addToBackStack("BackToStationMenue").commit();
+            //Handle next step to be made
+            if (view.getId()==buttonendEndDurchlauf.getId()) {
+                Intent intent = new Intent(getContext(), PersonManagementActivity.class);
+                startActivity(intent);
+            } else {
+                StationReadyFragment stationReadyFragment = new StationReadyFragment();
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                //Switch to new Fragment and Set this Fragment to be shown when back button is pressed
+                fragmentTransaction.replace(R.id.fragmentcontainerid, stationReadyFragment).addToBackStack("BackToStationMenue").commit();
+            }
 
         }
     };
