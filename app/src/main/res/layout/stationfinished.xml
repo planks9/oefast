@@ -26,6 +26,28 @@
         android:layout_marginTop="40dp">
 
         <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="Zeit: "
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textViewStationFinishedTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:text="70"
+            android:textSize="36sp" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_marginTop="20dp">
+
+        <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,7 +67,7 @@
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="20dp">
 
         <TextView
             android:id="@+id/textView3"
@@ -68,7 +90,7 @@
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="20dp">
 
         <TextView
             android:id="@+id/textView4"

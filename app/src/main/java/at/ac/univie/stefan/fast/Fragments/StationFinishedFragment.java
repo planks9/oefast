@@ -19,6 +19,15 @@ import at.ac.univie.stefan.fast.DataBase.DataBaseCreator;
 import at.ac.univie.stefan.fast.DataBase.SensorData;
 import at.ac.univie.stefan.fast.R;
 import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
+import at.ac.univie.stefan.fast.Stopwatch.StopWatchService;
+
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.POSTTEST;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.PRAETEST;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONFIVE;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONFOUR;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONONE;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONTHREE;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONTWO;
 
 /**
  * Created by Stefan on 09.04.2018.
@@ -29,6 +38,7 @@ public class StationFinishedFragment extends Fragment {
     private String personname;
     private String stationname;
     private Button buttonStationFinishedback;
+    private TextView textViewStationFinishedTime;
     private TextView textViewStationFinishedMinHR;
     private TextView textViewStationFinishedMaxHR;
     private TextView textViewStationFinishedAvgHR;
@@ -42,12 +52,46 @@ public class StationFinishedFragment extends Fragment {
         View view = inflater.inflate(R.layout.stationfinished, container, false);
         textViewStationFinishedPersonName = (TextView) view.findViewById(R.id.textViewStationFinishedPersonName);
         textViewStationFinishedStationName = (TextView) view.findViewById(R.id.textViewStationFinishedStationName);
+        textViewStationFinishedTime = (TextView) view.findViewById(R.id.textViewStationFinishedTime);
         textViewStationFinishedMinHR = (TextView) view.findViewById(R.id.textViewStationFinishedMinHR);
         textViewStationFinishedMaxHR = (TextView) view.findViewById(R.id.textViewStationFinishedMaxHR);
         textViewStationFinishedAvgHR = (TextView) view.findViewById(R.id.textViewStationFinishedAvgHR);
+        buttonStationFinishedback = (Button) view.findViewById(R.id.buttonStationFinishedback);
         personname = StationTrackingData.getPersonname();
         stationname = StationTrackingData.getActualStation();
+        textViewStationFinishedStationName.setText(""+stationname);
+        textViewStationFinishedPersonName.setText(""+personname);
+        textViewStationFinishedTime.setText(StopWatchService.getStopwatch().getTimeinString());
 
+        switch (stationname) {
+            case STATIONONE:
+                textViewStationFinishedStationName.setText(R.string.station_one_name);
+                break;
+
+            case STATIONTWO:
+                textViewStationFinishedStationName.setText(R.string.station_two_name);
+                break;
+
+            case STATIONTHREE:
+                textViewStationFinishedStationName.setText(R.string.station_three_name);
+                break;
+
+            case STATIONFOUR:
+                textViewStationFinishedStationName.setText(R.string.station_four_name);
+                break;
+
+            case STATIONFIVE:
+                textViewStationFinishedStationName.setText(R.string.station_five_name);
+                break;
+
+            case PRAETEST:
+                textViewStationFinishedStationName.setText(R.string.station_praetest);
+                break;
+
+            case POSTTEST:
+                textViewStationFinishedStationName.setText(R.string.station_posttest);
+                break;
+        }
         new AsyncTask<Void, Void, List<SensorData>>() {
             @Override
             protected void onPostExecute(List<SensorData> sensorDataList) {

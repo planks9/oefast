@@ -44,13 +44,13 @@ public class StationRecordingFragment extends Fragment {
     private TextView textViewRecordingConnected;
     private Button buttonRecordingStop;
 
-    private StopWatchService stopWatchService;
+    private  StopWatchService stopWatchService;
 
     public StationRecordingFragment() {
         stopWatchService = StopWatchService.getInstance();
     }
 
-    public StopWatchService getStopWatchService() {
+    public  StopWatchService getStopWatchService() {
         return stopWatchService;
     }
 
@@ -87,43 +87,43 @@ public class StationRecordingFragment extends Fragment {
 
         switch (stationName) {
             case STATIONONE:
-                textViewRecordingPersonName.setText(R.string.station_one_name);
+                textViewRecordingStationName.setText(R.string.station_one_name);
                 textViewRecordingStationDescription.setText(R.string.station_one_description);
                 textViewRecordingStationTimeLimit.setText("Zeitlimit: "+getResources().getString(R.string.station_one_timelimit));
                 break;
 
             case STATIONTWO:
-                textViewRecordingPersonName.setText(R.string.station_two_name);
+                textViewRecordingStationName.setText(R.string.station_two_name);
                 textViewRecordingStationDescription.setText(R.string.station_two_description);
                 textViewRecordingStationTimeLimit.setText("Zeitlimit: "+getResources().getString(R.string.station_two_timelimit));
                 break;
 
             case STATIONTHREE:
-                textViewRecordingPersonName.setText(R.string.station_three_name);
+                textViewRecordingStationName.setText(R.string.station_three_name);
                 textViewRecordingStationDescription.setText(R.string.station_three_description);
                 textViewRecordingStationTimeLimit.setText("Zeitlimit: "+getResources().getString(R.string.station_three_timelimit));
                 break;
 
             case STATIONFOUR:
-                textViewRecordingPersonName.setText(R.string.station_four_name);
+                textViewRecordingStationName.setText(R.string.station_four_name);
                 textViewRecordingStationDescription.setText(R.string.station_four_description);
                 textViewRecordingStationTimeLimit.setText("Zeitlimit: "+getResources().getString(R.string.station_four_timelimit));
                 break;
 
             case STATIONFIVE:
-                textViewRecordingPersonName.setText(R.string.station_five_name);
+                textViewRecordingStationName.setText(R.string.station_five_name);
                 textViewRecordingStationDescription.setText(R.string.station_five_description);
                 textViewRecordingStationTimeLimit.setText("Zeitlimit: "+getResources().getString(R.string.station_five_timelimit));
                 break;
 
             case PRAETEST:
-                textViewRecordingPersonName.setText(R.string.station_praetest);
+                textViewRecordingStationName.setText(R.string.station_praetest);
                 textViewRecordingStationDescription.setText(R.string.station_praetest_description);
                 textViewRecordingStationTimeLimit.setText("Zeitlimit: "+getResources().getString(R.string.station_praetest_timelimit));
                 break;
 
             case POSTTEST:
-                textViewRecordingPersonName.setText(R.string.station_posttest);
+                textViewRecordingStationName.setText(R.string.station_posttest);
                 textViewRecordingStationDescription.setText(R.string.station_posttest_description);
                 textViewRecordingStationTimeLimit.setText("Zeitlimit: "+getResources().getString(R.string.station_posttest_timelimit));
                 break;

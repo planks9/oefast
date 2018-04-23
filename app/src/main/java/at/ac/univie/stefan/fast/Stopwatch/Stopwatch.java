@@ -38,4 +38,25 @@ public class Stopwatch {
         }
         return stopTime - startTime;
     }
+
+    public String getTimeinString () {
+        long timeelapsedinsec = getTimeElapsedinSec();
+        int mins = (int) timeelapsedinsec / 60;
+        int secs = (int) timeelapsedinsec - mins * 60;
+        String back = "";
+        if ((mins<10) && (secs<10)) {
+            back="0" + mins + ":0" + secs;
+        }
+        else if ((mins<10) && (secs>9)) {
+            back="0" + mins + ":" + secs;
+        }
+        else if ((mins>9) && (secs<10)) {
+            back=mins + ":0" + secs;
+        }
+        else if ((mins>9) && (secs>9)) {
+            back=mins + ":" + secs;
+        }
+
+        return back;
+    }
 }

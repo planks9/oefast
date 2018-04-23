@@ -51,21 +51,7 @@ public class StopWatchService extends Handler {
                 break;
 
             case MSG_UPDATE_TIMER: {
-                long timeelapsedinsec = stopwatch.getTimeElapsedinSec();
-                int mins = (int) timeelapsedinsec / 60;
-                int secs = (int) timeelapsedinsec - mins * 60;
-                if ((mins<10) && (secs<10)) {
-                    textViewtimedisplay.setText("0" + mins + ":0" + secs);
-                }
-                else if ((mins<10) && (secs>9)) {
-                    textViewtimedisplay.setText("0" + mins + ":" + secs);
-                }
-                else if ((mins>9) && (secs<10)) {
-                    textViewtimedisplay.setText(mins + ":0" + secs);
-                }
-                else if ((mins>9) && (secs>9)) {
-                    textViewtimedisplay.setText(mins + ":" + secs);
-                }
+                textViewtimedisplay.setText(stopwatch.getTimeinString());
 
                 this.sendEmptyMessageDelayed(MSG_UPDATE_TIMER, REFRESH_RATE_OF_UI_WATCH);
             }
