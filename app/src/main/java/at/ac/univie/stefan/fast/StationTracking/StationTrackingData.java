@@ -12,6 +12,8 @@ public class StationTrackingData {
     public static final String STATIONTHREE="StationThree";
     public static final String STATIONFOUR="StationFour";
     public static final String STATIONFIVE="StationFive";
+    public static final String PRAETEST="PRAETEST";
+    public static final String POSTTEST="POSTTEST";
 
 
 

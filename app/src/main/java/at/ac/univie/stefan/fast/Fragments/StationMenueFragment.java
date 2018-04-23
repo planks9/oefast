@@ -18,6 +18,8 @@ import at.ac.univie.stefan.fast.BluetoothMessageHandler;
 import at.ac.univie.stefan.fast.R;
 import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
 
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.POSTTEST;
+import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.PRAETEST;
 import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONFIVE;
 import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONFOUR;
 import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATIONONE;
@@ -37,7 +39,9 @@ public class StationMenueFragment extends Fragment {
     Button buttonStationThree;
     Button buttonStationFour;
     Button buttonStationFive;
-    Button buttonGesamtstatistik;
+    Button buttonPraeTest;
+    Button buttonPostTest;
+    //Button buttonGesamtstatistik;
     Button buttonBerichtStationOne;
     Button buttonBerichtStationTwo;
     Button buttonBerichtStationThree;
@@ -58,7 +62,9 @@ public class StationMenueFragment extends Fragment {
         buttonStationThree = (Button) view.findViewById(R.id.buttonStationThree);
         buttonStationFour = (Button) view.findViewById(R.id.buttonStationFour);
         buttonStationFive = (Button) view.findViewById(R.id.buttonStationFive);
-        buttonGesamtstatistik = (Button) view.findViewById(R.id.buttonGesamtstatistik);
+        buttonPraeTest = (Button) view.findViewById(R.id.buttonPraeTest);
+        buttonPostTest = (Button) view.findViewById(R.id.buttonPostTest);
+        //buttonGesamtstatistik = (Button) view.findViewById(R.id.buttonGesamtstatistik);
         buttonBerichtStationOne = (Button) view.findViewById(R.id.buttonBerichtStationOne);
         buttonBerichtStationTwo = (Button) view.findViewById(R.id.buttonBerichtStationTwo);
         buttonBerichtStationThree = (Button) view.findViewById(R.id.buttonBerichtStationThree);
@@ -76,15 +82,12 @@ public class StationMenueFragment extends Fragment {
 
 
         buttonStationOne.setOnClickListener(onClickListener);
-
         buttonStationTwo.setOnClickListener(onClickListener);
-
         buttonStationThree.setOnClickListener(onClickListener);
-
         buttonStationFour.setOnClickListener(onClickListener);
-
         buttonStationFive.setOnClickListener(onClickListener);
-
+        buttonPraeTest.setOnClickListener(onClickListener);
+        buttonPostTest.setOnClickListener(onClickListener);
         buttonendEndDurchlauf.setOnClickListener(onClickListener);
 
 
@@ -113,9 +116,11 @@ public class StationMenueFragment extends Fragment {
             else if (view.getId()==buttonStationFive.getId()) {
                 StationTrackingData.setActualStation(STATIONFIVE);
             }
-
-            else {
-                Log.e(StationMenueFragment.class.getSimpleName(),"Could not map button press");
+            else if (view.getId()==buttonPraeTest.getId()) {
+                StationTrackingData.setActualStation(PRAETEST);
+            }
+            else if (view.getId()==buttonPostTest.getId()) {
+                StationTrackingData.setActualStation(POSTTEST);
             }
 
             //Handle next step to be made

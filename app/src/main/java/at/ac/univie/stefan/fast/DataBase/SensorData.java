@@ -19,6 +19,7 @@ public class SensorData {
     private int rrinterval;
     private String person;
     private String stationname;
+    private boolean isconnected;
 
     public long getTimestamp() {
         return timestamp;
@@ -29,12 +30,13 @@ public class SensorData {
     }
 
     @Ignore
-    public SensorData(long timestamp, String person, String stationname, int heartrate, int rrinterval) {
+    public SensorData(long timestamp, String person, String stationname, int heartrate, int rrinterval, boolean isconnected) {
         this.timestamp = timestamp;
         this.heartrate = heartrate;
         this.rrinterval = rrinterval;
         this.person = person;
         this.stationname = stationname;
+        this.isconnected = isconnected;
     }
 
     public void setTimestamp(long timestamp) {
@@ -79,5 +81,13 @@ public class SensorData {
 
     public void setStationname(String stationname) {
         this.stationname = stationname;
+    }
+
+    public boolean isIsconnected() {
+        return isconnected;
+    }
+
+    public void setIsconnected(boolean isconnected) {
+        this.isconnected = isconnected;
     }
 }

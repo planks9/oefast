@@ -24,6 +24,9 @@ public interface SensorDataDao {
     @Query("SELECT * FROM sensordata WHERE person LIKE :name")
     List<SensorData> findbyPersonName (String name);
 
+    @Query("SELECT * FROM sensordata WHERE person LIKE :personname AND stationname = :stationname AND isconnected=true")
+    List<SensorData> findbyPersonNameandStationName (String personname, String stationname);
+
     @Insert
     void insertAll(List<SensorData> sensorDataList);
 

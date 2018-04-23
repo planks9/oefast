@@ -174,7 +174,7 @@ public class ConnectToMonitorActivity extends AppCompatActivity {
                     System.out.println("Write to DataBase");
                     StopWatchService stopWatchService = StopWatchService.getInstance();
                     long timestamp = StopWatchService.getStopwatch().getTimeElapsedinSec();
-                    appDatabase.sensorDataDao().insertSensorData(new SensorData(timestamp, StationTrackingData.getPersonname(), StationTrackingData.getActualStation(), hrValue, rrValue));
+                    appDatabase.sensorDataDao().insertSensorData(new SensorData(timestamp, StationTrackingData.getPersonname(), StationTrackingData.getActualStation(), hrValue, rrValue, sensorContactFinal));
                 }
 
 

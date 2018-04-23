@@ -20,4 +20,12 @@
     <string name="station_five_description">C-Schlauch rollen</string>
     <string name="station_five_timelimit">2</string>
 
+    <string name="station_praetest">Vortest</string>
+    <string name="station_praetest_description"></string>
+    <string name="station_praetest_timelimit">2</string>
+
+    <string name="station_posttest">Nachtest</string>
+    <string name="station_posttest_description"></string>
+    <string name="station_posttest_timelimit">2</string>
+
 </resources>
