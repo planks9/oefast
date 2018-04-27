@@ -46,7 +46,8 @@ public class ConnectToMonitorActivity extends AppCompatActivity {
     private BluetoothAdapter bluetoothAdapter;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-    AppDatabase appDatabase;
+    private AppDatabase appDatabase;
+    private int currentrrintervall;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,10 +146,9 @@ public class ConnectToMonitorActivity extends AppCompatActivity {
                     // note does this apply to all sensors, also 3rd party
                     sensorContact = false;
                 }
-                final boolean sensorContactFinal = sensorContact;
+                boolean sensorContactFinal = sensorContact;
 
-                Message newconnection = BluetoothMessageHandler.getInstance().getHandler().obtainMessage(MESSAGEIDCONNECTION, sensorContactFinal);
-                newconnection.sendToTarget();
+
                 int offset = hrFormat + 2;
                 int energy = 0;
                 if (energyExpended == 1) {
@@ -160,14 +160,17 @@ public class ConnectToMonitorActivity extends AppCompatActivity {
                 if (rrPresent == 1) {
                     int len = data.length;
                     while (offset < len) {
-                        int rrValuew = (int) ((data[offset] & 0xFF) + ((data[offset + 1] & 0xFF) << 8));
-                        rrValue=rrValuew;
+                        rrValue = (int) ((data[offset] & 0xFF) + ((data[offset + 1] & 0xFF) << 8));
                         Message newrr = BluetoothMessageHandler.getInstance().getHandler().obtainMessage(MESSAGEIDRRVALUE, rrValue);
                         newrr.sendToTarget();
                         offset += 2;
                         rrs.add(rrValue);
+                        if (currentrrintervall == rrValue) sensorContactFinal = false;
+                        currentrrintervall = rrValue;
                     }
                 }
+                Message connectionstate = BluetoothMessageHandler.getInstance().getHandler().obtainMessage(MESSAGEIDCONNECTION, sensorContactFinal);
+                connectionstate.sendToTarget();
 
 
                 if (StationTrackingData.isIsrecording()) {

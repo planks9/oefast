@@ -1,5 +1,6 @@
 package at.ac.univie.stefan.fast.Fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -81,6 +82,9 @@ public class StationRecordingFragment extends Fragment {
 
             }
         });
+
+        textViewRecordingConnected.setText("getrennt");
+        textViewRecordingConnected.setTextColor(Color.RED);
 
         textViewRecordingPersonName.setText(StationTrackingData.getPersonname());
 

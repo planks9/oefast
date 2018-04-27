@@ -96,20 +96,23 @@ public class StationFinishedFragment extends Fragment {
             @Override
             protected void onPostExecute(List<SensorData> sensorDataList) {
                 int i=0;
-                int max=sensorDataList.get(0).getHeartrate();
-                int min=sensorDataList.get(0).getHeartrate();
                 int sum=0;
                 int avg=0;
-                System.out.println("Size : "+sensorDataList.size());
-                for (SensorData currenSensordata : sensorDataList) {
-                    i++;
-                    int currentheartrate = currenSensordata.getHeartrate();
-                    sum+= currentheartrate;
-                    if (currentheartrate<min) min = currentheartrate;
-                    if (currentheartrate>max) max = currentheartrate;
-                }
+                int max=0;
+                int min=0;
+                if (sensorDataList.size()>0) {
+                    max = sensorDataList.get(0).getHeartrate();
+                    min = sensorDataList.get(0).getHeartrate();
+                    for (SensorData currenSensordata : sensorDataList) {
+                        i++;
+                        int currentheartrate = currenSensordata.getHeartrate();
+                        sum += currentheartrate;
+                        if (currentheartrate < min) min = currentheartrate;
+                        if (currentheartrate > max) max = currentheartrate;
+                    }
 
-                avg = sum/i;
+                    avg = sum / i;
+                }
                 textViewStationFinishedMinHR.setText(""+min);
                 textViewStationFinishedMaxHR.setText(""+max);
                 textViewStationFinishedAvgHR.setText(""+avg);

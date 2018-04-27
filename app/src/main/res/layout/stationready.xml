@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="60dp"
-            android:text="70"
+            android:text="0"
             android:textSize="36sp" />
     </TableRow>
 
@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
-            android:text="70"
+            android:text="0"
             android:textSize="36sp" />
         <TextView
             android:id="@+id/textView4"

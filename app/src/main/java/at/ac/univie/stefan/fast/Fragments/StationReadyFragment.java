@@ -1,6 +1,7 @@
 package at.ac.univie.stefan.fast.Fragments;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -69,7 +70,8 @@ public class StationReadyFragment extends Fragment {
 
             }
         });
-        textViewconnectionState.setText("waiting...");
+        textViewconnectionState.setText("getrennt");
+        textViewconnectionState.setTextColor(Color.RED);
         textViewPersonName.setText(StationTrackingData.getPersonname());
 
         switch (stationName) {

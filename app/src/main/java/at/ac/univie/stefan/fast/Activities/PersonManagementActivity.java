@@ -60,6 +60,10 @@ public class PersonManagementActivity extends AppCompatActivity {
                 }
                 ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, nameList);
                 listView.setAdapter(itemsAdapter);
+                System.out.println(nameList.size());
+                for (String name:nameList) {
+                    System.out.println(name);
+                }
             }
         }.execute();
 
