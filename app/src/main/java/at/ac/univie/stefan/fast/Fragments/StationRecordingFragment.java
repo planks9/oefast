@@ -94,30 +94,38 @@ public class StationRecordingFragment extends Fragment {
                 textViewRecordingStationName.setText(R.string.station_one_name);
                 textViewRecordingStationDescription.setText(R.string.station_one_description);
                 textViewRecordingStationTimeLimit.setText("Zeitlimit: "+getResources().getString(R.string.station_one_timelimit));
+                stopWatchService.setTimelimit(getResources().getString(R.string.station_one_timelimit));
                 break;
 
             case STATIONTWO:
                 textViewRecordingStationName.setText(R.string.station_two_name);
                 textViewRecordingStationDescription.setText(R.string.station_two_description);
                 textViewRecordingStationTimeLimit.setText("Zeitlimit: "+getResources().getString(R.string.station_two_timelimit));
+                stopWatchService.setTimelimit(getResources().getString(R.string.station_two_timelimit));
+
                 break;
 
             case STATIONTHREE:
                 textViewRecordingStationName.setText(R.string.station_three_name);
                 textViewRecordingStationDescription.setText(R.string.station_three_description);
                 textViewRecordingStationTimeLimit.setText("Zeitlimit: "+getResources().getString(R.string.station_three_timelimit));
+                stopWatchService.setTimelimit(getResources().getString(R.string.station_three_timelimit));
+
                 break;
 
             case STATIONFOUR:
                 textViewRecordingStationName.setText(R.string.station_four_name);
                 textViewRecordingStationDescription.setText(R.string.station_four_description);
                 textViewRecordingStationTimeLimit.setText("Zeitlimit: "+getResources().getString(R.string.station_four_timelimit));
+                stopWatchService.setTimelimit(getResources().getString(R.string.station_four_timelimit));
+
                 break;
 
             case STATIONFIVE:
                 textViewRecordingStationName.setText(R.string.station_five_name);
                 textViewRecordingStationDescription.setText(R.string.station_five_description);
                 textViewRecordingStationTimeLimit.setText("Zeitlimit: "+getResources().getString(R.string.station_five_timelimit));
+                stopWatchService.setTimelimit(getResources().getString(R.string.station_five_timelimit));
                 break;
 
             case PRAETEST:

@@ -1,5 +1,6 @@
 package at.ac.univie.stefan.fast.Stopwatch;
 
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.TextView;
@@ -13,10 +14,17 @@ public class StopWatchService extends Handler {
     public static final int MSG_START_TIMER = 0;
     public static final int MSG_STOP_TIMER = 1;
     public static final int MSG_UPDATE_TIMER = 2;
+    public static final int MSG_TimeLimitisNEAR = 3;
+    public static final int MSG_TimeOver = 4;
+    public static final int MSG_RESET_Color = 5;
     public static final int REFRESH_RATE_OF_UI_WATCH=500;
+
     private static Stopwatch stopwatch;
     private TextView textViewtimedisplay;
     private static StopWatchService instance;
+
+
+    private long timelimit=1000;
 
     private StopWatchService () {
         stopwatch = new Stopwatch();
@@ -52,6 +60,8 @@ public class StopWatchService extends Handler {
 
             case MSG_UPDATE_TIMER: {
                 textViewtimedisplay.setText(stopwatch.getTimeinString());
+                if (stopwatch.getTimeElapsedinSec()>timelimit) this.sendEmptyMessage(MSG_TimeOver);
+                else if (stopwatch.getTimeElapsedinSec()>timelimit - 30) this.sendEmptyMessage(MSG_TimeLimitisNEAR);
 
                 this.sendEmptyMessageDelayed(MSG_UPDATE_TIMER, REFRESH_RATE_OF_UI_WATCH);
             }
@@ -77,10 +87,25 @@ public class StopWatchService extends Handler {
             }
             break;
 
+            case MSG_TimeLimitisNEAR: {
+                textViewtimedisplay.setTextColor(Color.rgb(253,95,0));
+                break;
+            }
+
+            case MSG_TimeOver: {
+                textViewtimedisplay.setTextColor(Color.RED);
+                break;
+            }
+
+            case MSG_RESET_Color: {
+                textViewtimedisplay.setTextColor(Color.BLACK);
+            }
+
             default:
                 break;
         }
     }
+
 
     public void stopTimer () {
         this.sendEmptyMessage(MSG_STOP_TIMER);
@@ -88,6 +113,12 @@ public class StopWatchService extends Handler {
 
     public void startTimer () {
         this.sendEmptyMessage(MSG_START_TIMER);
+    }
+
+    public void setTimelimit(String timelimitinMinutes) {
+        double timelimitinminutes = Double.parseDouble(timelimitinMinutes);
+        this.timelimit = (long) (timelimitinminutes * 60);
+        System.out.println(this.timelimit);
     }
 
 

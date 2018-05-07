@@ -6,7 +6,7 @@
 
     <string name="station_two_name">Station 2</string>
     <string name="station_two_description">Stufen hinauf- und hintersteigen</string>
-    <string name="station_two_timelimit">3,5</string>
+    <string name="station_two_timelimit">3.5</string>
 
     <string name="station_three_name">Station 3</string>
     <string name="station_three_description">100 m gehen mit 2 Kanistern</string>

@@ -39,7 +39,7 @@ public class SearchForDevicesActivity extends AppCompatActivity {
     /**
      * Receiver to catch new found BluetoothDevices
      */
-    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+    /*private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
@@ -49,7 +49,7 @@ public class SearchForDevicesActivity extends AppCompatActivity {
 
             }
         }
-    };
+    }; */
 
 
     @Override
@@ -67,7 +67,7 @@ public class SearchForDevicesActivity extends AppCompatActivity {
         deviceArrayList = new ArrayList<BluetoothDevice>();
         bluetoothAdapter = BluetoothAdapterSingleton.getBluetoothAdapter();
 
-        buttonsearchfornewDevices.setOnClickListener(new View.OnClickListener() {
+        /*buttonsearchfornewDevices.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Starting Searching for new BluetoothDevices");
@@ -80,7 +80,7 @@ public class SearchForDevicesActivity extends AppCompatActivity {
 
 
             }
-        });
+        }); */
 
         checkifDevicehasBluetooth();
         enableBluetooth();

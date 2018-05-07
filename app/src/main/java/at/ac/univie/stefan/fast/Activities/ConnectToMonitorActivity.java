@@ -47,7 +47,6 @@ public class ConnectToMonitorActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private AppDatabase appDatabase;
-    private int currentrrintervall;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +82,7 @@ public class ConnectToMonitorActivity extends AppCompatActivity {
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
             Log.d(TAG, "onConnectionStateChange");
-            Log.d(TAG, "Status" + status + "newState" + newState + "");
+            Log.d(TAG, "Status " + status + "newState " + newState + "");
             super.onConnectionStateChange(gatt, status, newState);
             if (newState == BluetoothGatt.STATE_CONNECTED && status == BluetoothGatt.GATT_SUCCESS) {
                 gatt.discoverServices();
@@ -165,8 +164,6 @@ public class ConnectToMonitorActivity extends AppCompatActivity {
                         newrr.sendToTarget();
                         offset += 2;
                         rrs.add(rrValue);
-                        if (currentrrintervall == rrValue) sensorContactFinal = false;
-                        currentrrintervall = rrValue;
                     }
                 }
                 Message connectionstate = BluetoothMessageHandler.getInstance().getHandler().obtainMessage(MESSAGEIDCONNECTION, sensorContactFinal);
