@@ -63,8 +63,7 @@ public class SetNameActivity extends AppCompatActivity {
                 final String personname = editTextName.getText().toString();
                 StationTrackingData.setPersonname(personname);
                 int age = Integer.parseInt(spinnerage.getSelectedItem().toString());
-                //207-0.7*age
-                double maxhrindouble = 150-0.7*age;
+                double maxhrindouble = 207-0.7*age;
                 StationTrackingData.setMaxhr(((int) maxhrindouble));
 
 

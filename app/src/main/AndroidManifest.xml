@@ -16,6 +16,9 @@
         <activity android:name=".Activities.SearchForDevicesActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".Activities.ResultsActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity android:name=".Activities.SetNameActivity"
             android:screenOrientation="portrait">
         </activity>

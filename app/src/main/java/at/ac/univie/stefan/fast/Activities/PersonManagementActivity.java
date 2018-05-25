@@ -5,18 +5,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import at.ac.univie.stefan.fast.DataBase.AppDatabase;
 import at.ac.univie.stefan.fast.DataBase.AppDatabasePersonData;
 import at.ac.univie.stefan.fast.DataBase.DataBaseCreator;
 import at.ac.univie.stefan.fast.DataBase.PersonData;
-import at.ac.univie.stefan.fast.DataBase.SensorData;
 import at.ac.univie.stefan.fast.PersonDataArrayAdapter;
 import at.ac.univie.stefan.fast.R;
 
@@ -53,16 +50,16 @@ public class PersonManagementActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(List<PersonData> personDataList) {
+                nameList = new ArrayList<String>();
                 if (!personDataList.isEmpty()) {
-                    nameList = new ArrayList<String>();
-                }
-                System.out.println("Persondatalength: "+personDataList.size());
 
-                for (PersonData personData: personDataList) {
-                    nameList.add(personData.getPersonname());
+
+                    for (PersonData personData : personDataList) {
+                        nameList.add(personData.getPersonname());
+                    }
                 }
 
-                System.out.println("namelistsize: "+nameList.size());
+
                 PersonDataArrayAdapter arrayAdapter = new PersonDataArrayAdapter(getApplicationContext(), personDataList);
                 listView.setAdapter(arrayAdapter);
             }
@@ -79,10 +76,7 @@ public class PersonManagementActivity extends AppCompatActivity {
         });
 
 
-
     }
-
-
 
 
 }

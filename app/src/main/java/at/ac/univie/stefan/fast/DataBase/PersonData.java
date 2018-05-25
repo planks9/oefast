@@ -11,7 +11,7 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity
 public class PersonData {
     @PrimaryKey(autoGenerate = true)
-    private int primarykey;
+    private long primarykey;
 
     private String personname;
 
@@ -169,11 +169,11 @@ public class PersonData {
         this.stationfiveavhr = stationfiveavhr;
     }
 
-    public int getPrimarykey() {
+    public long getPrimarykey() {
         return primarykey;
     }
 
-    public void setPrimarykey(int primarykey) {
+    public void setPrimarykey(long primarykey) {
         this.primarykey = primarykey;
     }
 }
