@@ -5,8 +5,8 @@ package at.ac.univie.stefan.fast.Stopwatch;
  */
 
 public class Stopwatch {
-    private long startTime;
-    private long stopTime;
+    private double startTime;
+    private double stopTime;
     private boolean isRunning;
 
     public Stopwatch () {
@@ -25,14 +25,14 @@ public class Stopwatch {
         isRunning = false;
     }
 
-    public long getTimeElapsedinSec () {
+    public double getTimeElapsedinSec () {
         if (isRunning) {
             return (System.currentTimeMillis() - startTime) / 1000;
         }
         return (stopTime-startTime) / 1000;
     }
 
-    public long getTimeElapsedinMilSec () {
+    public double getTimeElapsedinMilSec () {
         if (isRunning) {
             return System.currentTimeMillis() - startTime;
         }
@@ -40,7 +40,7 @@ public class Stopwatch {
     }
 
     public String getTimeinString () {
-        long timeelapsedinsec = getTimeElapsedinSec();
+        double timeelapsedinsec = getTimeElapsedinSec();
         int mins = (int) timeelapsedinsec / 60;
         int secs = (int) timeelapsedinsec - mins * 60;
         String back = "";

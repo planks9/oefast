@@ -24,7 +24,7 @@ public class StopWatchService extends Handler {
     private static StopWatchService instance;
 
 
-    private long timelimit=1000;
+    private double timelimit=1000;
 
     private StopWatchService () {
         stopwatch = new Stopwatch();
@@ -69,7 +69,7 @@ public class StopWatchService extends Handler {
             case MSG_STOP_TIMER: {
                 this.removeMessages(MSG_UPDATE_TIMER); // no more updates.
                 stopwatch.stop();//stop timer
-                long timeelapsedinsec = stopwatch.getTimeElapsedinSec();
+                double timeelapsedinsec = stopwatch.getTimeElapsedinSec();
                 int mins = (int) timeelapsedinsec / 60;
                 int secs = (int) timeelapsedinsec - mins * 60;
                 if ((mins<10) && (secs<10)) {
@@ -88,7 +88,7 @@ public class StopWatchService extends Handler {
             break;
 
             case MSG_TimeLimitisNEAR: {
-                textViewtimedisplay.setTextColor(Color.rgb(253,95,0));
+                textViewtimedisplay.setTextColor(Color.rgb(255,165,0));
                 break;
             }
 

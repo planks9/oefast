@@ -14,14 +14,14 @@ public class SensorData {
     @PrimaryKey(autoGenerate = true)
     private int primarykey;
 
-    private long timestamp;
+    private double timestamp;
     private int heartrate;
     private int rrinterval;
     private String person;
     private String stationname;
     private boolean isconnected;
 
-    public long getTimestamp() {
+    public double getTimestamp() {
         return timestamp;
     }
 
@@ -30,7 +30,7 @@ public class SensorData {
     }
 
     @Ignore
-    public SensorData(long timestamp, String person, String stationname, int heartrate, int rrinterval, boolean isconnected) {
+    public SensorData(double timestamp, String person, String stationname, int heartrate, int rrinterval, boolean isconnected) {
         this.timestamp = timestamp;
         this.heartrate = heartrate;
         this.rrinterval = rrinterval;
@@ -39,7 +39,7 @@ public class SensorData {
         this.isconnected = isconnected;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(double timestamp) {
         this.timestamp = timestamp;
     }
 

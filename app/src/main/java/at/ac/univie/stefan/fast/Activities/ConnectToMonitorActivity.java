@@ -62,7 +62,7 @@ public class ConnectToMonitorActivity extends AppCompatActivity {
         bluetoothDevice = bluetoothAdapter.getRemoteDevice(intent.getStringExtra(MACADRESSBLUETOOTHDEVICE));
 
         //Start DataBaseConnection
-        //DataBaseCreator.createnewDataBase(context);
+        DataBaseCreator.createnewDataBase(context);
         appDatabase=DataBaseCreator.getDataBase();
 
         bluetoothDevice.connectGatt(context, false, bluetoothGattCallback);
@@ -173,7 +173,7 @@ public class ConnectToMonitorActivity extends AppCompatActivity {
                 if (StationTrackingData.isIsrecording()) {
                     System.out.println("Write to DataBase");
                     StopWatchService stopWatchService = StopWatchService.getInstance();
-                    long timestamp = StopWatchService.getStopwatch().getTimeElapsedinSec();
+                    double timestamp = StopWatchService.getStopwatch().getTimeElapsedinSec();
                     appDatabase.sensorDataDao().insertSensorData(new SensorData(timestamp, StationTrackingData.getPersonname(), StationTrackingData.getActualStation(), hrValue, rrValue, sensorContactFinal));
                 }
 

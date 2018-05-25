@@ -7,6 +7,8 @@ import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
 
+import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
+
 import static at.ac.univie.stefan.fast.Activities.ConnectToMonitorActivity.MESSAGEIDCONNECTION;
 import static at.ac.univie.stefan.fast.Activities.ConnectToMonitorActivity.MESSAGEIDHRVALUE;
 import static at.ac.univie.stefan.fast.Activities.ConnectToMonitorActivity.MESSAGEIDRRVALUE;
@@ -41,6 +43,11 @@ public class BluetoothMessageHandler extends Handler {
                         if (!textviewidhravailibel) break;
                         int hrvalue = (int) msg.obj;
                         hr.setText(""+hrvalue);
+                        if (hrvalue> StationTrackingData.getMaxhr()) {
+                            hr.setTextColor(Color.RED);
+                        } else if (hrvalue>StationTrackingData.getMaxhr()-20) {
+                            hr.setTextColor(Color.rgb(255,165,0));
+                        } else hr.setTextColor(Color.DKGRAY);
                         break;
                     case MESSAGEIDRRVALUE:
                         if (!textviewidrravailible) break;

@@ -15,7 +15,9 @@ import android.widget.TextView;
 import java.util.List;
 
 import at.ac.univie.stefan.fast.DataBase.AppDatabase;
+import at.ac.univie.stefan.fast.DataBase.AppDatabasePersonData;
 import at.ac.univie.stefan.fast.DataBase.DataBaseCreator;
+import at.ac.univie.stefan.fast.DataBase.PersonData;
 import at.ac.univie.stefan.fast.DataBase.SensorData;
 import at.ac.univie.stefan.fast.R;
 import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
@@ -37,6 +39,7 @@ public class StationFinishedFragment extends Fragment {
 
     private String personname;
     private String stationname;
+    private String timeelapsed;
     private Button buttonStationFinishedback;
     private TextView textViewStationFinishedTime;
     private TextView textViewStationFinishedMinHR;
@@ -61,7 +64,8 @@ public class StationFinishedFragment extends Fragment {
         stationname = StationTrackingData.getActualStation();
         textViewStationFinishedStationName.setText(""+stationname);
         textViewStationFinishedPersonName.setText(""+personname);
-        textViewStationFinishedTime.setText(StopWatchService.getStopwatch().getTimeinString());
+        timeelapsed = StopWatchService.getStopwatch().getTimeinString();
+        textViewStationFinishedTime.setText(timeelapsed);
 
         switch (stationname) {
             case STATIONONE:
@@ -93,6 +97,9 @@ public class StationFinishedFragment extends Fragment {
                 break;
         }
         new AsyncTask<Void, Void, List<SensorData>>() {
+
+            AppDatabasePersonData appDatabasePersonData;
+            PersonData personData;
             @Override
             protected void onPostExecute(List<SensorData> sensorDataList) {
                 int i=0;
@@ -116,15 +123,68 @@ public class StationFinishedFragment extends Fragment {
                 textViewStationFinishedMinHR.setText(""+min);
                 textViewStationFinishedMaxHR.setText(""+max);
                 textViewStationFinishedAvgHR.setText(""+avg);
+
+
+                switch (StationTrackingData.getActualStation()) {
+                    case STATIONONE:
+                        personData.setStationonetime(timeelapsed);
+                        personData.setStationoneavhr(avg);
+                        personData.setStationonemaxhr(max);
+                        break;
+
+                    case STATIONTWO:
+                        personData.setStationtwotime(timeelapsed);
+                        personData.setStationtwoavhr(avg);
+                        personData.setStationtwomaxhr(max);
+                        break;
+
+                    case STATIONTHREE:
+                        personData.setStationthreetime(timeelapsed);
+                        personData.setStationthreeavhr(avg);
+                        personData.setStationthreemaxhr(max);
+                        break;
+
+                    case STATIONFOUR:
+                        personData.setStationfourtime(timeelapsed);
+                        personData.setStationfouravhr(avg);
+                        personData.setStationfourmaxhr(max);
+                        break;
+
+                    case STATIONFIVE:
+                        personData.setStationfivetime(timeelapsed);
+                        personData.setStationfiveavhr(avg);
+                        personData.setStationfivemaxhr(max);
+                        break;
+
+                    default: break;
+                }
+
+                new AsyncTask<Void, Void, Void>() {
+
+
+                    @Override
+                    protected Void doInBackground(Void... voids) {
+                        appDatabasePersonData.personDataDao().updatePerson(personData);
+
+                    return null;
+                    }
+                }.execute();
+
+
+
             }
 
             @Override
             protected List<SensorData> doInBackground(Void... voids) {
                 AppDatabase appDatabase = DataBaseCreator.getDataBase();
+                appDatabasePersonData = DataBaseCreator.getAppDatabasePersonData();
+                personData = appDatabasePersonData.personDataDao().getPersonbyID(StationTrackingData.getPrimarykeypersondata());
                 return appDatabase.sensorDataDao().findbyPersonNameandStationName(personname,stationname);
             }
 
         }.execute();
+
+
 
         buttonStationFinishedback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,5 +222,6 @@ public class StationFinishedFragment extends Fragment {
                 }
             }
         });
+
     }
 }

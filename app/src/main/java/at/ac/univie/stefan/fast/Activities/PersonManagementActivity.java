@@ -13,8 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import at.ac.univie.stefan.fast.DataBase.AppDatabase;
+import at.ac.univie.stefan.fast.DataBase.AppDatabasePersonData;
 import at.ac.univie.stefan.fast.DataBase.DataBaseCreator;
+import at.ac.univie.stefan.fast.DataBase.PersonData;
 import at.ac.univie.stefan.fast.DataBase.SensorData;
+import at.ac.univie.stefan.fast.PersonDataArrayAdapter;
 import at.ac.univie.stefan.fast.R;
 
 /**
@@ -23,7 +26,7 @@ import at.ac.univie.stefan.fast.R;
 
 public class PersonManagementActivity extends AppCompatActivity {
 
-    private AppDatabase appDatabase;
+    private AppDatabasePersonData appDatabasePersonData;
     private ListView listView;
     private Button buttonnewCycle;
     private ArrayList<String> nameList;
@@ -38,33 +41,32 @@ public class PersonManagementActivity extends AppCompatActivity {
         buttonnewCycle = (Button) findViewById(R.id.buttonpersonmanagementnewcycle);
 
 
-        DataBaseCreator.createnewDataBase(getApplicationContext());
-        appDatabase = DataBaseCreator.getDataBase();
+        DataBaseCreator.createnewDataBasePersonData(getApplicationContext());
+        appDatabasePersonData = DataBaseCreator.getAppDatabasePersonData();
 
-        new AsyncTask<Void, Void, List<SensorData>>() {
+        new AsyncTask<Void, Void, List<PersonData>>() {
 
             @Override
-            protected List<SensorData> doInBackground(Void... voids) {
-                return appDatabase.sensorDataDao().getAll();
+            protected List<PersonData> doInBackground(Void... voids) {
+                return appDatabasePersonData.personDataDao().getAll();
             }
 
             @Override
-            protected void onPostExecute(List<SensorData> sensorDataList) {
-                nameList = new ArrayList<String>();
+            protected void onPostExecute(List<PersonData> personDataList) {
+                if (!personDataList.isEmpty()) {
+                    nameList = new ArrayList<String>();
+                }
+                System.out.println("Persondatalength: "+personDataList.size());
 
-                for (SensorData sensorData : sensorDataList) {
-                    String name = sensorData.getPerson();
-                    if (!nameList.contains(name)) {
-                        nameList.add(name);
-                    }
+                for (PersonData personData: personDataList) {
+                    nameList.add(personData.getPersonname());
                 }
-                ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, nameList);
-                listView.setAdapter(itemsAdapter);
-                System.out.println(nameList.size());
-                for (String name:nameList) {
-                    System.out.println(name);
-                }
+
+                System.out.println("namelistsize: "+nameList.size());
+                PersonDataArrayAdapter arrayAdapter = new PersonDataArrayAdapter(getApplicationContext(), personDataList);
+                listView.setAdapter(arrayAdapter);
             }
+
         }.execute();
 
         buttonnewCycle.setOnClickListener(new View.OnClickListener() {

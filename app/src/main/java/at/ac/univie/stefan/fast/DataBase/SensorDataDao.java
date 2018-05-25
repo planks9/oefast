@@ -19,7 +19,7 @@ public interface SensorDataDao {
     List<SensorData> getAll();
 
     @Query("SELECT * FROM sensordata WHERE timestamp = :time")
-    List<SensorData> findybyTime (long time);
+    List<SensorData> findybyTime (double time);
 
     @Query("SELECT * FROM sensordata WHERE person LIKE :name")
     List<SensorData> findbyPersonName (String name);
