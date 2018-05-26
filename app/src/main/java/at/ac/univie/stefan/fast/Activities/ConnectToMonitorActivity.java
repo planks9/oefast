@@ -22,11 +22,11 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import at.ac.univie.stefan.fast.BluetoothAdapterSingleton;
+import at.ac.univie.stefan.fast.BluetoothMessageHandler;
 import at.ac.univie.stefan.fast.DataBase.AppDatabase;
 import at.ac.univie.stefan.fast.DataBase.DataBaseCreator;
 import at.ac.univie.stefan.fast.DataBase.SensorData;
 import at.ac.univie.stefan.fast.Fragments.StationMenueFragment;
-import at.ac.univie.stefan.fast.BluetoothMessageHandler;
 import at.ac.univie.stefan.fast.R;
 import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
 import at.ac.univie.stefan.fast.Stopwatch.StopWatchService;
@@ -68,7 +68,10 @@ public class ConnectToMonitorActivity extends AppCompatActivity {
         bluetoothDevice.connectGatt(context, false, bluetoothGattCallback);
         Log.d(TAG, "connection established");
 
+
+
     }
+    
 
 
     private BluetoothAdapter.LeScanCallback leScanCallback = new BluetoothAdapter.LeScanCallback() {

@@ -103,56 +103,80 @@ public class StationFinishedFragment extends Fragment {
             @Override
             protected void onPostExecute(List<SensorData> sensorDataList) {
                 int i=0;
-                int sum=0;
-                int avg=0;
+                int sumhr=0;
+                int sumrr=0;
+                int avghr=0;
                 int max=0;
                 int min=0;
+                double sdnnTotal=0;
+                double rmssdTotal = 0;
+
                 if (sensorDataList.size()>0) {
                     max = sensorDataList.get(0).getHeartrate();
                     min = sensorDataList.get(0).getHeartrate();
-                    for (SensorData currenSensordata : sensorDataList) {
+                    for (SensorData currentSensordata : sensorDataList) {
                         i++;
-                        int currentheartrate = currenSensordata.getHeartrate();
-                        sum += currentheartrate;
+                        int currentheartrate = currentSensordata.getHeartrate();
+                        sumhr += currentheartrate;
+                        sumrr += currentSensordata.getRrinterval();
                         if (currentheartrate < min) min = currentheartrate;
-                        if (currentheartrate > max) max = currentheartrate;
                     }
 
-                    avg = sum / i;
+                    int meanrr = sumrr / i;
+                    int rrpreviouse = 0;
+                    avghr = sumhr / i;
+
+                    for (SensorData currentSonsordata : sensorDataList) {
+                        sdnnTotal += Math.pow(currentSonsordata.getRrinterval() - meanrr, 2);
+                        if (rrpreviouse != 0) {
+                            rmssdTotal += Math.pow(currentSonsordata.getRrinterval() - rrpreviouse, 2);
+                        }
+                        rrpreviouse = currentSonsordata.getRrinterval();
+                    }
+
+                    double sdnn = Math.sqrt(sdnnTotal / i - 1);
+                    double rmssd = Math.sqrt(rmssdTotal / i - 1);
+
+
+
+
+
+
+
                 }
                 textViewStationFinishedMinHR.setText(""+min);
                 textViewStationFinishedMaxHR.setText(""+max);
-                textViewStationFinishedAvgHR.setText(""+avg);
+                textViewStationFinishedAvgHR.setText(""+avghr);
 
 
                 switch (StationTrackingData.getActualStation()) {
                     case STATIONONE:
                         personData.setStationonetime(timeelapsed);
-                        personData.setStationoneavhr(avg);
+                        personData.setStationoneavhr(avghr);
                         personData.setStationonemaxhr(max);
                         break;
 
                     case STATIONTWO:
                         personData.setStationtwotime(timeelapsed);
-                        personData.setStationtwoavhr(avg);
+                        personData.setStationtwoavhr(avghr);
                         personData.setStationtwomaxhr(max);
                         break;
 
                     case STATIONTHREE:
                         personData.setStationthreetime(timeelapsed);
-                        personData.setStationthreeavhr(avg);
+                        personData.setStationthreeavhr(avghr);
                         personData.setStationthreemaxhr(max);
                         break;
 
                     case STATIONFOUR:
                         personData.setStationfourtime(timeelapsed);
-                        personData.setStationfouravhr(avg);
+                        personData.setStationfouravhr(avghr);
                         personData.setStationfourmaxhr(max);
                         break;
 
                     case STATIONFIVE:
                         personData.setStationfivetime(timeelapsed);
-                        personData.setStationfiveavhr(avg);
+                        personData.setStationfiveavhr(avghr);
                         personData.setStationfivemaxhr(max);
                         break;
 

@@ -1,10 +1,13 @@
 package at.ac.univie.stefan.fast.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import at.ac.univie.stefan.fast.DataBase.DataBaseCreator;
@@ -35,6 +38,7 @@ public class ResultsActivity extends AppCompatActivity {
     private TextView textViewResultsStationFiveZeit;
     private TextView textViewResultsStationFiveMaxHR;
     private TextView textViewResultsStationFiveAvgHR;
+    private Button buttonResultsback;
 
 
 
@@ -61,6 +65,13 @@ public class ResultsActivity extends AppCompatActivity {
         textViewResultsStationFiveZeit = findViewById(R.id.textViewResultsStationFiveZeit);
         textViewResultsStationFiveMaxHR = findViewById(R.id.textViewResultsStationFiveMaxHR);
         textViewResultsStationFiveAvgHR = findViewById(R.id.textViewResultsStationFiveAvgHR);
+        buttonResultsback = (Button) findViewById(R.id.buttonResultsback);
+        buttonResultsback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         new AsyncTask<Void, Void, PersonData>() {
             @Override
@@ -90,6 +101,8 @@ public class ResultsActivity extends AppCompatActivity {
 
             }
         }.execute();
+
+
 
 
     }
