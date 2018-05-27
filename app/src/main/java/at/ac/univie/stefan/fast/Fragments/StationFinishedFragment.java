@@ -120,6 +120,7 @@ public class StationFinishedFragment extends Fragment {
                         sumhr += currentheartrate;
                         sumrr += currentSensordata.getRrinterval();
                         if (currentheartrate < min) min = currentheartrate;
+                        if (currentheartrate > max) max = currentheartrate;
                     }
 
                     int meanrr = sumrr / i;

@@ -27,6 +27,14 @@ public interface SensorDataDao {
     @Query("SELECT * FROM sensordata WHERE person LIKE :personname AND stationname = :stationname AND isconnected=1")
     List<SensorData> findbyPersonNameandStationName (String personname, String stationname);
 
+    @Query("SELECT MAX(heartrate) FROM sensordata WHERE person LIKE :personname AND stationname = :stationname AND isconnected=1")
+    int getmaxhrfromNameandStationName(String personname, String stationname);
+
+    @Query("SELECT AVG(heartrate) FROM sensordata WHERE person LIKE :personname AND stationname = :stationname AND isconnected=1")
+    int getavghr(String personname, String stationname);
+
+
+
     @Insert
     void insertAll(List<SensorData> sensorDataList);
 

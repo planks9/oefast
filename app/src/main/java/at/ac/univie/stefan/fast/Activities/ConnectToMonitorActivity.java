@@ -71,7 +71,7 @@ public class ConnectToMonitorActivity extends AppCompatActivity {
 
 
     }
-    
+
 
 
     private BluetoothAdapter.LeScanCallback leScanCallback = new BluetoothAdapter.LeScanCallback() {
