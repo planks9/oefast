@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +32,6 @@ import static at.ac.univie.stefan.fast.StationTracking.StationTrackingData.STATI
 public class StationMenueFragment extends Fragment {
 
 
-
     Button buttonStationOne;
     Button buttonStationTwo;
     Button buttonStationThree;
@@ -41,15 +39,14 @@ public class StationMenueFragment extends Fragment {
     Button buttonStationFive;
     Button buttonPraeTest;
     Button buttonPostTest;
-    //Button buttonGesamtstatistik;
-    Button buttonBerichtStationOne;
-    Button buttonBerichtStationTwo;
-    Button buttonBerichtStationThree;
-    Button buttonBerichtStationFour;
-    Button buttonBerichtStationFive;
     Button buttonendEndDurchlauf;
     TextView textViewConnected;
     TextView textViewPersonName;
+    TextView textViewStationMenueStationOneDescription;
+    TextView textViewStationMenueStationTwoDescription;
+    TextView textViewStationMenueStationThreeDescription;
+    TextView textViewStationMenueStationFourDescription;
+    TextView textViewStationMenueStationFiveDescription;
 
 
     @Nullable
@@ -64,21 +61,30 @@ public class StationMenueFragment extends Fragment {
         buttonStationFive = (Button) view.findViewById(R.id.buttonStationFive);
         buttonPraeTest = (Button) view.findViewById(R.id.buttonPraeTest);
         buttonPostTest = (Button) view.findViewById(R.id.buttonPostTest);
-        //buttonGesamtstatistik = (Button) view.findViewById(R.id.buttonGesamtstatistik);
-        buttonBerichtStationOne = (Button) view.findViewById(R.id.buttonBerichtStationOne);
-        buttonBerichtStationTwo = (Button) view.findViewById(R.id.buttonBerichtStationTwo);
-        buttonBerichtStationThree = (Button) view.findViewById(R.id.buttonBerichtStationThree);
-        buttonBerichtStationFour = (Button) view.findViewById(R.id.buttonBerichtStationFour);
-        buttonBerichtStationFive = (Button) view.findViewById(R.id.buttonBerichtStationFive);
+
         buttonendEndDurchlauf = (Button) view.findViewById(R.id.buttonEndDurchlauf);
         textViewConnected = (TextView) view.findViewById(R.id.textViewStationMenueConnected);
         textViewPersonName = (TextView) view.findViewById(R.id.textViewStationMenuePersonName);
+        textViewStationMenueStationOneDescription = (TextView) view.findViewById(R.id.textViewStationMenueStationOneDescription);
+        textViewStationMenueStationTwoDescription = (TextView) view.findViewById(R.id.textViewStationMenueStationTwoDescription);
+        textViewStationMenueStationThreeDescription = (TextView) view.findViewById(R.id.textViewStationMenueStationThreeDescription);
+        textViewStationMenueStationFourDescription = (TextView) view.findViewById(R.id.textViewStationMenueStationFourDescription);
+        textViewStationMenueStationFiveDescription = (TextView) view.findViewById(R.id.textViewStationMenueStationFiveDescription);
+
+
         //Set first Text to getrennt because the belt is connecting in the background and as soon as the belt is connected it sets the Text to connected
         textViewConnected.setText("getrennt");
         textViewConnected.setTextColor(Color.RED);
         textViewPersonName.setText(StationTrackingData.getPersonname());
 
         BluetoothMessageHandler.getInstance().setTextViews(view, 0, 0, R.id.textViewStationMenueConnected);
+
+
+        textViewStationMenueStationOneDescription.setText(R.string.station_one_description);
+        textViewStationMenueStationTwoDescription.setText(R.string.station_two_description);
+        textViewStationMenueStationThreeDescription.setText(R.string.station_three_description);
+        textViewStationMenueStationFourDescription.setText(R.string.station_four_description);
+        textViewStationMenueStationFiveDescription.setText(R.string.station_five_description);
 
 
         buttonStationOne.setOnClickListener(onClickListener);
@@ -101,30 +107,24 @@ public class StationMenueFragment extends Fragment {
         public void onClick(View view) {
 
 
-            if (view.getId()==buttonStationOne.getId()) {
+            if (view.getId() == buttonStationOne.getId()) {
                 StationTrackingData.setActualStation(STATIONONE);
-            }
-            else if (view.getId()==buttonStationTwo.getId()) {
+            } else if (view.getId() == buttonStationTwo.getId()) {
                 StationTrackingData.setActualStation(STATIONTWO);
-            }
-            else if (view.getId()==buttonStationThree.getId()) {
+            } else if (view.getId() == buttonStationThree.getId()) {
                 StationTrackingData.setActualStation(STATIONTHREE);
-            }
-            else if (view.getId()==buttonStationFour.getId()) {
+            } else if (view.getId() == buttonStationFour.getId()) {
                 StationTrackingData.setActualStation(STATIONFOUR);
-            }
-            else if (view.getId()==buttonStationFive.getId()) {
+            } else if (view.getId() == buttonStationFive.getId()) {
                 StationTrackingData.setActualStation(STATIONFIVE);
-            }
-            else if (view.getId()==buttonPraeTest.getId()) {
+            } else if (view.getId() == buttonPraeTest.getId()) {
                 StationTrackingData.setActualStation(PRAETEST);
-            }
-            else if (view.getId()==buttonPostTest.getId()) {
+            } else if (view.getId() == buttonPostTest.getId()) {
                 StationTrackingData.setActualStation(POSTTEST);
             }
 
             //Handle next step to be made
-            if (view.getId()==buttonendEndDurchlauf.getId()) {
+            if (view.getId() == buttonendEndDurchlauf.getId()) {
                 Intent intent = new Intent(getContext(), PersonManagementActivity.class);
                 startActivity(intent);
             } else {
@@ -136,8 +136,6 @@ public class StationMenueFragment extends Fragment {
 
         }
     };
-
-
 
 
 }

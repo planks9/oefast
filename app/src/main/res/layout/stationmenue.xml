@@ -19,18 +19,16 @@
 
         <Button
             android:id="@+id/buttonStationOne"
-            android:layout_width="200dp"
+            android:layout_width="130dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:text="Station 1" />
 
-        <Button
-            android:id="@+id/buttonBerichtStationOne"
+        <TextView
+            android:id="@+id/textViewStationMenueStationOneDescription"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:background="@android:color/holo_green_dark"
-            android:text="Bericht" />
+             />
 
 
     </TableRow>
@@ -42,18 +40,16 @@
 
         <Button
             android:id="@+id/buttonStationTwo"
-            android:layout_width="200dp"
+            android:layout_width="130dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:text="Station 2" />
 
-        <Button
-            android:id="@+id/buttonBerichtStationTwo"
+        <TextView
+            android:id="@+id/textViewStationMenueStationTwoDescription"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:background="@android:color/holo_green_dark"
-            android:text="Bericht" />
+             />
 
 
     </TableRow>
@@ -65,18 +61,16 @@
 
         <Button
             android:id="@+id/buttonStationThree"
-            android:layout_width="200dp"
+            android:layout_width="130dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:text="Station 3" />
 
-        <Button
-            android:id="@+id/buttonBerichtStationThree"
+        <TextView
+            android:id="@+id/textViewStationMenueStationThreeDescription"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:background="@android:color/holo_green_dark"
-            android:text="Bericht" />
+             />
 
 
     </TableRow>
@@ -88,18 +82,17 @@
 
         <Button
             android:id="@+id/buttonStationFour"
-            android:layout_width="200dp"
+            android:layout_width="130dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:text="Station 4" />
 
-        <Button
-            android:id="@+id/buttonBerichtStationFour"
+        <TextView
+            android:id="@+id/textViewStationMenueStationFourDescription"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:background="@android:color/holo_green_dark"
-            android:text="Bericht" />
+             />
+
     </TableRow>
 
     <TableRow
@@ -109,18 +102,16 @@
 
         <Button
             android:id="@+id/buttonStationFive"
-            android:layout_width="200dp"
+            android:layout_width="130dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:text="Station 5" />
 
-        <Button
-            android:id="@+id/buttonBerichtStationFive"
+        <TextView
+            android:id="@+id/textViewStationMenueStationFiveDescription"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:background="@android:color/holo_green_dark"
-            android:text="Bericht" />
+             />
 
     </TableRow>
 
@@ -145,17 +136,7 @@
             android:text="Nachtest" />
 
     </TableRow>
-
-    <!--
-    <Button
-        android:id="@+id/buttonGesamtstatistik"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:visibility="invisible"
-        android:text="Gesamtstatistik" />
-        -->
+    
 
     <TableRow
         android:layout_width="match_parent"

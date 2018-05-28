@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ÖFAST</string>
     <string name="station_one_name">Station 1</string>
-    <string name="station_one_description">200 m gehen ohne Schläuche \n 100m gehen mit 2 B - Schläuchen</string>
+    <string name="station_one_description">200 m gehen ohne Schläuche \n100m gehen mit 2 B-Schläuchen</string>
     <string name="station_one_timelimit">6</string>
 
     <string name="station_two_name">Station 2</string>
@@ -22,10 +22,10 @@
 
     <string name="station_praetest">Vortest</string>
     <string name="station_praetest_description"></string>
-    <string name="station_praetest_timelimit">2</string>
+    <string name="station_praetest_timelimit">5</string>
 
     <string name="station_posttest">Nachtest</string>
     <string name="station_posttest_description"></string>
-    <string name="station_posttest_timelimit">2</string>
+    <string name="station_posttest_timelimit">5</string>
 
 </resources>
