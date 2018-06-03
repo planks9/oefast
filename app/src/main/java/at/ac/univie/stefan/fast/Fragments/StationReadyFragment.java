@@ -78,43 +78,43 @@ public class StationReadyFragment extends Fragment {
             case STATIONONE:
                 textViewStationName.setText(R.string.station_one_name);
                 textViewStationDescription.setText(R.string.station_one_description);
-                textViewStationTimelimit.setText("Zeitlimit: "+getResources().getString(R.string.station_one_timelimit));
+                textViewStationTimelimit.setText("Zeitlimit: "+getResources().getString(R.string.station_one_timelimit)+" Minuten");
                 break;
 
             case STATIONTWO:
                 textViewStationName.setText(R.string.station_two_name);
                 textViewStationDescription.setText(R.string.station_two_description);
-                textViewStationTimelimit.setText("Zeitlimit: "+getResources().getString(R.string.station_two_timelimit));
+                textViewStationTimelimit.setText("Zeitlimit: "+getResources().getString(R.string.station_two_timelimit)+" Minuten");
                 break;
 
             case STATIONTHREE:
                 textViewStationName.setText(R.string.station_three_name);
                 textViewStationDescription.setText(R.string.station_three_description);
-                textViewStationTimelimit.setText("Zeitlimit: "+getResources().getString(R.string.station_three_timelimit));
+                textViewStationTimelimit.setText("Zeitlimit: "+getResources().getString(R.string.station_three_timelimit)+" Minuten");
                 break;
 
             case STATIONFOUR:
                 textViewStationName.setText(R.string.station_four_name);
                 textViewStationDescription.setText(R.string.station_four_description);
-                textViewStationTimelimit.setText("Zeitlimit: "+getResources().getString(R.string.station_four_timelimit));
+                textViewStationTimelimit.setText("Zeitlimit: "+getResources().getString(R.string.station_four_timelimit)+" Minuten");
                 break;
 
             case STATIONFIVE:
                 textViewStationName.setText(R.string.station_five_name);
                 textViewStationDescription.setText(R.string.station_five_description);
-                textViewStationTimelimit.setText("Zeitlimit: "+getResources().getString(R.string.station_five_timelimit));
+                textViewStationTimelimit.setText("Zeitlimit: "+getResources().getString(R.string.station_five_timelimit)+" Minuten");
                 break;
 
             case PRAETEST:
                 textViewStationName.setText(R.string.station_praetest);
                 textViewStationDescription.setText(R.string.station_praetest_description);
-                textViewStationTimelimit.setText("Zeitlimit: "+getResources().getString(R.string.station_praetest_timelimit));
+                textViewStationTimelimit.setText("Zeitlimit: "+getResources().getString(R.string.station_praetest_timelimit)+" Minuten");
                 break;
 
             case POSTTEST:
                 textViewStationName.setText(R.string.station_posttest);
                 textViewStationDescription.setText(R.string.station_posttest_description);
-                textViewStationTimelimit.setText("Zeitlimit: "+getResources().getString(R.string.station_posttest_timelimit));
+                textViewStationTimelimit.setText("Zeitlimit: "+getResources().getString(R.string.station_posttest_timelimit)+" Minuten");
                 break;
         }
 

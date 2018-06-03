@@ -32,6 +32,17 @@ public class PersonData {
     private int stationfivemaxhr;
     private int stationfiveavhr;
 
+    private double stationonesdnn;
+    private double stationonermssd;
+    private double stationtwosdnn;
+    private double stationtwormssd;
+    private double stationthreesdnn;
+    private double stationthreermssd;
+    private double stationfoursdnn;
+    private double stationfourrmssd;
+    private double stationfivesdnn;
+    private double stationfivermssd;
+
     @Ignore
     public PersonData (String personname) {
         this.personname=personname;
@@ -175,5 +186,85 @@ public class PersonData {
 
     public void setPrimarykey(long primarykey) {
         this.primarykey = primarykey;
+    }
+
+    public double getStationonesdnn() {
+        return stationonesdnn;
+    }
+
+    public void setStationonesdnn(double stationonesdnn) {
+        this.stationonesdnn = stationonesdnn;
+    }
+
+    public double getStationonermssd() {
+        return stationonermssd;
+    }
+
+    public void setStationonermssd(double stationonermssd) {
+        this.stationonermssd = stationonermssd;
+    }
+
+    public double getStationtwosdnn() {
+        return stationtwosdnn;
+    }
+
+    public void setStationtwosdnn(double stationtwosdnn) {
+        this.stationtwosdnn = stationtwosdnn;
+    }
+
+    public double getStationtwormssd() {
+        return stationtwormssd;
+    }
+
+    public void setStationtwormssd(double stationtwormssd) {
+        this.stationtwormssd = stationtwormssd;
+    }
+
+    public double getStationthreesdnn() {
+        return stationthreesdnn;
+    }
+
+    public void setStationthreesdnn(double stationthreesdnn) {
+        this.stationthreesdnn = stationthreesdnn;
+    }
+
+    public double getStationthreermssd() {
+        return stationthreermssd;
+    }
+
+    public void setStationthreermssd(double stationthreermssd) {
+        this.stationthreermssd = stationthreermssd;
+    }
+
+    public double getStationfoursdnn() {
+        return stationfoursdnn;
+    }
+
+    public void setStationfoursdnn(double stationfoursdnn) {
+        this.stationfoursdnn = stationfoursdnn;
+    }
+
+    public double getStationfourrmssd() {
+        return stationfourrmssd;
+    }
+
+    public void setStationfourrmssd(double stationfourrmssd) {
+        this.stationfourrmssd = stationfourrmssd;
+    }
+
+    public double getStationfivesdnn() {
+        return stationfivesdnn;
+    }
+
+    public void setStationfivesdnn(double stationfivesdnn) {
+        this.stationfivesdnn = stationfivesdnn;
+    }
+
+    public double getStationfivermssd() {
+        return stationfivermssd;
+    }
+
+    public void setStationfivermssd(double stationfivermssd) {
+        this.stationfivermssd = stationfivermssd;
     }
 }

@@ -96,6 +96,7 @@ public class StationFinishedFragment extends Fragment {
                 textViewStationFinishedStationName.setText(R.string.station_posttest);
                 break;
         }
+        //Calculate max, min, avg, rmmsd, sdnn of current Station by getting the Data from Database SensorData and save results to Database PersonData
         new AsyncTask<Void, Void, List<SensorData>>() {
 
             AppDatabasePersonData appDatabasePersonData;
@@ -110,6 +111,8 @@ public class StationFinishedFragment extends Fragment {
                 int min=0;
                 double sdnnTotal=0;
                 double rmssdTotal = 0;
+                double sdnn=0;
+                double rmssd=0;
 
                 if (sensorDataList.size()>0) {
                     max = sensorDataList.get(0).getHeartrate();
@@ -135,8 +138,10 @@ public class StationFinishedFragment extends Fragment {
                         rrpreviouse = currentSonsordata.getRrinterval();
                     }
 
-                    double sdnn = Math.sqrt(sdnnTotal / i - 1);
-                    double rmssd = Math.sqrt(rmssdTotal / i - 1);
+                    sdnn = Math.sqrt(sdnnTotal / (i - 1));
+                    rmssd = Math.sqrt(rmssdTotal / (i - 1));
+                    System.out.println("SDNN: "+sdnn);
+                    System.out.println("RMSSD: "+rmssd);
 
 
 
@@ -155,30 +160,40 @@ public class StationFinishedFragment extends Fragment {
                         personData.setStationonetime(timeelapsed);
                         personData.setStationoneavhr(avghr);
                         personData.setStationonemaxhr(max);
+                        personData.setStationonesdnn(sdnn);
+                        personData.setStationonermssd(rmssd);
                         break;
 
                     case STATIONTWO:
                         personData.setStationtwotime(timeelapsed);
                         personData.setStationtwoavhr(avghr);
                         personData.setStationtwomaxhr(max);
+                        personData.setStationtwosdnn(sdnn);
+                        personData.setStationtwormssd(rmssd);
                         break;
 
                     case STATIONTHREE:
                         personData.setStationthreetime(timeelapsed);
                         personData.setStationthreeavhr(avghr);
                         personData.setStationthreemaxhr(max);
+                        personData.setStationthreesdnn(sdnn);
+                        personData.setStationthreermssd(rmssd);
                         break;
 
                     case STATIONFOUR:
                         personData.setStationfourtime(timeelapsed);
                         personData.setStationfouravhr(avghr);
                         personData.setStationfourmaxhr(max);
+                        personData.setStationfoursdnn(sdnn);
+                        personData.setStationfourrmssd(rmssd);
                         break;
 
                     case STATIONFIVE:
                         personData.setStationfivetime(timeelapsed);
                         personData.setStationfiveavhr(avghr);
                         personData.setStationfivemaxhr(max);
+                        personData.setStationfivesdnn(sdnn);
+                        personData.setStationfivermssd(rmssd);
                         break;
 
                     default: break;
