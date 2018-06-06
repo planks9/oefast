@@ -96,11 +96,6 @@
                 android:textSize="18sp" />
         </TableRow>
 
-        <com.jjoe64.graphview.GraphView
-            android:layout_width="match_parent"
-            android:layout_height="200dip"
-            android:id="@+id/graphstationone" />
-
         <TextView
             android:id="@+id/textView16"
             android:layout_width="match_parent"

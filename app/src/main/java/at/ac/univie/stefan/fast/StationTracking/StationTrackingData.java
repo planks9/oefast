@@ -21,7 +21,8 @@ public class StationTrackingData {
 
     private static long primarykeypersondata;
     private static String actualstation;
-    private static boolean isrecording;
+    private static boolean isrecordingStation;
+    private static boolean isrecordingwholedurchlauf;
     private static int maxhr;
 
     public static int getMaxhr() {
@@ -48,12 +49,12 @@ public class StationTrackingData {
         StationTrackingData.actualstation = actualstation;
     }
 
-    public static boolean isIsrecording() {
-        return isrecording;
+    public static boolean isIsrecordingStation() {
+        return isrecordingStation;
     }
 
-    public static void setIsrecording(boolean isrecording) {
-        StationTrackingData.isrecording = isrecording;
+    public static void setIsrecordingStation(boolean isrecordingStation) {
+        StationTrackingData.isrecordingStation = isrecordingStation;
     }
 
     public static long getPrimarykeypersondata() {
@@ -62,6 +63,15 @@ public class StationTrackingData {
 
     public static void setPrimarykeypersondata(long primarykeypersondata) {
         StationTrackingData.primarykeypersondata = primarykeypersondata;
+    }
+
+
+    public static boolean isIsrecordingwholedurchlauf() {
+        return isrecordingwholedurchlauf;
+    }
+
+    public static void setIsrecordingwholedurchlauf(boolean isrecordingwholedurchlauf) {
+        StationTrackingData.isrecordingwholedurchlauf = isrecordingwholedurchlauf;
     }
 
 }

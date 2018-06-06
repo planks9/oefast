@@ -171,7 +171,7 @@ public class StationRecordingFragment extends Fragment {
         @Override
         public void onDialogPositiveClick() {
             stopWatchService.stopTimer();
-            StationTrackingData.setIsrecording(false);
+            StationTrackingData.setIsrecordingStation(false);
             StationFinishedFragment stationFinishedFragment = new StationFinishedFragment();
 
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();

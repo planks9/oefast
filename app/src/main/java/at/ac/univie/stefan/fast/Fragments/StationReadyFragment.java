@@ -62,7 +62,7 @@ public class StationReadyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 stationRecordingFragment.getStopWatchService().startTimer();
-                StationTrackingData.setIsrecording(true);
+                StationTrackingData.setIsrecordingStation(true);
 
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragmentcontainerid, stationRecordingFragment).addToBackStack("BackToStationMenue").commit();

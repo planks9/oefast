@@ -14,6 +14,7 @@ public class DataBaseCreator {
 
     private static AppDatabasePersonData appDatabasePersonData;
     private static AppDatabase appDatabase;
+    private static  AppDataBaseRecordingData appDataBaseRecordingData;
 
 
     public static void createnewDataBase (Context context) {
@@ -40,6 +41,20 @@ public class DataBaseCreator {
         }
 
         return appDatabasePersonData;
+    }
+
+    public static void createnewDataBaseRecordingData (Context context) {
+        if (appDataBaseRecordingData == null) {
+            appDataBaseRecordingData = Room.databaseBuilder(context.getApplicationContext(),AppDataBaseRecordingData.class,"RecordingDataBase").build();
+        } else Log.d(TAG,"DataBaseRecordingData already created");
+    }
+
+    public static AppDataBaseRecordingData getAppDataBaseRecordingData () {
+        if (appDataBaseRecordingData == null) {
+            Log.e(TAG,"Call createnewDataBaseRecordingData before calling get #recordingdatabase");
+        }
+
+        return appDataBaseRecordingData;
     }
 
 

@@ -136,7 +136,7 @@
             android:text="Nachtest" />
 
     </TableRow>
-    
+
 
     <TableRow
         android:layout_width="match_parent"
@@ -158,12 +158,20 @@
             android:text="false" />
 
         <Button
+            android:id="@+id/buttonStationMenueStartRecording"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="Start Rec."
+            android:textSize="9dp"/>
+
+        <Button
             android:id="@+id/buttonEndDurchlauf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginLeft="50dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginLeft="6dp"
             android:background="@android:color/holo_red_dark"
             android:text="Durchlauf beenden" />
 

@@ -40,6 +40,7 @@ public class StationMenueFragment extends Fragment {
     Button buttonPraeTest;
     Button buttonPostTest;
     Button buttonendEndDurchlauf;
+    Button buttonStationMenueStartRecording;
     TextView textViewConnected;
     TextView textViewPersonName;
     TextView textViewStationMenueStationOneDescription;
@@ -61,6 +62,7 @@ public class StationMenueFragment extends Fragment {
         buttonStationFive = (Button) view.findViewById(R.id.buttonStationFive);
         buttonPraeTest = (Button) view.findViewById(R.id.buttonPraeTest);
         buttonPostTest = (Button) view.findViewById(R.id.buttonPostTest);
+        buttonStationMenueStartRecording = (Button) view.findViewById(R.id.buttonStationMenueStartRecording);
 
         buttonendEndDurchlauf = (Button) view.findViewById(R.id.buttonEndDurchlauf);
         textViewConnected = (TextView) view.findViewById(R.id.textViewStationMenueConnected);
@@ -95,6 +97,7 @@ public class StationMenueFragment extends Fragment {
         buttonPraeTest.setOnClickListener(onClickListener);
         buttonPostTest.setOnClickListener(onClickListener);
         buttonendEndDurchlauf.setOnClickListener(onClickListener);
+        buttonStationMenueStartRecording.setOnClickListener(onClickListener);
 
 
         return view;
@@ -125,8 +128,12 @@ public class StationMenueFragment extends Fragment {
 
             //Handle next step to be made
             if (view.getId() == buttonendEndDurchlauf.getId()) {
+                StationTrackingData.setIsrecordingwholedurchlauf(false);
                 Intent intent = new Intent(getContext(), PersonManagementActivity.class);
                 startActivity(intent);
+            } else if (view.getId() == buttonStationMenueStartRecording.getId()) {
+                buttonStationMenueStartRecording.setVisibility(View.INVISIBLE);
+                StationTrackingData.setIsrecordingwholedurchlauf(true);
             } else {
                 StationReadyFragment stationReadyFragment = new StationReadyFragment();
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();

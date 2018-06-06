@@ -23,8 +23,10 @@ import java.util.UUID;
 
 import at.ac.univie.stefan.fast.BluetoothAdapterSingleton;
 import at.ac.univie.stefan.fast.BluetoothMessageHandler;
+import at.ac.univie.stefan.fast.DataBase.AppDataBaseRecordingData;
 import at.ac.univie.stefan.fast.DataBase.AppDatabase;
 import at.ac.univie.stefan.fast.DataBase.DataBaseCreator;
+import at.ac.univie.stefan.fast.DataBase.RecordingData;
 import at.ac.univie.stefan.fast.DataBase.SensorData;
 import at.ac.univie.stefan.fast.Fragments.StationMenueFragment;
 import at.ac.univie.stefan.fast.R;
@@ -47,6 +49,7 @@ public class ConnectToMonitorActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private AppDatabase appDatabase;
+    private AppDataBaseRecordingData appDataBaseRecordingData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,15 +66,15 @@ public class ConnectToMonitorActivity extends AppCompatActivity {
 
         //Start DataBaseConnection
         DataBaseCreator.createnewDataBase(context);
-        appDatabase=DataBaseCreator.getDataBase();
+        appDatabase = DataBaseCreator.getDataBase();
+        DataBaseCreator.createnewDataBaseRecordingData(context);
+        appDataBaseRecordingData = DataBaseCreator.getAppDataBaseRecordingData();
 
         bluetoothDevice.connectGatt(context, false, bluetoothGattCallback);
         Log.d(TAG, "connection established");
 
 
-
     }
-
 
 
     private BluetoothAdapter.LeScanCallback leScanCallback = new BluetoothAdapter.LeScanCallback() {
@@ -157,7 +160,7 @@ public class ConnectToMonitorActivity extends AppCompatActivity {
                     energy = (data[offset] & 0xFF) + ((data[offset + 1] & 0xFF) << 8);
                     offset += 2;
                 }
-                int rrValue=0;
+                int rrValue = 0;
                 final ArrayList<Integer> rrs = new ArrayList<>();
                 if (rrPresent == 1) {
                     int len = data.length;
@@ -173,11 +176,18 @@ public class ConnectToMonitorActivity extends AppCompatActivity {
                 connectionstate.sendToTarget();
 
 
-                if (StationTrackingData.isIsrecording()) {
-                    System.out.println("Write to DataBase");
+                if (StationTrackingData.isIsrecordingStation()) {
+                    System.out.println("WritetoAppDataBase");
                     StopWatchService stopWatchService = StopWatchService.getInstance();
                     double timestamp = StopWatchService.getStopwatch().getTimeElapsedinSec();
                     appDatabase.sensorDataDao().insertSensorData(new SensorData(timestamp, StationTrackingData.getPersonname(), StationTrackingData.getActualStation(), hrValue, rrValue, sensorContactFinal));
+                }
+
+                if (StationTrackingData.isIsrecordingwholedurchlauf()) {
+                    System.out.println("WritetoRecordingDataBase");
+                    StopWatchService stopWatchService = StopWatchService.getInstance();
+                    double timestamp = StopWatchService.getStopwatch().getTimeElapsedinSec();
+                    appDataBaseRecordingData.recordingDataDao().insertRecordingData(new RecordingData(timestamp, StationTrackingData.getPersonname(), hrValue, rrValue, sensorContactFinal));
                 }
 
 
@@ -242,7 +252,6 @@ public class ConnectToMonitorActivity extends AppCompatActivity {
             }
         }
     } */
-
 
 
 }
