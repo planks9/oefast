@@ -39,6 +39,7 @@ public class PersonManagementActivity extends AppCompatActivity {
 
 
         DataBaseCreator.createnewDataBasePersonData(getApplicationContext());
+        DataBaseCreator.createnewDataBase(getApplicationContext());
         appDatabasePersonData = DataBaseCreator.getAppDatabasePersonData();
 
         new AsyncTask<Void, Void, List<PersonData>>() {

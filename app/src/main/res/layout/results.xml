@@ -96,6 +96,11 @@
                 android:textSize="18sp" />
         </TableRow>
 
+        <com.softmoore.android.graphlib.GraphView
+            android:id="@+id/graphstationOne"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"/>
+
         <TextView
             android:id="@+id/textView16"
             android:layout_width="match_parent"
@@ -173,6 +178,11 @@
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
         </TableRow>
+
+        <com.softmoore.android.graphlib.GraphView
+            android:id="@+id/graphstationTwo"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"/>
 
 
         <TextView
@@ -252,6 +262,10 @@
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
         </TableRow>
+        <com.softmoore.android.graphlib.GraphView
+            android:id="@+id/graphstationThree"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"/>
 
 
         <TextView
@@ -332,6 +346,11 @@
                 android:textSize="18sp" />
         </TableRow>
 
+        <com.softmoore.android.graphlib.GraphView
+            android:id="@+id/graphstationFour"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"/>
+
         <TextView
             android:id="@+id/textView28"
             android:layout_width="match_parent"
@@ -409,6 +428,11 @@
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
         </TableRow>
+
+        <com.softmoore.android.graphlib.GraphView
+            android:id="@+id/graphstationFive"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"/>
 
         <Button
             android:id="@+id/buttonResultsback"
