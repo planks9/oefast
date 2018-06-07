@@ -9,13 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-/*import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries; */
-
-import com.softmoore.android.graphlib.Graph;
-import com.softmoore.android.graphlib.GraphView;
-import com.softmoore.android.graphlib.Point;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,11 +133,11 @@ public class ResultsActivity extends AppCompatActivity {
 
                     @Override
                     protected void onPostExecute(List<SensorData> sensorDataList) {
-                        ArrayList<Point> stationonepointarraylist = new ArrayList<Point>();
-                        ArrayList<Point> stationtwopointarraylist = new ArrayList<Point>();
-                        ArrayList<Point> stationthreepointarraylist = new ArrayList<Point>();
-                        ArrayList<Point> stationfourpointarraylist = new ArrayList<Point>();
-                        ArrayList<Point> stationfivepointarraylist = new ArrayList<Point>();
+                        ArrayList<DataPoint> stationonepointarraylist = new ArrayList<DataPoint>();
+                        ArrayList<DataPoint> stationtwopointarraylist = new ArrayList<DataPoint>();
+                        ArrayList<DataPoint> stationthreepointarraylist = new ArrayList<DataPoint>();
+                        ArrayList<DataPoint> stationfourpointarraylist = new ArrayList<DataPoint>();
+                        ArrayList<DataPoint> stationfivepointarraylist = new ArrayList<DataPoint>();
                         double stationonemaxtime = 0;
                         double stationtwomaxtime = 0;
                         double stationthreemaxtime = 0;
@@ -152,31 +148,31 @@ public class ResultsActivity extends AppCompatActivity {
                         for (SensorData sensorData : sensorDataList) {
                             switch (sensorData.getStationname()) {
                                 case StationTrackingData.STATIONONE:
-                                    stationonepointarraylist.add(new Point(sensorData.getTimestamp(), sensorData.getHeartrate()));
+                                    stationonepointarraylist.add(new DataPoint(sensorData.getTimestamp(), sensorData.getHeartrate()));
                                     if (stationonemaxtime < sensorData.getTimestamp()) {
                                         stationonemaxtime = sensorData.getTimestamp();
                                     }
                                     break;
                                 case StationTrackingData.STATIONTWO:
-                                    stationtwopointarraylist.add(new Point(sensorData.getTimestamp(), sensorData.getHeartrate()));
+                                    stationtwopointarraylist.add(new DataPoint(sensorData.getTimestamp(), sensorData.getHeartrate()));
                                     if (stationtwomaxtime < sensorData.getTimestamp()) {
                                         stationtwomaxtime = sensorData.getTimestamp();
                                     }
                                     break;
                                 case StationTrackingData.STATIONTHREE:
-                                    stationthreepointarraylist.add(new Point(sensorData.getTimestamp(), sensorData.getHeartrate()));
+                                    stationthreepointarraylist.add(new DataPoint(sensorData.getTimestamp(), sensorData.getHeartrate()));
                                     if (stationthreemaxtime < sensorData.getTimestamp()) {
                                         stationthreemaxtime = sensorData.getTimestamp();
                                     }
                                     break;
                                 case StationTrackingData.STATIONFOUR:
-                                    stationfourpointarraylist.add(new Point(sensorData.getTimestamp(), sensorData.getHeartrate()));
+                                    stationfourpointarraylist.add(new DataPoint(sensorData.getTimestamp(), sensorData.getHeartrate()));
                                     if (stationfourmaxtime < sensorData.getTimestamp()) {
                                         stationfourmaxtime = sensorData.getTimestamp();
                                     }
                                     break;
                                 case StationTrackingData.STATIONFIVE:
-                                    stationfivepointarraylist.add(new Point(sensorData.getTimestamp(), sensorData.getHeartrate()));
+                                    stationfivepointarraylist.add(new DataPoint(sensorData.getTimestamp(), sensorData.getHeartrate()));
                                     if (stationfivemaxtime < sensorData.getTimestamp()) {
                                         stationfivemaxtime = sensorData.getTimestamp();
                                     }
@@ -185,53 +181,88 @@ public class ResultsActivity extends AppCompatActivity {
                         }
 
                         if (stationonepointarraylist.size() > 2) {
-                            Point [] points = new Point[stationonepointarraylist.size()];
-                            points = (Point[]) stationonepointarraylist.toArray();
-                            Graph graph = new Graph.Builder()
-                                    .setWorldCoordinates(0,stationonemaxtime + graphplotadditive, 0, stationonemaxhr + graphplotadditive)
-                                    .addLineGraph(points)
-                                    .build();
-                            graphviewstationOne.setGraph(graph);
+                            try {
+                                DataPoint[] points = stationonepointarraylist.toArray(new DataPoint[stationonepointarraylist.size()]);
+                                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
+                                graphviewstationOne.getViewport().setXAxisBoundsManual(true);
+                                graphviewstationOne.getViewport().setYAxisBoundsManual(true);
+                                graphviewstationOne.getViewport().setMinX(0);
+                                graphviewstationOne.getViewport().setMaxX(stationonemaxtime);
+                                graphviewstationOne.getViewport().setMinY(0);
+                                graphviewstationOne.getViewport().setMaxY(stationonemaxhr + graphplotadditive);
+                                graphviewstationOne.addSeries(series);
+                            } catch (Exception e) {
+                                graphviewstationOne.setVisibility(View.GONE);
+                                e.printStackTrace();
+                            }
                         } else graphviewstationOne.setVisibility(View.GONE);
 
                         if (stationtwopointarraylist.size() > 2) {
-                            Point [] points = new Point[stationtwopointarraylist.size()];
-                            points = (Point[]) stationtwopointarraylist.toArray();
-                            Graph graph = new Graph.Builder()
-                                    .setWorldCoordinates(0,stationtwomaxtime + graphplotadditive, 0, stationtwomaxhr + graphplotadditive)
-                                    .addLineGraph(points)
-                                    .build();
-                            graphviewstationTwo.setGraph(graph);
+                            try {
+                                DataPoint[] points = stationtwopointarraylist.toArray(new DataPoint[stationtwopointarraylist.size()]);
+                                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
+                                graphviewstationTwo.getViewport().setXAxisBoundsManual(true);
+                                graphviewstationTwo.getViewport().setYAxisBoundsManual(true);
+                                graphviewstationTwo.getViewport().setMinX(0);
+                                graphviewstationTwo.getViewport().setMaxX(stationtwomaxtime);
+                                graphviewstationTwo.getViewport().setMinY(0);
+                                graphviewstationTwo.getViewport().setMaxY(stationtwomaxhr + graphplotadditive);
+                                graphviewstationTwo.addSeries(series);
+                            } catch (Exception e) {
+                                graphviewstationTwo.setVisibility(View.GONE);
+                                e.printStackTrace();
+                            }
                         } else graphviewstationTwo.setVisibility(View.GONE);
 
                         if (stationthreepointarraylist.size() > 2) {
-                            Point [] points = new Point[stationthreepointarraylist.size()];
-                            points = (Point[]) stationthreepointarraylist.toArray();
-                            Graph graph = new Graph.Builder()
-                                    .setWorldCoordinates(0,stationthreemaxtime + graphplotadditive, 0, stationthreemaxhr + graphplotadditive)
-                                    .addLineGraph(points)
-                                    .build();
-                            graphviewstationThree.setGraph(graph);
+                            try {
+                            DataPoint[] points = stationthreepointarraylist.toArray(new DataPoint[stationthreepointarraylist.size()]);
+                            LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
+                            graphviewstationThree.getViewport().setXAxisBoundsManual(true);
+                            graphviewstationThree.getViewport().setYAxisBoundsManual(true);
+                            graphviewstationThree.getViewport().setMinX(0);
+                            graphviewstationThree.getViewport().setMaxX(stationthreemaxtime);
+                            graphviewstationThree.getViewport().setMinY(0);
+                            graphviewstationThree.getViewport().setMaxY(stationthreemaxhr + graphplotadditive);
+                            graphviewstationThree.addSeries(series);
+                            } catch (Exception e) {
+                                graphviewstationThree.setVisibility(View.GONE);
+                                e.printStackTrace();
+                            }
                         } else graphviewstationThree.setVisibility(View.GONE);
 
                         if (stationfourpointarraylist.size() > 2) {
-                            Point [] points = new Point[stationfourpointarraylist.size()];
-                            points = (Point[]) stationfourpointarraylist.toArray();
-                            Graph graph = new Graph.Builder()
-                                    .setWorldCoordinates(0,stationfourmaxtime + graphplotadditive, 0, stationfourmaxhr + graphplotadditive)
-                                    .addLineGraph(points)
-                                    .build();
-                            graphviewstationFour.setGraph(graph);
+                            try {
+                                DataPoint[] points = stationfourpointarraylist.toArray(new DataPoint[stationfourpointarraylist.size()]);
+                                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
+                                graphviewstationFour.getViewport().setXAxisBoundsManual(true);
+                                graphviewstationFour.getViewport().setYAxisBoundsManual(true);
+                                graphviewstationFour.getViewport().setMinX(0);
+                                graphviewstationFour.getViewport().setMaxX(stationfourmaxtime);
+                                graphviewstationFour.getViewport().setMinY(0);
+                                graphviewstationFour.getViewport().setMaxY(stationfourmaxhr + graphplotadditive);
+                                graphviewstationFour.addSeries(series);
+                            } catch (Exception e) {
+                                graphviewstationFour.setVisibility(View.GONE);
+                                e.printStackTrace();
+                            }
                         } else graphviewstationFour.setVisibility(View.GONE);
 
                         if (stationfivepointarraylist.size() > 2) {
-                            Point [] points = new Point[stationfivepointarraylist.size()];
-                            points = (Point[]) stationfivepointarraylist.toArray();
-                            Graph graph = new Graph.Builder()
-                                    .setWorldCoordinates(0,stationfivemaxtime + graphplotadditive, 0, stationfivemaxhr + graphplotadditive)
-                                    .addLineGraph(points)
-                                    .build();
-                            graphviewstationFive.setGraph(graph);
+                            try {
+                                DataPoint[] points = stationfivepointarraylist.toArray(new DataPoint[stationfivepointarraylist.size()]);
+                                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
+                                graphviewstationFive.getViewport().setXAxisBoundsManual(true);
+                                graphviewstationFive.getViewport().setYAxisBoundsManual(true);
+                                graphviewstationFive.getViewport().setMinX(0);
+                                graphviewstationFive.getViewport().setMaxX(stationfivemaxtime);
+                                graphviewstationFive.getViewport().setMinY(0);
+                                graphviewstationFive.getViewport().setMaxY(stationfivemaxhr + graphplotadditive);
+                                graphviewstationFive.addSeries(series);
+                            } catch (Exception e) {
+                                graphviewstationFive.setVisibility(View.GONE);
+                                e.printStackTrace();
+                            }
                         } else graphviewstationFive.setVisibility(View.GONE);
 
 

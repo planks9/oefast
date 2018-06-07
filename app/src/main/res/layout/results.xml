@@ -28,27 +28,27 @@
             android:textSize="24sp" />
 
         <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="10dp">
-
-        <TextView
-            android:id="@+id/textView13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Zeit:"
-            android:textSize="18sp" />
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="10dp">
 
-        <TextView
-            android:id="@+id/textViewResultsStationOneZeit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:text="01:01:01"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
-    </TableRow>
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Zeit:"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textViewResultsStationOneZeit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="01:01:01"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
@@ -96,10 +96,13 @@
                 android:textSize="18sp" />
         </TableRow>
 
-        <com.softmoore.android.graphlib.GraphView
-            android:id="@+id/graphstationOne"
+        <com.jjoe64.graphview.GraphView
             android:layout_width="match_parent"
-            android:layout_height="150dp"/>
+            android:layout_height="150dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/graphstationOne" />
+
 
         <TextView
             android:id="@+id/textView16"
@@ -179,10 +182,12 @@
                 android:textSize="18sp" />
         </TableRow>
 
-        <com.softmoore.android.graphlib.GraphView
-            android:id="@+id/graphstationTwo"
+        <com.jjoe64.graphview.GraphView
             android:layout_width="match_parent"
-            android:layout_height="150dp"/>
+            android:layout_height="150dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/graphstationTwo" />
 
 
         <TextView
@@ -262,10 +267,13 @@
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
         </TableRow>
-        <com.softmoore.android.graphlib.GraphView
-            android:id="@+id/graphstationThree"
+
+        <com.jjoe64.graphview.GraphView
             android:layout_width="match_parent"
-            android:layout_height="150dp"/>
+            android:layout_height="150dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/graphstationThree" />
 
 
         <TextView
@@ -346,10 +354,12 @@
                 android:textSize="18sp" />
         </TableRow>
 
-        <com.softmoore.android.graphlib.GraphView
-            android:id="@+id/graphstationFour"
+        <com.jjoe64.graphview.GraphView
             android:layout_width="match_parent"
-            android:layout_height="150dp"/>
+            android:layout_height="150dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/graphstationFour" />
 
         <TextView
             android:id="@+id/textView28"
@@ -429,10 +439,12 @@
                 android:textSize="18sp" />
         </TableRow>
 
-        <com.softmoore.android.graphlib.GraphView
-            android:id="@+id/graphstationFive"
+        <com.jjoe64.graphview.GraphView
             android:layout_width="match_parent"
-            android:layout_height="150dp"/>
+            android:layout_height="150dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/graphstationFive" />
 
         <Button
             android:id="@+id/buttonResultsback"
