@@ -98,6 +98,7 @@ public class StationMenueFragment extends Fragment {
         buttonPostTest.setOnClickListener(onClickListener);
         buttonendEndDurchlauf.setOnClickListener(onClickListener);
         buttonStationMenueStartRecording.setOnClickListener(onClickListener);
+        if (StationTrackingData.isIsrecordingwholedurchlauf()) buttonStationMenueStartRecording.setVisibility(View.INVISIBLE);
 
 
         return view;
