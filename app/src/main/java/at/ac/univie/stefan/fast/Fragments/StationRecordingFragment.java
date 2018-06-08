@@ -141,6 +141,9 @@ public class StationRecordingFragment extends Fragment {
                 break;
         }
 
+        //trigger recording for all stations
+        if ((stationName!=StationTrackingData.POSTTEST) && (stationName!=StationTrackingData.PRAETEST)) StationTrackingData.setIsrecordingwholedurchlauf(true);
+
         BluetoothMessageHandler.getInstance().setTextViews(view, textViewRecordingHR.getId(), textViewRecordingRR.getId(), textViewRecordingConnected.getId());
 
 
