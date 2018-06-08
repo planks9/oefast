@@ -115,7 +115,6 @@ public class StationReadyFragment extends Fragment {
                 textViewStationName.setText(R.string.station_posttest);
                 textViewStationDescription.setText(R.string.station_posttest_description);
                 textViewStationTimelimit.setText("Zeitlimit: "+getResources().getString(R.string.station_posttest_timelimit)+" Minuten");
-                StationTrackingData.setIsrecordingwholedurchlauf(false);
                 break;
         }
 
