@@ -15,6 +15,8 @@ public class PersonData {
 
     private String personname;
 
+    private int personalmaxhr;
+
     private String stationonetime;
     private String stationtwotime;
     private String stationthreetime;
@@ -267,4 +269,14 @@ public class PersonData {
     public void setStationfivermssd(double stationfivermssd) {
         this.stationfivermssd = stationfivermssd;
     }
+
+
+    public int getPersonalmaxhr() {
+        return personalmaxhr;
+    }
+
+    public void setPersonalmaxhr(int personalmaxhr) {
+        this.personalmaxhr = personalmaxhr;
+    }
+
 }

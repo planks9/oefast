@@ -63,14 +63,16 @@ public class SetNameActivity extends AppCompatActivity {
                 final String personname = editTextName.getText().toString();
                 StationTrackingData.setPersonname(personname);
                 int age = Integer.parseInt(spinnerage.getSelectedItem().toString());
-                double maxhrindouble = 207-0.7*age;
-                StationTrackingData.setMaxhr(((int) maxhrindouble));
+                double maxhrindouble = 207-(0.7*age);
+                final int personalmaxhr = (int) maxhrindouble;
+                StationTrackingData.setMaxhr(personalmaxhr);
 
 
                 new AsyncTask<Void, Void, Void>() {
                     @Override
                     protected Void doInBackground(Void... voids) {
                         PersonData personData = new PersonData(personname);
+                        personData.setPersonalmaxhr(personalmaxhr);
                         DataBaseCreator.createnewDataBasePersonData(getApplicationContext());
                         AppDatabasePersonData appDatabasePersonData = DataBaseCreator.getAppDatabasePersonData();
                         long primarykey=appDatabasePersonData.personDataDao().insertPersonData(personData);

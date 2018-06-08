@@ -1,6 +1,7 @@
 package at.ac.univie.stefan.fast.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -30,6 +31,7 @@ public class ResultsActivity extends AppCompatActivity {
 
     public static final String PRIMARYKEYFORPERSON = "primarykey";
     private final int graphplotadditive = 20;
+    private final int hrwarningsubtractive = 30;
 
     private TextView textViewResultsPersonName;
     private TextView textViewResultsStationOneZeit;
@@ -103,6 +105,7 @@ public class ResultsActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(PersonData personData) {
                 final String personname = personData.getPersonname();
+                final int personalmaxhr = personData.getPersonalmaxhr();
                 final int stationonemaxhr = personData.getStationonemaxhr();
                 final int stationtwomaxhr = personData.getStationtwomaxhr();
                 final int stationthreemaxhr = personData.getStationthreemaxhr();
@@ -182,15 +185,37 @@ public class ResultsActivity extends AppCompatActivity {
 
                         if (stationonepointarraylist.size() > 2) {
                             try {
-                                DataPoint[] points = stationonepointarraylist.toArray(new DataPoint[stationonepointarraylist.size()]);
-                                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
+                                //Set borders of graph
                                 graphviewstationOne.getViewport().setXAxisBoundsManual(true);
                                 graphviewstationOne.getViewport().setYAxisBoundsManual(true);
                                 graphviewstationOne.getViewport().setMinX(0);
                                 graphviewstationOne.getViewport().setMaxX(stationonemaxtime);
                                 graphviewstationOne.getViewport().setMinY(0);
-                                graphviewstationOne.getViewport().setMaxY(stationonemaxhr + graphplotadditive);
+                                graphviewstationOne.getViewport().setMaxY(personalmaxhr + graphplotadditive);
+
+                                //HR ThreshholdLine
+                                LineGraphSeries<DataPoint> hrtreshhold = new LineGraphSeries<>(new DataPoint[] {
+                                        new DataPoint(0,personalmaxhr),
+                                        new DataPoint(stationonemaxtime,personalmaxhr),
+                                });
+                                hrtreshhold.setColor(Color.RED);
+                                graphviewstationOne.addSeries(hrtreshhold);
+
+                                //HR ThreshholdLine Warning
+                                LineGraphSeries<DataPoint> hrtreshholdwarning = new LineGraphSeries<>(new DataPoint[] {
+                                        new DataPoint(0,personalmaxhr - hrwarningsubtractive ),
+                                        new DataPoint(stationonemaxtime,personalmaxhr - hrwarningsubtractive),
+                                });
+                                hrtreshholdwarning.setColor(Color.rgb(255,165,0));
+                                graphviewstationOne.addSeries(hrtreshholdwarning);
+
+                                //Plot HR-Data to Graph
+                                DataPoint[] points = stationonepointarraylist.toArray(new DataPoint[stationonepointarraylist.size()]);
+                                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
                                 graphviewstationOne.addSeries(series);
+
+
+
                             } catch (Exception e) {
                                 graphviewstationOne.setVisibility(View.GONE);
                                 e.printStackTrace();
@@ -199,14 +224,33 @@ public class ResultsActivity extends AppCompatActivity {
 
                         if (stationtwopointarraylist.size() > 2) {
                             try {
-                                DataPoint[] points = stationtwopointarraylist.toArray(new DataPoint[stationtwopointarraylist.size()]);
-                                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
+                                //Set borders of graph
                                 graphviewstationTwo.getViewport().setXAxisBoundsManual(true);
                                 graphviewstationTwo.getViewport().setYAxisBoundsManual(true);
                                 graphviewstationTwo.getViewport().setMinX(0);
                                 graphviewstationTwo.getViewport().setMaxX(stationtwomaxtime);
                                 graphviewstationTwo.getViewport().setMinY(0);
-                                graphviewstationTwo.getViewport().setMaxY(stationtwomaxhr + graphplotadditive);
+                                graphviewstationTwo.getViewport().setMaxY(personalmaxhr + graphplotadditive);
+
+                                //HR ThreshholdLine
+                                LineGraphSeries<DataPoint> hrtreshhold = new LineGraphSeries<>(new DataPoint[] {
+                                        new DataPoint(0,personalmaxhr),
+                                        new DataPoint(stationtwomaxtime,personalmaxhr),
+                                });
+                                hrtreshhold.setColor(Color.RED);
+                                graphviewstationTwo.addSeries(hrtreshhold);
+
+                                //HR ThreshholdLine Warning
+                                LineGraphSeries<DataPoint> hrtreshholdwarning = new LineGraphSeries<>(new DataPoint[] {
+                                        new DataPoint(0,personalmaxhr - hrwarningsubtractive ),
+                                        new DataPoint(stationtwomaxtime,personalmaxhr - hrwarningsubtractive),
+                                });
+                                hrtreshholdwarning.setColor(Color.rgb(255,165,0));
+                                graphviewstationTwo.addSeries(hrtreshholdwarning);
+
+                                //Plot HR-Data to Graph
+                                DataPoint[] points = stationtwopointarraylist.toArray(new DataPoint[stationtwopointarraylist.size()]);
+                                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
                                 graphviewstationTwo.addSeries(series);
                             } catch (Exception e) {
                                 graphviewstationTwo.setVisibility(View.GONE);
@@ -216,15 +260,34 @@ public class ResultsActivity extends AppCompatActivity {
 
                         if (stationthreepointarraylist.size() > 2) {
                             try {
-                            DataPoint[] points = stationthreepointarraylist.toArray(new DataPoint[stationthreepointarraylist.size()]);
-                            LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
-                            graphviewstationThree.getViewport().setXAxisBoundsManual(true);
-                            graphviewstationThree.getViewport().setYAxisBoundsManual(true);
-                            graphviewstationThree.getViewport().setMinX(0);
-                            graphviewstationThree.getViewport().setMaxX(stationthreemaxtime);
-                            graphviewstationThree.getViewport().setMinY(0);
-                            graphviewstationThree.getViewport().setMaxY(stationthreemaxhr + graphplotadditive);
-                            graphviewstationThree.addSeries(series);
+                                //Set borders of graph
+                                graphviewstationThree.getViewport().setXAxisBoundsManual(true);
+                                graphviewstationThree.getViewport().setYAxisBoundsManual(true);
+                                graphviewstationThree.getViewport().setMinX(0);
+                                graphviewstationThree.getViewport().setMaxX(stationthreemaxtime);
+                                graphviewstationThree.getViewport().setMinY(0);
+                                graphviewstationThree.getViewport().setMaxY(personalmaxhr + graphplotadditive);
+
+                                //HR ThreshholdLine
+                                LineGraphSeries<DataPoint> hrtreshhold = new LineGraphSeries<>(new DataPoint[] {
+                                        new DataPoint(0,personalmaxhr),
+                                        new DataPoint(stationthreemaxtime,personalmaxhr),
+                                });
+                                hrtreshhold.setColor(Color.RED);
+                                graphviewstationThree.addSeries(hrtreshhold);
+
+                                //HR ThreshholdLine Warning
+                                LineGraphSeries<DataPoint> hrtreshholdwarning = new LineGraphSeries<>(new DataPoint[] {
+                                        new DataPoint(0,personalmaxhr - hrwarningsubtractive ),
+                                        new DataPoint(stationthreemaxtime,personalmaxhr - hrwarningsubtractive),
+                                });
+                                hrtreshholdwarning.setColor(Color.rgb(255,165,0));
+                                graphviewstationThree.addSeries(hrtreshholdwarning);
+
+                                //Plot HR-Data to Graph
+                                DataPoint[] points = stationthreepointarraylist.toArray(new DataPoint[stationthreepointarraylist.size()]);
+                                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
+                                graphviewstationThree.addSeries(series);
                             } catch (Exception e) {
                                 graphviewstationThree.setVisibility(View.GONE);
                                 e.printStackTrace();
@@ -233,14 +296,33 @@ public class ResultsActivity extends AppCompatActivity {
 
                         if (stationfourpointarraylist.size() > 2) {
                             try {
-                                DataPoint[] points = stationfourpointarraylist.toArray(new DataPoint[stationfourpointarraylist.size()]);
-                                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
+                                //Set borders of graph
                                 graphviewstationFour.getViewport().setXAxisBoundsManual(true);
                                 graphviewstationFour.getViewport().setYAxisBoundsManual(true);
                                 graphviewstationFour.getViewport().setMinX(0);
                                 graphviewstationFour.getViewport().setMaxX(stationfourmaxtime);
                                 graphviewstationFour.getViewport().setMinY(0);
-                                graphviewstationFour.getViewport().setMaxY(stationfourmaxhr + graphplotadditive);
+                                graphviewstationFour.getViewport().setMaxY(personalmaxhr + graphplotadditive);
+
+                                //HR ThreshholdLine
+                                LineGraphSeries<DataPoint> hrtreshhold = new LineGraphSeries<>(new DataPoint[] {
+                                        new DataPoint(0,personalmaxhr),
+                                        new DataPoint(stationfourmaxtime,personalmaxhr),
+                                });
+                                hrtreshhold.setColor(Color.RED);
+                                graphviewstationFour.addSeries(hrtreshhold);
+
+                                //HR ThreshholdLine Warning
+                                LineGraphSeries<DataPoint> hrtreshholdwarning = new LineGraphSeries<>(new DataPoint[] {
+                                        new DataPoint(0,personalmaxhr - hrwarningsubtractive ),
+                                        new DataPoint(stationfourmaxtime,personalmaxhr - hrwarningsubtractive),
+                                });
+                                hrtreshholdwarning.setColor(Color.rgb(255,165,0));
+                                graphviewstationFour.addSeries(hrtreshholdwarning);
+
+                                //Plot HR-Data to Graph
+                                DataPoint[] points = stationfourpointarraylist.toArray(new DataPoint[stationfourpointarraylist.size()]);
+                                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
                                 graphviewstationFour.addSeries(series);
                             } catch (Exception e) {
                                 graphviewstationFour.setVisibility(View.GONE);
@@ -250,14 +332,33 @@ public class ResultsActivity extends AppCompatActivity {
 
                         if (stationfivepointarraylist.size() > 2) {
                             try {
-                                DataPoint[] points = stationfivepointarraylist.toArray(new DataPoint[stationfivepointarraylist.size()]);
-                                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
+                                //Set borders of graph
                                 graphviewstationFive.getViewport().setXAxisBoundsManual(true);
                                 graphviewstationFive.getViewport().setYAxisBoundsManual(true);
                                 graphviewstationFive.getViewport().setMinX(0);
                                 graphviewstationFive.getViewport().setMaxX(stationfivemaxtime);
                                 graphviewstationFive.getViewport().setMinY(0);
-                                graphviewstationFive.getViewport().setMaxY(stationfivemaxhr + graphplotadditive);
+                                graphviewstationFive.getViewport().setMaxY(personalmaxhr + graphplotadditive);
+
+                                //HR ThreshholdLine
+                                LineGraphSeries<DataPoint> hrtreshhold = new LineGraphSeries<>(new DataPoint[] {
+                                        new DataPoint(0,personalmaxhr),
+                                        new DataPoint(stationfivemaxtime,personalmaxhr),
+                                });
+                                hrtreshhold.setColor(Color.RED);
+                                graphviewstationFive.addSeries(hrtreshhold);
+
+                                //HR ThreshholdLine Warning
+                                LineGraphSeries<DataPoint> hrtreshholdwarning = new LineGraphSeries<>(new DataPoint[] {
+                                        new DataPoint(0,personalmaxhr - hrwarningsubtractive ),
+                                        new DataPoint(stationfivemaxtime,personalmaxhr - hrwarningsubtractive),
+                                });
+                                hrtreshholdwarning.setColor(Color.rgb(255,165,0));
+                                graphviewstationFive.addSeries(hrtreshholdwarning);
+
+                                //Plot HR-Data to Graph
+                                DataPoint[] points = stationfivepointarraylist.toArray(new DataPoint[stationfivepointarraylist.size()]);
+                                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
                                 graphviewstationFive.addSeries(series);
                             } catch (Exception e) {
                                 graphviewstationFive.setVisibility(View.GONE);
