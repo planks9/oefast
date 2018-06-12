@@ -64,7 +64,7 @@ public class StationFinishedFragment extends Fragment {
         stationname = StationTrackingData.getActualStation();
         textViewStationFinishedStationName.setText(""+stationname);
         textViewStationFinishedPersonName.setText(""+personname);
-        timeelapsed = StopWatchService.getStopwatch().getTimeinString();
+        timeelapsed = StopWatchService.getStopwatchforStations().getTimeinString();
         textViewStationFinishedTime.setText(timeelapsed);
 
         switch (stationname) {

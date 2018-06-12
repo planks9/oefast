@@ -179,14 +179,14 @@ public class ConnectToMonitorActivity extends AppCompatActivity {
                 if (StationTrackingData.isIsrecordingStation()) {
                     System.out.println("WritetoAppDataBase");
                     StopWatchService stopWatchService = StopWatchService.getInstance();
-                    double timestamp = StopWatchService.getStopwatch().getTimeElapsedinSec();
+                    double timestamp = StopWatchService.getStopwatchforStations().getTimeElapsedinSec();
                     appDatabase.sensorDataDao().insertSensorData(new SensorData(timestamp, StationTrackingData.getPersonname(), StationTrackingData.getActualStation(), hrValue, rrValue, sensorContactFinal));
                 }
 
                 if (StationTrackingData.isIsrecordingwholedurchlauf()) {
                     System.out.println("WritetoRecordingDataBase");
                     StopWatchService stopWatchService = StopWatchService.getInstance();
-                    double timestamp = StopWatchService.getStopwatch().getTimeElapsedinSec();
+                    double timestamp = StopWatchService.getStopwatchforStations().getTimeElapsedinSec();
                     appDataBaseRecordingData.recordingDataDao().insertRecordingData(new RecordingData(timestamp, StationTrackingData.getPersonname(), hrValue, rrValue, sensorContactFinal));
                 }
 

@@ -142,8 +142,12 @@ public class StationRecordingFragment extends Fragment {
         }
 
         //trigger recording for all stations
-        if ((stationName!=StationTrackingData.POSTTEST) && (stationName!=StationTrackingData.PRAETEST)) StationTrackingData.setIsrecordingwholedurchlauf(true);
-        if (stationName == StationTrackingData.POSTTEST) StationTrackingData.setIsrecordingwholedurchlauf(false);
+        if ((stationName!=StationTrackingData.POSTTEST) && (stationName!=StationTrackingData.PRAETEST)) {
+            StationTrackingData.setIsrecordingwholedurchlauf(true);
+        }
+        if (stationName == StationTrackingData.POSTTEST) {
+            StationTrackingData.setIsrecordingwholedurchlauf(false);
+        }
 
         BluetoothMessageHandler.getInstance().setTextViews(view, textViewRecordingHR.getId(), textViewRecordingRR.getId(), textViewRecordingConnected.getId());
 

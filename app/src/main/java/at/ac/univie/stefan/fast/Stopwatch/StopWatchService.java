@@ -19,7 +19,8 @@ public class StopWatchService extends Handler {
     public static final int MSG_RESET_Color = 5;
     public static final int REFRESH_RATE_OF_UI_WATCH=500;
 
-    private static Stopwatch stopwatch;
+    private static Stopwatch stopwatchstations;
+    private static Stopwatch stopwatchdurchlauf;
     private TextView textViewtimedisplay;
     private static StopWatchService instance;
 
@@ -27,7 +28,7 @@ public class StopWatchService extends Handler {
     private double timelimit=1000;
 
     private StopWatchService () {
-        stopwatch = new Stopwatch();
+        stopwatchstations = new Stopwatch();
     }
 
     public static StopWatchService getInstance () {
@@ -38,8 +39,16 @@ public class StopWatchService extends Handler {
         return instance;
     }
 
-    public static Stopwatch getStopwatch () {
-        return stopwatch;
+    public static Stopwatch getStopwatchforStations() {
+        return stopwatchstations;
+    }
+
+    public static Stopwatch getStopwatchdurchlauf() {
+        return stopwatchdurchlauf;
+    }
+
+    public static void setStopwatchdurchlauf(Stopwatch stopwatchdurchlauf) {
+        StopWatchService.stopwatchdurchlauf = stopwatchdurchlauf;
     }
 
     public void setTextViewtimedisplay(TextView textViewtimedisplay) {
@@ -54,22 +63,22 @@ public class StopWatchService extends Handler {
         super.handleMessage(msg);
         switch (msg.what) {
             case MSG_START_TIMER:
-                stopwatch.start(); //start timer
+                stopwatchstations.start(); //start timer
                 this.sendEmptyMessage(MSG_UPDATE_TIMER);
                 break;
 
             case MSG_UPDATE_TIMER: {
-                textViewtimedisplay.setText(stopwatch.getTimeinString());
-                if (stopwatch.getTimeElapsedinSec()>timelimit) this.sendEmptyMessage(MSG_TimeOver);
-                else if (stopwatch.getTimeElapsedinSec()>timelimit - 30) this.sendEmptyMessage(MSG_TimeLimitisNEAR);
+                textViewtimedisplay.setText(stopwatchstations.getTimeinString());
+                if (stopwatchstations.getTimeElapsedinSec()>timelimit) this.sendEmptyMessage(MSG_TimeOver);
+                else if (stopwatchstations.getTimeElapsedinSec()>timelimit - 30) this.sendEmptyMessage(MSG_TimeLimitisNEAR);
 
                 this.sendEmptyMessageDelayed(MSG_UPDATE_TIMER, REFRESH_RATE_OF_UI_WATCH);
             }
             break;                                  //though the timer is still running
             case MSG_STOP_TIMER: {
                 this.removeMessages(MSG_UPDATE_TIMER); // no more updates.
-                stopwatch.stop();//stop timer
-                double timeelapsedinsec = stopwatch.getTimeElapsedinSec();
+                stopwatchstations.stop();//stop timer
+                double timeelapsedinsec = stopwatchstations.getTimeElapsedinSec();
                 int mins = (int) timeelapsedinsec / 60;
                 int secs = (int) timeelapsedinsec - mins * 60;
                 if ((mins<10) && (secs<10)) {

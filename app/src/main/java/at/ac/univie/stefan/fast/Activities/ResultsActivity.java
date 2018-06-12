@@ -31,7 +31,7 @@ public class ResultsActivity extends AppCompatActivity {
 
     public static final String PRIMARYKEYFORPERSON = "primarykey";
     private final int graphplotadditive = 20;
-    private final int hrwarningsubtractive = 30;
+    private final int hrwarningsubtractive = 20;
 
     private TextView textViewResultsPersonName;
     private TextView textViewResultsStationOneZeit;
@@ -146,39 +146,60 @@ public class ResultsActivity extends AppCompatActivity {
                         double stationthreemaxtime = 0;
                         double stationfourmaxtime = 0;
                         double stationfivemaxtime = 0;
+                        double stationoneprevtimestamp=0;
+                        double stationtwoprevtimestamp=0;
+                        double stationthreeprevtimestamp=0;
+                        double stationfourprevtimestamp=0;
+                        double stationfiveprevtimestamp=0;
 
 
                         for (SensorData sensorData : sensorDataList) {
                             switch (sensorData.getStationname()) {
                                 case StationTrackingData.STATIONONE:
-                                    stationonepointarraylist.add(new DataPoint(sensorData.getTimestamp(), sensorData.getHeartrate()));
+                                    //filter out Datasets with ident time stamp, leads to exception on graph
+                                    if (stationoneprevtimestamp<sensorData.getTimestamp()) {
+                                        stationonepointarraylist.add(new DataPoint(sensorData.getTimestamp(), sensorData.getHeartrate()));
+                                    }
                                     if (stationonemaxtime < sensorData.getTimestamp()) {
                                         stationonemaxtime = sensorData.getTimestamp();
                                     }
+                                    stationoneprevtimestamp = sensorData.getTimestamp();
                                     break;
                                 case StationTrackingData.STATIONTWO:
-                                    stationtwopointarraylist.add(new DataPoint(sensorData.getTimestamp(), sensorData.getHeartrate()));
+                                    if (stationtwoprevtimestamp<sensorData.getTimestamp()) {
+                                        stationtwopointarraylist.add(new DataPoint(sensorData.getTimestamp(), sensorData.getHeartrate()));
+                                    }
                                     if (stationtwomaxtime < sensorData.getTimestamp()) {
                                         stationtwomaxtime = sensorData.getTimestamp();
                                     }
+                                    stationtwoprevtimestamp = sensorData.getTimestamp();
                                     break;
                                 case StationTrackingData.STATIONTHREE:
-                                    stationthreepointarraylist.add(new DataPoint(sensorData.getTimestamp(), sensorData.getHeartrate()));
+                                    if (stationthreeprevtimestamp<sensorData.getTimestamp()) {
+                                        stationthreepointarraylist.add(new DataPoint(sensorData.getTimestamp(), sensorData.getHeartrate()));
+                                    }
                                     if (stationthreemaxtime < sensorData.getTimestamp()) {
                                         stationthreemaxtime = sensorData.getTimestamp();
                                     }
+                                    stationthreeprevtimestamp = sensorData.getTimestamp();
                                     break;
                                 case StationTrackingData.STATIONFOUR:
-                                    stationfourpointarraylist.add(new DataPoint(sensorData.getTimestamp(), sensorData.getHeartrate()));
+                                    if (stationfourprevtimestamp<sensorData.getTimestamp()) {
+                                        stationfourpointarraylist.add(new DataPoint(sensorData.getTimestamp(), sensorData.getHeartrate()));
+                                    }
                                     if (stationfourmaxtime < sensorData.getTimestamp()) {
                                         stationfourmaxtime = sensorData.getTimestamp();
                                     }
+                                    stationfourprevtimestamp = sensorData.getTimestamp();
                                     break;
                                 case StationTrackingData.STATIONFIVE:
-                                    stationfivepointarraylist.add(new DataPoint(sensorData.getTimestamp(), sensorData.getHeartrate()));
+                                    if (stationfiveprevtimestamp<sensorData.getTimestamp()) {
+                                        stationfivepointarraylist.add(new DataPoint(sensorData.getTimestamp(), sensorData.getHeartrate()));
+                                    }
                                     if (stationfivemaxtime < sensorData.getTimestamp()) {
                                         stationfivemaxtime = sensorData.getTimestamp();
                                     }
+                                    stationfiveprevtimestamp = sensorData.getTimestamp();
                                     break;
                             }
                         }
