@@ -1,11 +1,14 @@
 package at.ac.univie.stefan.fast.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -25,7 +28,7 @@ public class PersonManagementActivity extends AppCompatActivity {
 
     private AppDatabasePersonData appDatabasePersonData;
     private ListView listView;
-    private Button buttonnewCycle;
+    private FloatingActionButton buttonnewCycle;
     private ArrayList<String> nameList;
 
 
@@ -35,7 +38,8 @@ public class PersonManagementActivity extends AppCompatActivity {
         setContentView(R.layout.personmanagement);
 
         listView = (ListView) findViewById(R.id.listView_persons);
-        buttonnewCycle = (Button) findViewById(R.id.buttonpersonmanagementnewcycle);
+        buttonnewCycle = (FloatingActionButton) findViewById(R.id.newdurchlauf);
+
 
 
         DataBaseCreator.createnewDataBasePersonData(getApplicationContext());
@@ -53,16 +57,15 @@ public class PersonManagementActivity extends AppCompatActivity {
             protected void onPostExecute(List<PersonData> personDataList) {
                 nameList = new ArrayList<String>();
                 if (!personDataList.isEmpty()) {
-
-
                     for (PersonData personData : personDataList) {
                         nameList.add(personData.getPersonname());
                     }
+
+                    PersonDataArrayAdapter arrayAdapter = new PersonDataArrayAdapter(getApplicationContext(), personDataList);
+                    listView.setAdapter(arrayAdapter);
                 }
 
 
-                PersonDataArrayAdapter arrayAdapter = new PersonDataArrayAdapter(getApplicationContext(), personDataList);
-                listView.setAdapter(arrayAdapter);
             }
 
         }.execute();

@@ -16,6 +16,7 @@ import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -72,6 +73,9 @@ public class ConnectToMonitorActivity extends AppCompatActivity {
 
         bluetoothDevice.connectGatt(context, false, bluetoothGattCallback);
         Log.d(TAG, "connection established");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
 
 
     }

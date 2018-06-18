@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import at.ac.univie.stefan.fast.Activities.ConnectToMonitorActivity;
 import at.ac.univie.stefan.fast.BluetoothMessageHandler;
 import at.ac.univie.stefan.fast.R;
 import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
@@ -57,6 +60,18 @@ public class StationReadyFragment extends Fragment {
         textViewRR = (TextView) view.findViewById(R.id.textViewRR);
         textViewconnectionState = (TextView) view.findViewById(R.id.textViewStationReadyConnected);
         buttonStart = (Button) view.findViewById(R.id.buttonStart);
+
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        ((ConnectToMonitorActivity)getActivity()).setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getFragmentManager().popBackStack();
+            }
+        });
+        ((ConnectToMonitorActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         stationRecordingFragment = new StationRecordingFragment();
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +88,6 @@ public class StationReadyFragment extends Fragment {
         textViewconnectionState.setText("getrennt");
         textViewconnectionState.setTextColor(Color.RED);
         textViewPersonName.setText(StationTrackingData.getPersonname());
-
         switch (stationName) {
             case STATIONONE:
                 textViewStationName.setText(R.string.station_one_name);

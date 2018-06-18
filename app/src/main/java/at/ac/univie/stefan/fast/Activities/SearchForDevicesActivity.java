@@ -1,15 +1,16 @@
 package at.ac.univie.stefan.fast.Activities;
 
+import android.app.ActionBar;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,7 +21,6 @@ import java.util.Set;
 import at.ac.univie.stefan.fast.BluetoothAdapterSingleton;
 import at.ac.univie.stefan.fast.BluetoothDeviceArrayAdapter;
 import at.ac.univie.stefan.fast.R;
-import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
 
 public class SearchForDevicesActivity extends AppCompatActivity {
 
@@ -57,8 +57,6 @@ public class SearchForDevicesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.connecttomonitor);
 
-        //toDo: Remove this
-        StationTrackingData.setPersonname("Stefan Plank");
 
         listView = (ListView) findViewById(R.id.listview_bluetoothdevices);
         buttonsearchfornewDevices = (Button) findViewById(R.id.button_search_for_new_devices);
@@ -93,6 +91,12 @@ public class SearchForDevicesActivity extends AppCompatActivity {
                 deviceArrayList);
         listView.setAdapter(arrayAdapter);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
 
     }
 
@@ -112,6 +116,16 @@ public class SearchForDevicesActivity extends AppCompatActivity {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

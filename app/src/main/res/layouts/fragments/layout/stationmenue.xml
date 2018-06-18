@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10">
+    <include layout="@layout/actionbar"/>
+    <include layout="@layout/stationbutton"
+        android:id="@+id/menuestationprae" />
+    <include layout="@layout/stationbutton"
+    android:id="@+id/menuestationone"/>
+    <include layout="@layout/stationbutton"
+        android:id="@+id/menuestationtwo"/>
+    <include layout="@layout/stationbutton"
+        android:id="@+id/menuestationthree"/>
+    <include layout="@layout/stationbutton"
+        android:id="@+id/menuestationfour"/>
+    <include layout="@layout/stationbutton"
+        android:id="@+id/menuestationfive"/>
+    <include layout="@layout/stationbutton"
+        android:id="@+id/menuestationpost"/>
+    <include layout="@layout/stationmenuefooter"/>
+
+
+
+
+</LinearLayout>

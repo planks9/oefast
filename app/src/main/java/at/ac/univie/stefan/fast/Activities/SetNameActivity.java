@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -30,7 +33,7 @@ public class SetNameActivity extends AppCompatActivity {
     public static final String BLUETOOTHDEVICENAME = "bluetoothdevicename";
 
     private TextView textViewselectedbluetoothDevice;
-    private EditText editTextName;
+    private TextInputEditText editTextName;
     private Button buttonweiter;
     private Spinner spinnerage;
 
@@ -44,11 +47,15 @@ public class SetNameActivity extends AppCompatActivity {
         final String macaddressofbluetoothdevice = intentrecieved.getStringExtra(ConnectToMonitorActivity.MACADRESSBLUETOOTHDEVICE);
 
         textViewselectedbluetoothDevice = (TextView) findViewById(R.id.textViewSetNameselectedBluetoothDevice);
-        editTextName = (EditText) findViewById(R.id.editTextName);
+        editTextName = (TextInputEditText) findViewById(R.id.editTextName);
         buttonweiter = (Button) findViewById(R.id.buttonSetNameWeiter);
         spinnerage = (Spinner) findViewById(R.id.spinnerage);
-
         textViewselectedbluetoothDevice.setText(bluetoothdevicename);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         ArrayList <String> spinneritems = new ArrayList<String>();
         for (int i=16;i<71;i++) {
             spinneritems.add(i+"");
@@ -89,5 +96,17 @@ public class SetNameActivity extends AppCompatActivity {
         });
 
 
+
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

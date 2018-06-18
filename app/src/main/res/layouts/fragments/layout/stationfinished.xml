@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <include layout="@layout/actionbar" />
 
     <TextView
         android:id="@+id/textViewStationFinishedPersonName"
@@ -42,7 +43,27 @@
             android:textSize="36sp" />
     </TableRow>
 
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_marginTop="20dp">
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="Min HR: "
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textViewStationFinishedMinHR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:text="70"
+            android:textSize="36sp" />
+    </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
@@ -58,7 +79,7 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/textViewStationResultMaxHR"
+            android:id="@+id/textViewStationFinishedMaxHR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
@@ -81,7 +102,7 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/textViewStationResultAvgHR"
+            android:id="@+id/textViewStationFinishedAvgHR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="100dp"
@@ -90,7 +111,7 @@
     </TableRow>
 
     <Button
-        android:id="@+id/buttonStationResultback"
+        android:id="@+id/buttonStationFinishedback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"

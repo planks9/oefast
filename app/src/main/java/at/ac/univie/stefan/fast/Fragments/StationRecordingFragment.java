@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import at.ac.univie.stefan.fast.Activities.ConnectToMonitorActivity;
 import at.ac.univie.stefan.fast.BluetoothMessageHandler;
 import at.ac.univie.stefan.fast.R;
 import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
@@ -71,14 +73,21 @@ public class StationRecordingFragment extends Fragment {
         textViewRecordingConnected = (TextView) view.findViewById(R.id.textViewRecordingConnected);
         buttonRecordingStop = (Button) view.findViewById(R.id.buttonRecordingStop);
         stopWatchService.setTextViewtimedisplay(textViewRecordingTime);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        ((ConnectToMonitorActivity)getActivity()).setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleStopcommand();
+            }
+        });
+        ((ConnectToMonitorActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         buttonRecordingStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
-                StopRecordingDialogFragment stopRecordingDialogFragment = new StopRecordingDialogFragment(stopRecordingDialogListener);
-                stopRecordingDialogFragment.show(getFragmentManager(), "Show StopRecordingFragment");
-
+                handleStopcommand();
 
             }
         });
@@ -155,6 +164,11 @@ public class StationRecordingFragment extends Fragment {
         return view;
     }
 
+    private void handleStopcommand() {
+        StopRecordingDialogFragment stopRecordingDialogFragment = new StopRecordingDialogFragment(stopRecordingDialogListener);
+        stopRecordingDialogFragment.show(getFragmentManager(), "Show StopRecordingFragment");
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -165,8 +179,7 @@ public class StationRecordingFragment extends Fragment {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.getAction() == KeyEvent.ACTION_UP) {
-                    StopRecordingDialogFragment stopRecordingDialogFragment = new StopRecordingDialogFragment(stopRecordingDialogListener);
-                    stopRecordingDialogFragment.show(getFragmentManager(), "Show StopRecordingFragment");
+                   handleStopcommand();
                     return true;
                 } else {
                     return false;

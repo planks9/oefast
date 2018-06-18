@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -55,8 +57,6 @@ public class ResultsActivity extends AppCompatActivity {
     private GraphView graphviewstationFour;
     private GraphView graphviewstationFive;
 
-    private Button buttonResultsback;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,14 +86,11 @@ public class ResultsActivity extends AppCompatActivity {
         graphviewstationThree = findViewById(R.id.graphstationThree);
         graphviewstationFour = findViewById(R.id.graphstationFour);
         graphviewstationFive = findViewById(R.id.graphstationFive);
-        buttonResultsback = (Button) findViewById(R.id.buttonResultsback);
-        //To get back to previouse activity
-        buttonResultsback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
 
         new AsyncTask<Void, Void, PersonData>() {
@@ -396,5 +393,15 @@ public class ResultsActivity extends AppCompatActivity {
         }.execute();
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

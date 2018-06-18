@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <include layout="@layout/actionbar"/>
+
 
     <TextView
         android:id="@+id/textView9"
@@ -21,21 +25,23 @@
         android:textAlignment="center"
         android:textSize="24sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:layout_marginLeft="20dp"
-        android:text="Name" />
 
-    <EditText
-        android:id="@+id/editTextName"
+
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="50dp"
+        android:hint="Name">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/editTextName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1" />
+    </android.support.design.widget.TextInputLayout>
 
     <TableRow
         android:layout_width="match_parent"
@@ -60,13 +66,20 @@
 
 
 
-    <Button
-        android:id="@+id/buttonSetNameWeiter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="50dp"
-        android:text="Weiter" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="center|bottom"
+        android:orientation="vertical">
+
+        <android.support.design.button.MaterialButton
+            android:id="@+id/buttonSetNameWeiter"
+            style="@style/ButtonWeiter"/>
+
+    </LinearLayout>
+
+
+
 
 </LinearLayout>
