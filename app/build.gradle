@@ -23,12 +23,11 @@ android {
         main {
             res.srcDirs =
                     [
-                            'src/menu/res/layouts/fragments',
-                            'src/menu/res/layouts/patterns',
-                            'src/menu/res/layouts/activities',
-                            'src/menu/res/layouts/drawer',
-                            'src/menu/res/layouts',
-                            'src/menu/res'
+                            'src/main/res/layouts/fragments',
+                            'src/main/res/layouts/patterns',
+                            'src/main/res/layouts/activities',
+                            'src/main/res/layouts',
+                            'src/main/res'
                     ]
         }
     }
