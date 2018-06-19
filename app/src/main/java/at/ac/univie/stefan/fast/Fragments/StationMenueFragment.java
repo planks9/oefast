@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import at.ac.univie.stefan.fast.Activities.PersonManagementActivity;
+import at.ac.univie.stefan.fast.Activities.StartupActivity;
 import at.ac.univie.stefan.fast.BluetoothMessageHandler;
 import at.ac.univie.stefan.fast.R;
 import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
@@ -151,7 +151,7 @@ public class StationMenueFragment extends Fragment {
             //Handle next step to be made
             if (view.getId() == buttonendEndDurchlauf.getId()) {
                 StationTrackingData.setIsrecordingwholedurchlauf(false);
-                Intent intent = new Intent(getContext(), PersonManagementActivity.class);
+                Intent intent = new Intent(getContext(), StartupActivity.class);
                 startActivity(intent);
             } else {
                 StationReadyFragment stationReadyFragment = new StationReadyFragment();

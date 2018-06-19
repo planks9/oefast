@@ -1,19 +1,20 @@
-package at.ac.univie.stefan.fast.Activities;
+package at.ac.univie.stefan.fast.Fragments;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import at.ac.univie.stefan.fast.Activities.SearchForDevicesActivity;
 import at.ac.univie.stefan.fast.DataBase.AppDatabasePersonData;
 import at.ac.univie.stefan.fast.DataBase.DataBaseCreator;
 import at.ac.univie.stefan.fast.DataBase.PersonData;
@@ -21,10 +22,10 @@ import at.ac.univie.stefan.fast.PersonDataArrayAdapter;
 import at.ac.univie.stefan.fast.R;
 
 /**
- * Created by Stefan on 14.04.2018.
+ * Created by Stefan on 19.06.2018.
  */
 
-public class PersonManagementActivity extends AppCompatActivity {
+public class PersonManagementFragment extends Fragment {
 
     private AppDatabasePersonData appDatabasePersonData;
     private ListView listView;
@@ -33,17 +34,13 @@ public class PersonManagementActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.personmanagement);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.personmanagement,container,false);
 
-        listView = (ListView) findViewById(R.id.listView_persons);
-        buttonnewCycle = (FloatingActionButton) findViewById(R.id.newdurchlauf);
-
+        listView = (ListView) view.findViewById(R.id.listView_persons);
+        buttonnewCycle = (FloatingActionButton) view.findViewById(R.id.newdurchlauf);
 
 
-        DataBaseCreator.createnewDataBasePersonData(getApplicationContext());
-        DataBaseCreator.createnewDataBase(getApplicationContext());
         appDatabasePersonData = DataBaseCreator.getAppDatabasePersonData();
 
         new AsyncTask<Void, Void, List<PersonData>>() {
@@ -61,7 +58,7 @@ public class PersonManagementActivity extends AppCompatActivity {
                         nameList.add(personData.getPersonname());
                     }
 
-                    PersonDataArrayAdapter arrayAdapter = new PersonDataArrayAdapter(getApplicationContext(), personDataList);
+                    PersonDataArrayAdapter arrayAdapter = new PersonDataArrayAdapter(view.getContext(), personDataList);
                     listView.setAdapter(arrayAdapter);
                 }
 
@@ -73,14 +70,13 @@ public class PersonManagementActivity extends AppCompatActivity {
         buttonnewCycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SearchForDevicesActivity.class);
+                Intent intent = new Intent(view.getContext(),SearchForDevicesActivity.class);
                 startActivity(intent);
 
             }
         });
 
 
+    return view;
     }
-
-
 }
