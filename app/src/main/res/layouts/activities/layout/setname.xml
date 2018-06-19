@@ -43,26 +43,26 @@
             android:maxLines="1" />
     </android.support.design.widget.TextInputLayout>
 
-    <TableRow
-        android:layout_width="match_parent"
+
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_marginTop="70dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
-            android:text="Alter"/>
+        android:layout_gravity="center">
+        >
+
 
         <Spinner
             android:id="@+id/spinnerage"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
             android:background="@android:drawable/btn_dropdown"
             android:dropDownWidth="60dp"
-            android:gravity="center" />
-    </TableRow>
+            android:layout_gravity="center" />
+    </LinearLayout>
 
 
 
