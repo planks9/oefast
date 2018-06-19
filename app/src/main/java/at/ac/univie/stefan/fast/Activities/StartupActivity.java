@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import at.ac.univie.stefan.fast.DataBase.AppDatabasePersonData;
 import at.ac.univie.stefan.fast.DataBase.DataBaseCreator;
+import at.ac.univie.stefan.fast.Fragments.ExportDataFragment;
 import at.ac.univie.stefan.fast.Fragments.PersonManagementFragment;
 import at.ac.univie.stefan.fast.Fragments.SettingsFragment;
 import at.ac.univie.stefan.fast.R;
@@ -39,6 +40,8 @@ public class StartupActivity extends AppCompatActivity {
         DataBaseCreator.createnewDataBase(getApplicationContext());
         setContentView(R.layout.navigation_drawer);
         fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentplaceholder,new PersonManagementFragment()).commit();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -63,15 +66,16 @@ public class StartupActivity extends AppCompatActivity {
                         fragmentClass = new PersonManagementFragment();
                         break;
                     case R.id.nav_exportieren:
+                        fragmentClass = new ExportDataFragment();
                         break;
                     case R.id.nav_settings:
                         fragmentClass = new SettingsFragment();
                         break;
                     default:
-                        fragmentClass = new PersonManagementFragment();
+                        fragmentClass = new SettingsFragment();
                 }
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.contentmain,fragmentClass).commit();
+                fragmentTransaction.replace(R.id.fragmentplaceholder,fragmentClass).commit();
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
             }

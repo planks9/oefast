@@ -14,12 +14,11 @@ import at.ac.univie.stefan.fast.R;
  * Created by Stefan on 19.06.2018.
  */
 
-public class SettingsFragment extends Fragment {
-
+public class ExportDataFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.settings, container, false);
+        View view = inflater.inflate(R.layout.exportdata, container, false);
         return view;
     }
 }
