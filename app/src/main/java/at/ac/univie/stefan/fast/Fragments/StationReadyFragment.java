@@ -49,17 +49,17 @@ public class StationReadyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.stationready, container, false);
+        View view = inflater.inflate(R.layout.stationrecording, container, false);
 
         stationName = StationTrackingData.getActualStation();
-        textViewPersonName = (TextView) view.findViewById(R.id.textViewStationReadyPersonName);
-        textViewStationName = (TextView) view.findViewById(R.id.textViewStationName);
-        textViewStationDescription = (TextView) view.findViewById(R.id.textViewStationDescription);
-        textViewStationTimelimit = (TextView) view.findViewById(R.id.textViewStationTimelimit);
-        textViewHR = (TextView) view.findViewById(R.id.textViewHR);
-        textViewRR = (TextView) view.findViewById(R.id.textViewRR);
-        textViewconnectionState = (TextView) view.findViewById(R.id.textViewStationReadyConnected);
-        buttonStart = (Button) view.findViewById(R.id.buttonStart);
+        textViewPersonName = (TextView) view.findViewById(R.id.textViewRecordingPersonName);
+        textViewStationName = (TextView) view.findViewById(R.id.textViewRecordingStationName);
+        textViewStationDescription = (TextView) view.findViewById(R.id.textViewRecordingStationDescription);
+        textViewStationTimelimit = (TextView) view.findViewById(R.id.textViewRecordingStationTimelimit);
+        textViewHR = (TextView) view.findViewById(R.id.textViewRecordingHR);
+        textViewRR = (TextView) view.findViewById(R.id.textViewRecordingRR);
+        textViewconnectionState = (TextView) view.findViewById(R.id.beltconnectionstate);
+        buttonStart = (Button) view.findViewById(R.id.buttonRecordingStop);
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         ((ConnectToMonitorActivity)getActivity()).setSupportActionBar(toolbar);
@@ -86,7 +86,7 @@ public class StationReadyFragment extends Fragment {
             }
         });
         textViewconnectionState.setText("getrennt");
-        textViewconnectionState.setTextColor(Color.RED);
+        textViewconnectionState.setTextColor(getResources().getColor(R.color.colorError));
         textViewPersonName.setText(StationTrackingData.getPersonname());
         switch (stationName) {
             case STATIONONE:

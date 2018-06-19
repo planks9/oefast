@@ -110,12 +110,17 @@
             android:textSize="36sp" />
     </TableRow>
 
-    <Button
-        android:id="@+id/buttonStationFinishedback"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="20dp"
-        android:layout_gravity="right"
-        android:text="zurück" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="center|bottom"
+        android:orientation="vertical">
+
+        <android.support.design.button.MaterialButton
+            android:id="@+id/buttonStationFinishedback"
+            style="@style/ButtonWeiter"
+            android:text="Übersicht"/>
+
+    </LinearLayout>
 </LinearLayout>

@@ -1,6 +1,7 @@
 package at.ac.univie.stefan.fast.Fragments;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,8 +13,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import at.ac.univie.stefan.fast.Activities.StartupActivity;
 import at.ac.univie.stefan.fast.BluetoothMessageHandler;
+import at.ac.univie.stefan.fast.DataBase.DataBaseCreator;
+import at.ac.univie.stefan.fast.DataBase.PersonData;
 import at.ac.univie.stefan.fast.R;
 import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
 
@@ -93,19 +98,18 @@ public class StationMenueFragment extends Fragment {
         imageViewStationFive = viewfive.findViewById(R.id.stationmenueimageview);
         imageViewPrae = viewprae.findViewById(R.id.stationmenueimageview);
         imageViewPost = viewpost.findViewById(R.id.stationmenueimageview);
-        imageViewStationOne.setImageResource(R.drawable.ic_baseline_done);
+        imageViewStationOne.setImageResource(R.drawable.ic_baseline_arrow_right_alt);
         imageViewStationTwo.setImageResource(R.drawable.ic_baseline_arrow_right_alt);
         imageViewStationThree.setImageResource(R.drawable.ic_baseline_arrow_right_alt);
         imageViewStationFour.setImageResource(R.drawable.ic_baseline_arrow_right_alt);
         imageViewStationFive.setImageResource(R.drawable.ic_baseline_arrow_right_alt);
-        imageViewPrae.setImageResource(R.drawable.ic_baseline_done);
+        imageViewPrae.setImageResource(R.drawable.ic_baseline_arrow_right_alt);
         imageViewPost.setImageResource(R.drawable.ic_baseline_arrow_right_alt);
 
 
         //Set first Text to getrennt because the belt is connecting in the background and as soon as the belt is connected it sets the Text to connected
 
         BluetoothMessageHandler.getInstance().setTextViews(view, 0, 0, R.id.beltconnectionstate);
-
 
         textViewStationMenueStationOneDescription.setText(R.string.station_one_description);
         textViewStationMenueStationTwoDescription.setText(R.string.station_two_description);
@@ -114,6 +118,8 @@ public class StationMenueFragment extends Fragment {
         textViewStationMenueStationFiveDescription.setText(R.string.station_five_description);
         textViewStationMenueStationPraeDescription.setText(R.string.station_praetest_description);
         textViewStationMenueStationPostDescription.setText(R.string.station_posttest_description);
+
+        setTickstoalreadymadestations();
 
 
         viewone.setOnClickListener(onClickListener);
@@ -127,6 +133,26 @@ public class StationMenueFragment extends Fragment {
         return view;
 
 
+    }
+
+    private void setTickstoalreadymadestations() {
+        new AsyncTask<Void, Void, List<PersonData>>() {
+            @Override
+            protected List<PersonData> doInBackground(Void... voids) {
+                return DataBaseCreator.getAppDatabasePersonData().personDataDao().findPersonbyName(StationTrackingData.getPersonname());
+            }
+
+            @Override
+            protected void onPostExecute(List<PersonData> personDataList) {
+                PersonData personData = personDataList.get(0);
+                if (personData.getStationonetime()!=null) imageViewStationOne.setImageResource(R.drawable.ic_baseline_done);
+                if (personData.getStationtwotime()!=null) imageViewStationTwo.setImageResource(R.drawable.ic_baseline_done);
+                if (personData.getStationthreetime()!=null) imageViewStationThree.setImageResource(R.drawable.ic_baseline_done);
+                if (personData.getStationfourtime()!=null) imageViewStationFour.setImageResource(R.drawable.ic_baseline_done);
+                if (personData.getStationfivetime()!=null) imageViewStationFive.setImageResource(R.drawable.ic_baseline_done);
+
+            }
+        }.execute();
     }
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {

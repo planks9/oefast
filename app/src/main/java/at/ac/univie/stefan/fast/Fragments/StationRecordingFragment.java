@@ -70,7 +70,7 @@ public class StationRecordingFragment extends Fragment {
         textViewRecordingHR = (TextView) view.findViewById(R.id.textViewRecordingHR);
         textViewRecordingRR = (TextView) view.findViewById(R.id.textViewRecordingRR);
         textViewRecordingTime = (TextView) view.findViewById(R.id.textViewRecordingTime);
-        textViewRecordingConnected = (TextView) view.findViewById(R.id.textViewRecordingConnected);
+        textViewRecordingConnected = (TextView) view.findViewById(R.id.beltconnectionstate);
         buttonRecordingStop = (Button) view.findViewById(R.id.buttonRecordingStop);
         stopWatchService.setTextViewtimedisplay(textViewRecordingTime);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
@@ -83,6 +83,8 @@ public class StationRecordingFragment extends Fragment {
         });
         ((ConnectToMonitorActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        buttonRecordingStop.setText(getResources().getString(R.string.button_stop));
+        buttonRecordingStop.setBackgroundColor(getResources().getColor(R.color.colorError));
         buttonRecordingStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,7 +95,7 @@ public class StationRecordingFragment extends Fragment {
         });
 
         textViewRecordingConnected.setText("getrennt");
-        textViewRecordingConnected.setTextColor(Color.RED);
+        textViewRecordingConnected.setTextColor(getResources().getColor(R.color.colorError));
 
         textViewRecordingPersonName.setText(StationTrackingData.getPersonname());
 
