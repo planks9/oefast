@@ -60,7 +60,6 @@ public class SearchForDevicesActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listview_bluetoothdevices);
         buttonsearchfornewDevices = (Button) findViewById(R.id.button_search_for_new_devices);
-        textviewissearching = (TextView) findViewById(R.id.textviewsearching);
 
         deviceArrayList = new ArrayList<BluetoothDevice>();
         bluetoothAdapter = BluetoothAdapterSingleton.getBluetoothAdapter();
