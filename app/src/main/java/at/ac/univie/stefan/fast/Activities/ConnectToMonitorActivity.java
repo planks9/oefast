@@ -34,6 +34,10 @@ import at.ac.univie.stefan.fast.R;
 import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
 import at.ac.univie.stefan.fast.Stopwatch.StopWatchService;
 
+/**
+ *This class is responsible for connecting to the bluetooth belt, it gets the information which ble-device it sould connect from the previouse activity
+ * The class also handels the datasets from the bled device: The data is structured and then saved to the databases in the callback
+ */
 public class ConnectToMonitorActivity extends AppCompatActivity {
 
     public static final UUID DESCRIPTOR_CCC = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");

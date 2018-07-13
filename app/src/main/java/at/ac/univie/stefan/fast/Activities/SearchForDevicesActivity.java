@@ -1,11 +1,8 @@
 package at.ac.univie.stefan.fast.Activities;
 
-import android.app.ActionBar;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +19,9 @@ import at.ac.univie.stefan.fast.BluetoothAdapterSingleton;
 import at.ac.univie.stefan.fast.BluetoothDeviceArrayAdapter;
 import at.ac.univie.stefan.fast.R;
 
+/**
+ * This activity displays all paired Bluetooth devices from the smartphone and let the user choose which one he would like to connect
+ */
 public class SearchForDevicesActivity extends AppCompatActivity {
 
     public static final int REQUEST_ENABLE_BT = 10;

@@ -26,7 +26,7 @@ import at.ac.univie.stefan.fast.R;
 import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
 
 /**
- * Created by Stefan on 25.05.2018.
+ * This activity shows a summary of one whole durchlauf. It takes all data from the databases and links it to the textviews. It also plots the graph
  */
 
 public class ResultsActivity extends AppCompatActivity {

@@ -25,7 +25,7 @@ import at.ac.univie.stefan.fast.R;
 import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
 
 /**
- * Created by Stefan on 15.04.2018.
+ * In this activity the user sets the name and the age for the Proband 
  */
 
 public class SetNameActivity extends AppCompatActivity {
