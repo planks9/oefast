@@ -22,8 +22,8 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import at.ac.univie.stefan.fast.BluetoothAdapterSingleton;
-import at.ac.univie.stefan.fast.BluetoothMessageHandler;
+import at.ac.univie.stefan.fast.Singletons.BluetoothAdapterSingleton;
+import at.ac.univie.stefan.fast.Handler.BluetoothMessageHandler;
 import at.ac.univie.stefan.fast.DataBase.AppDataBaseRecordingData;
 import at.ac.univie.stefan.fast.DataBase.AppDatabase;
 import at.ac.univie.stefan.fast.DataBase.DataBaseCreator;

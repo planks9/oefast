@@ -1,6 +1,5 @@
 package at.ac.univie.stefan.fast.Fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,7 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import at.ac.univie.stefan.fast.Activities.ConnectToMonitorActivity;
-import at.ac.univie.stefan.fast.BluetoothMessageHandler;
+import at.ac.univie.stefan.fast.Handler.BluetoothMessageHandler;
 import at.ac.univie.stefan.fast.R;
 import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
 import at.ac.univie.stefan.fast.Stopwatch.StopWatchService;

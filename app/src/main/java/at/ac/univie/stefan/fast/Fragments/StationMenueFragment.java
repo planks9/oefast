@@ -16,7 +16,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import at.ac.univie.stefan.fast.Activities.StartupActivity;
-import at.ac.univie.stefan.fast.BluetoothMessageHandler;
+import at.ac.univie.stefan.fast.Handler.BluetoothMessageHandler;
 import at.ac.univie.stefan.fast.DataBase.DataBaseCreator;
 import at.ac.univie.stefan.fast.DataBase.PersonData;
 import at.ac.univie.stefan.fast.R;

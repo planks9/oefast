@@ -15,8 +15,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Set;
 
-import at.ac.univie.stefan.fast.BluetoothAdapterSingleton;
-import at.ac.univie.stefan.fast.BluetoothDeviceArrayAdapter;
+import at.ac.univie.stefan.fast.Singletons.BluetoothAdapterSingleton;
+import at.ac.univie.stefan.fast.ArrayAdapters.BluetoothDeviceArrayAdapter;
 import at.ac.univie.stefan.fast.R;
 
 /**

@@ -4,10 +4,6 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
-/**
- * Created by Stefan on 25.05.2018.
- */
-
 @Entity
 public class PersonData {
     @PrimaryKey(autoGenerate = true)

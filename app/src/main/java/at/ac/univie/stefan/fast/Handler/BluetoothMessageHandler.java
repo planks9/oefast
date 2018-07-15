@@ -1,4 +1,4 @@
-package at.ac.univie.stefan.fast;
+package at.ac.univie.stefan.fast.Handler;
 
 import android.graphics.Color;
 import android.os.Handler;

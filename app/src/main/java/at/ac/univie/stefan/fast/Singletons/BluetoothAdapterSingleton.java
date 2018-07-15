@@ -1,4 +1,4 @@
-package at.ac.univie.stefan.fast;
+package at.ac.univie.stefan.fast.Singletons;
 
 import android.bluetooth.BluetoothAdapter;
 

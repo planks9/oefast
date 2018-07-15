@@ -9,6 +9,5 @@ import android.arch.persistence.room.RoomDatabase;
 
 @Database(entities = {PersonData.class}, version = 1)
 public abstract class AppDatabasePersonData extends RoomDatabase {
-
     public abstract PersonDataDao personDataDao();
 }

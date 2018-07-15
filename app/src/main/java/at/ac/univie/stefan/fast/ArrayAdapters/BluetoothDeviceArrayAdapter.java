@@ -1,4 +1,4 @@
-package at.ac.univie.stefan.fast;
+package at.ac.univie.stefan.fast.ArrayAdapters;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import at.ac.univie.stefan.fast.Activities.ConnectToMonitorActivity;
 import at.ac.univie.stefan.fast.Activities.SetNameActivity;
+import at.ac.univie.stefan.fast.R;
 
 /**
  * Created by Stefan on 23.03.2018.

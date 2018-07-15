@@ -18,7 +18,7 @@ import at.ac.univie.stefan.fast.Activities.SearchForDevicesActivity;
 import at.ac.univie.stefan.fast.DataBase.AppDatabasePersonData;
 import at.ac.univie.stefan.fast.DataBase.DataBaseCreator;
 import at.ac.univie.stefan.fast.DataBase.PersonData;
-import at.ac.univie.stefan.fast.PersonDataArrayAdapter;
+import at.ac.univie.stefan.fast.ArrayAdapters.PersonDataArrayAdapter;
 import at.ac.univie.stefan.fast.R;
 
 /**

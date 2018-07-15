@@ -125,11 +125,9 @@ public class StationFinishedFragment extends Fragment {
                         if (currentheartrate < min) min = currentheartrate;
                         if (currentheartrate > max) max = currentheartrate;
                     }
-
                     int meanrr = sumrr / i;
                     int rrpreviouse = 0;
                     avghr = sumhr / i;
-
                     for (SensorData currentSonsordata : sensorDataList) {
                         sdnnTotal += Math.pow(currentSonsordata.getRrinterval() - meanrr, 2);
                         if (rrpreviouse != 0) {
@@ -137,18 +135,8 @@ public class StationFinishedFragment extends Fragment {
                         }
                         rrpreviouse = currentSonsordata.getRrinterval();
                     }
-
                     sdnn = Math.sqrt(sdnnTotal / (i - 1));
                     rmssd = Math.sqrt(rmssdTotal / (i - 1));
-                    System.out.println("SDNN: "+sdnn);
-                    System.out.println("RMSSD: "+rmssd);
-
-
-
-
-
-
-
                 }
                 textViewStationFinishedMinHR.setText(""+min);
                 textViewStationFinishedMaxHR.setText(""+max);

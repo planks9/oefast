@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
@@ -24,6 +25,7 @@ import at.ac.univie.stefan.fast.DataBase.PersonData;
 import at.ac.univie.stefan.fast.DataBase.SensorData;
 import at.ac.univie.stefan.fast.R;
 import at.ac.univie.stefan.fast.StationTracking.StationTrackingData;
+import at.ac.univie.stefan.fast.StressCalculation.StressCalculator;
 
 /**
  * This activity shows a summary of one whole durchlauf. It takes all data from the databases and links it to the textviews. It also plots the graph
@@ -51,6 +53,11 @@ public class ResultsActivity extends AppCompatActivity {
     private TextView textViewResultsStationFiveZeit;
     private TextView textViewResultsStationFiveMaxHR;
     private TextView textViewResultsStationFiveAvgHR;
+    private ImageView imageViewstressStationOne;
+    private ImageView imageViewstressStationTwo;
+    private ImageView imageViewstressStationThree;
+    private ImageView imageViewstressStationFour;
+    private ImageView imageViewstressStationFive;
     private GraphView graphviewstationOne;
     private GraphView graphviewstationTwo;
     private GraphView graphviewstationThree;
@@ -81,6 +88,11 @@ public class ResultsActivity extends AppCompatActivity {
         textViewResultsStationFiveZeit = findViewById(R.id.textViewResultsStationFiveZeit);
         textViewResultsStationFiveMaxHR = findViewById(R.id.textViewResultsStationFiveMaxHR);
         textViewResultsStationFiveAvgHR = findViewById(R.id.textViewResultsStationFiveAvgHR);
+        imageViewstressStationOne = findViewById(R.id.imagestressone);
+        imageViewstressStationTwo = findViewById(R.id.imagestresstwo);
+        imageViewstressStationThree = findViewById(R.id.imagestressthree);
+        imageViewstressStationFour = findViewById(R.id.imagestressfour);
+        imageViewstressStationFive = findViewById(R.id.imagestressfive);
         graphviewstationOne = findViewById(R.id.graphstationOne);
         graphviewstationTwo = findViewById(R.id.graphstationTwo);
         graphviewstationThree = findViewById(R.id.graphstationThree);
@@ -103,11 +115,6 @@ public class ResultsActivity extends AppCompatActivity {
             protected void onPostExecute(PersonData personData) {
                 final String personname = personData.getPersonname();
                 final int personalmaxhr = personData.getPersonalmaxhr();
-                final int stationonemaxhr = personData.getStationonemaxhr();
-                final int stationtwomaxhr = personData.getStationtwomaxhr();
-                final int stationthreemaxhr = personData.getStationthreemaxhr();
-                final int stationfourmaxhr = personData.getStationfourmaxhr();
-                final int stationfivemaxhr = personData.getStationfivemaxhr();
                 textViewResultsPersonName.setText(personData.getPersonname());
                 textViewResultsStationOneZeit.setText(personData.getStationonetime());
                 textViewResultsStationOneMaxHR.setText(personData.getStationonemaxhr() + "");
@@ -124,7 +131,11 @@ public class ResultsActivity extends AppCompatActivity {
                 textViewResultsStationFiveZeit.setText(personData.getStationfivetime());
                 textViewResultsStationFiveMaxHR.setText(personData.getStationfivemaxhr() + "");
                 textViewResultsStationFiveAvgHR.setText(personData.getStationfiveavhr() + "");
-
+                imageViewstressStationOne.setImageResource(getStressImageforLevel(personData.getStationonesdnn(), personData.getStationonermssd()));
+                imageViewstressStationTwo.setImageResource(getStressImageforLevel(personData.getStationtwosdnn(), personData.getStationtwormssd()));
+                imageViewstressStationThree.setImageResource(getStressImageforLevel(personData.getStationthreesdnn(), personData.getStationthreermssd()));
+                imageViewstressStationFour.setImageResource(getStressImageforLevel(personData.getStationfoursdnn(), personData.getStationfourrmssd()));
+                imageViewstressStationFive.setImageResource(getStressImageforLevel(personData.getStationfivesdnn(), personData.getStationfivermssd()));
                 new AsyncTask<Void, Void, List<SensorData>>() {
                     @Override
                     protected List<SensorData> doInBackground(Void... voids) {
@@ -208,7 +219,7 @@ public class ResultsActivity extends AppCompatActivity {
                                 graphviewstationOne.getViewport().setYAxisBoundsManual(true);
                                 graphviewstationOne.getViewport().setMinX(0);
                                 graphviewstationOne.getViewport().setMaxX(stationonemaxtime);
-                                graphviewstationOne.getViewport().setMinY(0);
+                                graphviewstationOne.getViewport().setMinY(40);
                                 graphviewstationOne.getViewport().setMaxY(personalmaxhr + graphplotadditive);
 
                                 //HR ThreshholdLine
@@ -247,7 +258,7 @@ public class ResultsActivity extends AppCompatActivity {
                                 graphviewstationTwo.getViewport().setYAxisBoundsManual(true);
                                 graphviewstationTwo.getViewport().setMinX(0);
                                 graphviewstationTwo.getViewport().setMaxX(stationtwomaxtime);
-                                graphviewstationTwo.getViewport().setMinY(0);
+                                graphviewstationTwo.getViewport().setMinY(40);
                                 graphviewstationTwo.getViewport().setMaxY(personalmaxhr + graphplotadditive);
 
                                 //HR ThreshholdLine
@@ -283,7 +294,7 @@ public class ResultsActivity extends AppCompatActivity {
                                 graphviewstationThree.getViewport().setYAxisBoundsManual(true);
                                 graphviewstationThree.getViewport().setMinX(0);
                                 graphviewstationThree.getViewport().setMaxX(stationthreemaxtime);
-                                graphviewstationThree.getViewport().setMinY(0);
+                                graphviewstationThree.getViewport().setMinY(40);
                                 graphviewstationThree.getViewport().setMaxY(personalmaxhr + graphplotadditive);
 
                                 //HR ThreshholdLine
@@ -319,7 +330,7 @@ public class ResultsActivity extends AppCompatActivity {
                                 graphviewstationFour.getViewport().setYAxisBoundsManual(true);
                                 graphviewstationFour.getViewport().setMinX(0);
                                 graphviewstationFour.getViewport().setMaxX(stationfourmaxtime);
-                                graphviewstationFour.getViewport().setMinY(0);
+                                graphviewstationFour.getViewport().setMinY(40);
                                 graphviewstationFour.getViewport().setMaxY(personalmaxhr + graphplotadditive);
 
                                 //HR ThreshholdLine
@@ -355,7 +366,7 @@ public class ResultsActivity extends AppCompatActivity {
                                 graphviewstationFive.getViewport().setYAxisBoundsManual(true);
                                 graphviewstationFive.getViewport().setMinX(0);
                                 graphviewstationFive.getViewport().setMaxX(stationfivemaxtime);
-                                graphviewstationFive.getViewport().setMinY(0);
+                                graphviewstationFive.getViewport().setMinY(40);
                                 graphviewstationFive.getViewport().setMaxY(personalmaxhr + graphplotadditive);
 
                                 //HR ThreshholdLine
@@ -388,6 +399,19 @@ public class ResultsActivity extends AppCompatActivity {
                     }
                 }.execute();
 
+
+            }
+
+            private int getStressImageforLevel(double sdnn, double rmssd) {
+                if ((sdnn == 0)||(rmssd == 0)) return R.drawable.stressempy;
+                int stresslevel = StressCalculator.calculateStress(sdnn,rmssd);
+                if (stresslevel == StressCalculator.stresslevellow) {
+                    return R.drawable.stresslow;
+                } else if (stresslevel == StressCalculator.stresslevelmedium) {
+                    return R.drawable.stressmedium;
+                } else if (stresslevel == StressCalculator.stresslevelhigh) {
+                    return R.drawable.stresshigh;
+                } else return R.drawable.stressempy;
 
             }
         }.execute();
